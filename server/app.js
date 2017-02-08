@@ -9,12 +9,15 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var port = 8080;
 
+// Module dependencies
+require('./js/response.js');
+
 var app = express();
 
 app.get('/', function(req,res) {
     console.log('un nouveau !');
-    res.send("Hello world!");
+    res.respond({message: "Message du serveur: Hello World!"},200);
 });
 
 app.listen(port);
-console.log("Listening on " + port);
+console.log("(: Listening on " + port);
