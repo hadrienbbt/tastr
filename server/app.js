@@ -13,10 +13,11 @@ var port = 8080;
 require('./js/response.js');
 
 var app = express();
+var i = 0;
 
 app.get('/', function(req,res) {
-    console.log('un nouveau !');
-    res.respond({message: "Message du serveur: Hello World!"},200);
+    i++ % 2 == 0 ? console.log('ping !') : console.log('pong !') ;
+    res.respond({message: "Message du serveur "+port+": Hello World!"},200);
 });
 
 app.listen(port);

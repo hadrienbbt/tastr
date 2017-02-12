@@ -11,13 +11,9 @@ import {
 
 // Store width in variable
 var width = Dimensions.get('window').width;
+var height = Dimensions.get('window').height;
 
 module.exports = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     h1: {
         fontSize: 32,
         textAlign: 'center',
@@ -26,16 +22,20 @@ module.exports = StyleSheet.create({
     },
     h2: {
         color: '#FFFFFF',
+        textAlign: 'center',
         marginBottom: 5,
         fontSize: 15,
     },
     backgroundImage: {
         flex: 1,
         alignSelf: 'stretch',
-        justifyContent: 'center',
-        alignItems: 'center',
         width: null,
-        opacity: 1,
+        height: null,
+        resizeMode: 'cover',
+    },
+    page: {
+        flex: 1,
+        backgroundColor: 'transparent',
     },
     backdropView: {
         flex: 3,
@@ -57,6 +57,7 @@ module.exports = StyleSheet.create({
         flex: 1,
         backgroundColor: 'transparent',
         alignItems: 'center',
+
     },
     container_instructions: {
         flex: 1,
@@ -83,5 +84,43 @@ module.exports = StyleSheet.create({
         width: 70,
         height: 70,
         borderRadius: 10,
+    },
+    container_menu_slide: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        backgroundColor: 'transparent',
+        flex: 1,
+    },
+    formContainer: {
+        backgroundColor: 'transparent',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1
+    },
+    view_music_connection: {
+        width: width * 0.8,
+        paddingTop: 30,
+        backgroundColor: 'transparent',
+    },
+    marginTop25: {
+        marginTop: 25,
+    },
+    biggerFont: {
+        fontSize: 20,
+        marginBottom: 0,
+    },
+    textfield: {
+        marginTop: 20,
+        marginBottom: 30,
+    },
+    code_connect: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+        flex: 1,
+        alignItems: 'center',
+    },
+    justify_start: {
+        justifyContent: 'flex-start',
     },
 });
