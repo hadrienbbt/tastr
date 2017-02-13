@@ -45,22 +45,37 @@ class Tastr extends Component {
         this.state = {showCode: false};
     }
 
-    // Needs an email adress
+    // Needs an email adress or code
     _connecterMoodmusic () {
-        //alert(this.refs.textfield_email.state.text);
 
-        this.setState({showCode: !this.state.showCode});
-        if (this.state.showCode) {
-            this.refs.code_connect.transitionTo({flex: null, width: 0});
-            this.refs.code_connect.bounceOutRight();
-            this.refs.form_connexion_moodmusic.transitionTo({width: null, flex: 1});
-            this.refs.form_connexion_moodmusic.bounceInLeft();
-
+        if (!this.state.showCode) {
+            var email = this.refs.textfield_email.state.text;
+            let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (re.test(email)) {
+                // this is a valid email address
+                this.setState({showCode: true});
+                this.refs.code_connect.transitionTo({width: null, flex: 1});
+                this.refs.code_connect.bounceInRight();
+                this.refs.form_connexion_moodmusic.transitionTo({flex: null, width: 0});
+                this.refs.form_connexion_moodmusic.bounceOutLeft();
+            } else {
+                // invalid email, maybe show an error to the user.
+                console.log("coquin mail");
+            }
         } else {
-            this.refs.code_connect.transitionTo({width: null, flex: 1});
-            this.refs.code_connect.bounceInRight();
-            this.refs.form_connexion_moodmusic.transitionTo({flex: null, width: 0});
-            this.refs.form_connexion_moodmusic.bounceOutLeft();
+            var code = this.refs.textfield_code.state.text;
+            if (parseInt(code) && code.length == 4) {
+                // this is a valid code
+                this.setState({showCode: false});
+                this.refs.code_connect.transitionTo({flex: null, width: 0});
+                this.refs.code_connect.bounceOutRight();
+                this.refs.form_connexion_moodmusic.transitionTo({width: null, flex: 1});
+                this.refs.form_connexion_moodmusic.bounceInLeft();
+            }
+            else {
+                // invalid code, maybe show an error to the user.
+                console.log("coquin code");
+            }
         }
     }
 
@@ -97,20 +112,20 @@ class Tastr extends Component {
                                       {strings.instructions_music_connect}
                                   </Text>
                                   <View style={styles.textfield}>
-                                    <TextField ref='textfield_email' label={'Email'} highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
+                                    <TextField ref='textfield_email' label={'Email'} keyboardType="email-address" highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
                                   </View>
-                                  <Button title="SE CONNECTER" color='white' onPress={this._connecterMoodmusic} color='white' borderColor='white'/>
+                                  <Button title="OBTENIR MON CODE" color='white' onPress={this._connecterMoodmusic} color='white' />
                               </View>
                           </Animatable.View>
                           <Animatable.View ref='code_connect' style={styles.code_connect}>
                               <View style={styles.view_music_connection}>
                                   <Text style={[styles.instructions, styles.biggerFont]}>
-                                      Nous t'avons envoyé un code, écris le en dessous pour confirmer ton identité. 👻
+                                    {strings.instructions_code}
                                   </Text>
                                   <View style={styles.textfield}>
-                                      <TextField ref='textfield_email' label={'Code'} keyboardType={'numeric'} highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
+                                      <TextField ref='textfield_code' label={'Code'} keyboardType={'numeric'} highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
                                   </View>
-                                  <Button title="SE CONNECTER" color='white' onPress={this._connecterMoodmusic} color='white' borderColor='white'/>
+                                  <Button title="SE CONNECTER" color='white' onPress={this._connecterMoodmusic} color='white' />
                               </View>
                           </Animatable.View>
                       </View>
@@ -124,10 +139,10 @@ class Tastr extends Component {
 class ConnectMusic extends Component {
     constructor(props) {
         super(props);
-        this._connexionMoodmusic = this._connexionMoodmusic.bind(this);
+        this._vueConnexionMoodmusic = this._vueConnexionMoodmusic.bind(this);
     }
 
-    _connnexionMoodmusic () {
+    _vueConnnexionMoodmusic () {
         fetch('http://localhost:8080/')
             .then((response) => { return response.json()})
             .then((responseData) => { return responseData;})
@@ -155,7 +170,7 @@ class ConnectMusic extends Component {
             });
     }
 
-    _connexionMoodmusic () {
+    _vueConnexionMoodmusic () {
         this.props.pages.refs.page1.bounceOutUp(800);
         setTimeout(() =>
             this.props.pages.refs.page2.transitionTo({flex:20, opacity: 1})
@@ -172,7 +187,7 @@ class ConnectMusic extends Component {
                 </View>
                 <View style={styles.viewButton}>
                     <View style={styles.transparentElement}>
-                        <TouchableOpacity onPress={this._connexionMoodmusic}>
+                        <TouchableOpacity onPress={this._vueConnexionMoodmusic}>
                             <Image source={moodmusic_logo} style={styles.logoSignin}>
                             </Image>
                         </TouchableOpacity>
