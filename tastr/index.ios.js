@@ -60,7 +60,7 @@ export default class Tastr extends Component {
     _afficherEcranConnexion() {
         Cookie.get('http://moodmusic.fr/').then((cookie) => {
             // Vérify the cookie
-            if (cookie && cookie.profile_music && cookie.profile_music != 'undefined' && this.state.apiToConnect != 'show') {
+            if (cookie && cookie.profile_music && cookie.profile_music != 'undefined' && this.state.apiToConnect == 'moodmusic') {
                 this.setState({apiToConnect: 'show'});
                 console.log(cookie);
             }
@@ -198,6 +198,69 @@ export default class Tastr extends Component {
         this.refs.page2.transitionTo({flex: null});
     }
 
+    // Afficher la connexion ou l'écran suivant quand on est connecté
+    _renderComponent() {
+        if(this.state.apiToConnect == 'done') {
+            return (
+                <Image source={splashcreen} style={styles.backgroundImage}>
+                    <Tastr_Connected />
+                </Image>
+            )
+        } else {
+            return (
+                <Image source={splashcreen} style={styles.backgroundImage}>
+
+                    <Animatable.View ref="page1" style={styles.page}>
+                        <View style={styles.backdropView}>
+                            <Text style={styles.h1}>
+                            {strings.hello}
+                            </Text>
+                            <Text style={styles.h2}>
+                            {strings.headline}
+                            </Text>
+                        </View>
+                      {this._afficherEcranConnexion()}
+                    </Animatable.View>
+
+                    <Animatable.View ref="page2" style={{opacity: 0}}>
+                        <TouchableWithoutFeedback onPress={dismissKeyboard}>
+                            <View style={[styles.backdropView,styles.justify_start]}>
+                                <TouchableOpacity onPress={this._moodmusicConnected}>
+                                    <Image source={moodmusic_logo} style={[styles.logoSignin, styles.marginTop25]}>
+                                    </Image>
+                                </TouchableOpacity>
+                                <View style={styles.container_menu_slide}>
+                                    <Animatable.View ref='form_connexion_moodmusic' style={styles.formContainer}>
+                                        <View style={styles.view_music_connection}>
+                                            <Text style={[styles.instructions, styles.biggerFont]}>
+                                          {strings.instructions_music_connect}
+                                            </Text>
+                                            <View style={styles.textfield}>
+                                                <TextField ref='textfield_email' label={'Email'} keyboardType="email-address" highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
+                                            </View>
+                                            <Button title="OBTENIR MON CODE" color='white' onPress={this._connecterMoodmusic} color='white' />
+                                        </View>
+                                    </Animatable.View>
+                                    <Animatable.View ref='code_connect' style={styles.code_connect}>
+                                        <View style={styles.view_music_connection}>
+                                            <Text style={[styles.instructions, styles.biggerFont]}>
+                                        {strings.instructions_code}
+                                            </Text>
+                                            <View style={styles.textfield}>
+                                                <TextField ref='textfield_code' label={'Code'} keyboardType={'numeric'} highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
+                                            </View>
+                                            <Button title="SE CONNECTER" color='white' onPress={this._connecterMoodmusic} color='white' />
+                                        </View>
+                                    </Animatable.View>
+                                </View>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </Animatable.View>
+                </Image>
+            );
+        }
+    }
+
     componentDidMount() {
         this.refs.code_connect.transitionTo({flex: null, width: 0});
         this.refs.code_connect.bounceOutRight();
@@ -207,55 +270,9 @@ export default class Tastr extends Component {
 
     render() {
         return (
-          <Image source={splashcreen} style={styles.backgroundImage}>
-
-              <Animatable.View ref="page1" style={styles.page}>
-                  <View style={styles.backdropView}>
-                      <Text style={styles.h1}>
-                        {strings.hello}
-                      </Text>
-                      <Text style={styles.h2}>
-                        {strings.headline}
-                      </Text>
-                  </View>
-                  {this._afficherEcranConnexion()}
-              </Animatable.View>
-
-              <Animatable.View ref="page2" style={{opacity: 0}}>
-                  <TouchableWithoutFeedback onPress={dismissKeyboard}>
-                  <View style={[styles.backdropView,styles.justify_start]}>
-                      <TouchableOpacity onPress={this._moodmusicConnected}>
-                          <Image source={moodmusic_logo} style={[styles.logoSignin, styles.marginTop25]}>
-                          </Image>
-                      </TouchableOpacity>
-                      <View style={styles.container_menu_slide}>
-                          <Animatable.View ref='form_connexion_moodmusic' style={styles.formContainer}>
-                              <View style={styles.view_music_connection}>
-                                  <Text style={[styles.instructions, styles.biggerFont]}>
-                                      {strings.instructions_music_connect}
-                                  </Text>
-                                  <View style={styles.textfield}>
-                                    <TextField ref='textfield_email' label={'Email'} keyboardType="email-address" highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
-                                  </View>
-                                  <Button title="OBTENIR MON CODE" color='white' onPress={this._connecterMoodmusic} color='white' />
-                              </View>
-                          </Animatable.View>
-                          <Animatable.View ref='code_connect' style={styles.code_connect}>
-                              <View style={styles.view_music_connection}>
-                                  <Text style={[styles.instructions, styles.biggerFont]}>
-                                    {strings.instructions_code}
-                                  </Text>
-                                  <View style={styles.textfield}>
-                                      <TextField ref='textfield_code' label={'Code'} keyboardType={'numeric'} highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
-                                  </View>
-                                  <Button title="SE CONNECTER" color='white' onPress={this._connecterMoodmusic} color='white' />
-                              </View>
-                          </Animatable.View>
-                      </View>
-                  </View>
-                  </TouchableWithoutFeedback>
-              </Animatable.View>
-          </Image>
+            <View style={{flex: 1}}>
+                 {this._renderComponent()}
+            </View>
         );
     }
 }
@@ -303,7 +320,7 @@ class ConnectShows extends Component {
     }
 
     _showsConnected () {
-        this.props.pages.refs.page1.fadeOutUp();
+        this.props.pages.setState({apiToConnect: 'done'});
     }
 
     render() {
@@ -311,7 +328,7 @@ class ConnectShows extends Component {
             <View style={styles.container_connection}>
                 <View style={styles.container_instructions}>
                     <Text style={styles.instructions}>
-                        {strings.instructions_shows}
+                            {strings.instructions_shows}
                     </Text>
                 </View>
                 <View style={styles.viewButton}>
@@ -333,7 +350,7 @@ class ConnectShows extends Component {
     }
 }
 
-class swiper extends Component {
+class Tastr_Connected extends Component {
     constructor(props) {
         super(props);
     }
@@ -343,10 +360,10 @@ class swiper extends Component {
             <Swiper
                 showsPagination={false}
                 showsButtons={false}
-                loop= {false}
+                loop= {true}
                 index={0}>
-                <Tastr typeConnection={ConnectMusic} />
-                <Tastr typeConnection={ConnectShows} />
+                <Tastr />
+                <Tastr />
             </Swiper>
         )
     }
