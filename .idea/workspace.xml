@@ -37,17 +37,27 @@
       <file leaf-file-name="index.ios.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tastr/index.ios.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6976484" vertical-offset="2842" max-vertical-offset="3735">
-              <caret line="358" column="16" selection-start-line="358" selection-start-column="16" selection-end-line="358" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.6047774" vertical-offset="1303" max-vertical-offset="4860">
+              <caret line="176" column="31" selection-start-line="176" selection-start-column="31" selection-end-line="176" selection-end-column="31" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="n#!!block;n#_afficherEcranConnexion#0;n#Tastr#0" expanded="false" />
                 <element signature="n#!!block;n#_envoyerMail#0;n#Tastr#0" expanded="false" />
                 <element signature="n#!!block;n#_envoyerCode#0;n#Tastr#0" expanded="false" />
-                <element signature="n#!!block;n#_connecterMoodmusic#0;n#Tastr#0" expanded="false" />
-                <element signature="e#6111#6503#0" expanded="false" />
                 <element signature="n#!!block;n#_moodmusicConnected#0;n#Tastr#0" expanded="false" />
+                <element signature="n#!!block;n#_renderComponent#0;n#Tastr#0" expanded="false" />
+                <element signature="n#!!block;n#componentDidMount#0;n#Tastr#0" expanded="false" />
+                <element signature="n#!!block;n#_vueConnexionMoodmusic#0;n#ConnectMusic#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="conf.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tastr/const/conf.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+              <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -55,8 +65,8 @@
       <file leaf-file-name="lang.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tastr/const/lang.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="600">
-              <caret line="28" column="62" selection-start-line="28" selection-start-column="62" selection-end-line="28" selection-end-column="62" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+              <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -74,9 +84,9 @@
         <option value="$PROJECT_DIR$/server/js/response.js" />
         <option value="$PROJECT_DIR$/server/app.js" />
         <option value="$PROJECT_DIR$/tastr/lang/lang.js" />
+        <option value="$PROJECT_DIR$/tastr/styles/styles.js" />
         <option value="$PROJECT_DIR$/tastr/const/conf.js" />
         <option value="$PROJECT_DIR$/tastr/const/lang.js" />
-        <option value="$PROJECT_DIR$/tastr/styles/styles.js" />
         <option value="$PROJECT_DIR$/tastr/index.ios.js" />
       </list>
     </option>
@@ -85,8 +95,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="738" />
-    <option name="width" value="942" />
+    <option name="x" value="748" />
+    <option name="width" value="932" />
     <option name="height" value="1045" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -291,19 +301,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="738" y="0" width="942" height="1045" extended-state="0" />
-    <editor active="true" />
+    <frame x="748" y="0" width="932" height="1045" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19426751" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13519314" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991803" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -359,12 +369,12 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!block;n#_afficherEcranConnexion#0;n#Tastr#0" expanded="false" />
             <element signature="n#!!block;n#_envoyerMail#0;n#Tastr#0" expanded="false" />
             <element signature="n#!!block;n#_envoyerCode#0;n#Tastr#0" expanded="false" />
-            <element signature="n#!!block;n#_connecterMoodmusic#0;n#Tastr#0" expanded="false" />
-            <element signature="e#6111#6503#0" expanded="false" />
             <element signature="n#!!block;n#_moodmusicConnected#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#_renderComponent#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#componentDidMount#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#_vueConnexionMoodmusic#0;n#ConnectMusic#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -383,12 +393,12 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!block;n#_afficherEcranConnexion#0;n#Tastr#0" expanded="false" />
             <element signature="n#!!block;n#_envoyerMail#0;n#Tastr#0" expanded="false" />
             <element signature="n#!!block;n#_envoyerCode#0;n#Tastr#0" expanded="false" />
-            <element signature="n#!!block;n#_connecterMoodmusic#0;n#Tastr#0" expanded="false" />
-            <element signature="e#6111#6503#0" expanded="false" />
             <element signature="n#!!block;n#_moodmusicConnected#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#_renderComponent#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#componentDidMount#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#_vueConnexionMoodmusic#0;n#ConnectMusic#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -399,12 +409,12 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!block;n#_afficherEcranConnexion#0;n#Tastr#0" expanded="false" />
             <element signature="n#!!block;n#_envoyerMail#0;n#Tastr#0" expanded="false" />
             <element signature="n#!!block;n#_envoyerCode#0;n#Tastr#0" expanded="false" />
-            <element signature="n#!!block;n#_connecterMoodmusic#0;n#Tastr#0" expanded="false" />
-            <element signature="e#6111#6503#0" expanded="false" />
             <element signature="n#!!block;n#_moodmusicConnected#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#_renderComponent#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#componentDidMount#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#_vueConnexionMoodmusic#0;n#ConnectMusic#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -493,21 +503,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/const/lang.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
-          <caret line="28" column="62" selection-start-line="28" selection-start-column="62" selection-end-line="28" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/const/conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12658228" vertical-offset="0" max-vertical-offset="948">
-          <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tastr/styles/styles.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="312" max-vertical-offset="1965">
@@ -516,18 +511,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/const/conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/const/lang.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tastr/index.ios.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6976484" vertical-offset="2842" max-vertical-offset="3735">
-          <caret line="358" column="16" selection-start-line="358" selection-start-column="16" selection-end-line="358" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.6047774" vertical-offset="1303" max-vertical-offset="4860">
+          <caret line="176" column="31" selection-start-line="176" selection-start-column="31" selection-end-line="176" selection-end-column="31" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!block;n#_afficherEcranConnexion#0;n#Tastr#0" expanded="false" />
             <element signature="n#!!block;n#_envoyerMail#0;n#Tastr#0" expanded="false" />
             <element signature="n#!!block;n#_envoyerCode#0;n#Tastr#0" expanded="false" />
-            <element signature="n#!!block;n#_connecterMoodmusic#0;n#Tastr#0" expanded="false" />
-            <element signature="e#6111#6503#0" expanded="false" />
             <element signature="n#!!block;n#_moodmusicConnected#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#_renderComponent#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#componentDidMount#0;n#Tastr#0" expanded="false" />
+            <element signature="n#!!block;n#_vueConnexionMoodmusic#0;n#ConnectMusic#0" expanded="false" />
           </folding>
         </state>
       </provider>

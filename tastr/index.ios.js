@@ -25,7 +25,8 @@ import {
     LayoutAnimation,
     ScrollView,
     TextInput,
-    Dimensions
+    Dimensions,
+    Linking
 } from 'react-native';
 
 require('react-native-material-kit');
@@ -52,24 +53,31 @@ export default class Tastr extends Component {
         this._envoyerMail = this._envoyerMail.bind(this);
         this._envoyerCode = this._envoyerCode.bind(this);
         this._moodmusicConnected = this._moodmusicConnected.bind(this);
-        this.state = {showCode: false, apiToConnect: 'moodmusic'};
-        Cookie.get('http://moodmusic.fr/').then((cookie) => console.log(cookie));
+        this.state = {
+            showCode: false,
+            apiToConnect: 'moodmusic',
+        };
     }
 
-    // Method called to display which type of connection tastr needs
+    // Method called when an api isn't connected.
+    // Displays which type of connection tastr needs
     _afficherEcranConnexion() {
-        Cookie.get('http://moodmusic.fr/').then((cookie) => {
+        Cookie.get(conf.cookie_location).then((cookie) => {
+            console.log(cookie);
             // Vérify the cookie
             if (cookie && cookie.profile_music && cookie.profile_music != 'undefined' && this.state.apiToConnect == 'moodmusic') {
-                this.setState({apiToConnect: 'show'});
-                console.log(cookie);
+                if (cookie.profile_show && cookie.profile_show != 'undefined') {
+                    this.setState({apiToConnect: 'done', id_moodmusic: cookie.profile_music, bs_access_token: cookie.profile_show});
+                } else {
+                    this.setState({apiToConnect: 'show', id_moodmusic: cookie.profile_music});
+                }
             }
         },(error) => console.log(error));
 
         if (this.state.apiToConnect == 'moodmusic') {
-            return (<ConnectMusic pages={this}/>);
+            return (<ConnectMusic pages={this} />);
         } else {
-            return (<ConnectShows pages={this}/>);
+            return (<ConnectShow pages={this} />);
         }
     }
 
@@ -143,11 +151,13 @@ export default class Tastr extends Component {
                 this._envoyerMail(email).then((data) => {
                     console.log(data);
                     // this is a valid email address
-                    anchor.setState({showCode: true});
-                    anchor.refs.code_connect.transitionTo({width: null, flex: 1});
-                    anchor.refs.code_connect.bounceInRight();
+                    // Bounce out email form
                     anchor.refs.form_connexion_moodmusic.transitionTo({flex: null, width: 0});
-                    anchor.refs.form_connexion_moodmusic.bounceOutLeft();
+                    anchor.refs.form_connexion_moodmusic.bounceOutLeft(400);
+                    // Bounce in code view
+                    anchor.refs.code_connect.transitionTo({width: null, flex: 1});
+                    anchor.refs.code_connect.bounceInRight(800);
+                    anchor.setState({showCode: true});
                 }, (error) => {
                     alert(error);
                 })
@@ -161,14 +171,9 @@ export default class Tastr extends Component {
                 // Vérifier le code
                 this._envoyerCode(code).then((data) => {
                     // this is a valid code
-                    this.setState({profile_music: data});
+                    console.log(data);
+                    this.setState({moodmusic_infos: {id: data.me._id}});
                     this._moodmusicConnected();
-                    /*console.log(data);
-                    anchor.setState({showCode: false});
-                    anchor.refs.code_connect.transitionTo({flex: null, width: 0});
-                    anchor.refs.code_connect.bounceOutRight();
-                    anchor.refs.form_connexion_moodmusic.transitionTo({width: null, flex: 1});
-                    anchor.refs.form_connexion_moodmusic.bounceInLeft();*/
                 }, (error) => {
                     alert(error);
                 })
@@ -184,8 +189,7 @@ export default class Tastr extends Component {
     _moodmusicConnected() {
 
         if (this.state.profile_music) {
-            Cookie.set('http://moodmusic.fr/', 'profile_music', this.state.profile_music).then((cookie) => {
-                console.log(cookie);
+            Cookie.set(conf.cookie_location, 'profile_music', this.state.profile_music).then((cookie) => {
                 // Passer à la connection des séries TV
                 this.setState({apiToConnect: 'show'});
             });
@@ -200,6 +204,7 @@ export default class Tastr extends Component {
 
     // Afficher la connexion ou l'écran suivant quand on est connecté
     _renderComponent() {
+        console.log(this.state);
         if(this.state.apiToConnect == 'done') {
             return (
                 <Image source={splashcreen} style={styles.backgroundImage}>
@@ -312,15 +317,77 @@ class ConnectMusic extends Component {
     }
 }
 
-class ConnectShows extends Component {
+class ConnectShow extends Component {
 
     constructor(props) {
         super(props);
-        this._showsConnected = this._showsConnected.bind(this);
+        this._BetaSeriesOauth = this._BetaSeriesOauth.bind(this);
+        this._showConnected = this._showConnected.bind(this);
     }
 
-    _showsConnected () {
-        this.props.pages.setState({apiToConnect: 'done'});
+    _BetaSeriesOauth () {
+        return new Promise((resolve,reject) => {
+            Linking.openURL([
+                'https://www.betaseries.com/authorize',
+                '?response_type=token',
+                '&client_id=' + conf.bs_key,
+                '&redirect_uri=' + conf.redirect_uri
+            ].join(''));
+
+            Linking.addEventListener('url', handleUrl);
+            function handleUrl(event) {
+                function getParameterByName(name, url) {
+                    if (!url) {
+                        url = window.location.href;
+                    }
+                    name = name.replace(/[\[\]]/g, "\\$&");
+                    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                        results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, " "));
+                }
+
+                var code = getParameterByName('code', event.url);
+                Linking.removeEventListener('url', handleUrl);
+
+                fetch('https://api.betaseries.com/oauth/access_token', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        client_id: conf.bs_key,
+                        client_secret: conf.bs_secret,
+                        redirect_uri: conf.redirect_uri,
+                        code: code
+                    })
+                })
+                    .then((response) => {return response.json()})
+                    .then((responseData) => {return responseData;})
+                    .then((data) => {
+                        Cookie.set(conf.cookie_location, 'profile_show', data.access_token);
+                        resolve({access_token: data.access_token, show_provider: 'bs'});
+                    })
+                    .catch(function (err) {
+                        console.log("BetaSeries ne donne pas l'accès :(" + err);
+                        reject(err)
+                    });
+            }
+        });
+    }
+
+    _showConnected () {
+        this._BetaSeriesOauth().then((data) => {
+            this.props.pages.setState({
+                apiToConnect: 'done',
+                show_infos: {
+                    show_provider: data.show_provider,
+                    access_token: data.access_token
+                }
+            });
+        })
     }
 
     render() {
@@ -328,18 +395,18 @@ class ConnectShows extends Component {
             <View style={styles.container_connection}>
                 <View style={styles.container_instructions}>
                     <Text style={styles.instructions}>
-                            {strings.instructions_shows}
+                            {strings.instructions_show}
                     </Text>
                 </View>
                 <View style={styles.viewButton}>
                     <View style={styles.transparentElement}>
-                        <TouchableOpacity onPress={this._showsConnected}>
+                        <TouchableOpacity onPress={this._showConnected}>
                             <Image source={require('../tastr/img/tvst_logo.png')} style={styles.logoSignin}>
                             </Image>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.transparentElement}>
-                        <TouchableOpacity onPress={this._showsConnected}>
+                        <TouchableOpacity onPress={this._showConnected}>
                             <Image source={require('../tastr/img/bs_logo.png')} style={styles.logoSignin}>
                             </Image>
                         </TouchableOpacity>
@@ -350,7 +417,7 @@ class ConnectShows extends Component {
     }
 }
 
-class Tastr_Connected extends Component {
+class swiper extends Component {
     constructor(props) {
         super(props);
     }
@@ -368,4 +435,23 @@ class Tastr_Connected extends Component {
         )
     }
 }
+
+class Tastr_Connected extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <Animatable.View ref="connecte" style={styles.page}>
+                <View style={styles.backdropView}>
+                    <Text style={styles.h1}>
+                        Vous êtes maintenant connecté à Tastr !
+                    </Text>
+                </View>
+            </Animatable.View>
+        )
+    }
+}
+
 AppRegistry.registerComponent('tastr', () => Tastr);
