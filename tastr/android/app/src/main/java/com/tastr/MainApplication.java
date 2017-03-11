@@ -4,6 +4,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;
+import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
+import im.shimo.react.cookie.CookieManagerPackage;
 import im.shimo.react.cookie.CookieManagerPackage;
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
@@ -28,6 +31,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactMaterialKitPackage(),
+            new ReactNativeLocalizationPackage(),
+            new CookieManagerPackage(),
             new CookieManagerPackage(),
             new ReactMaterialKitPackage(),
             new ReactNativeLocalizationPackage()

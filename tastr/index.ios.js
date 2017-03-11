@@ -27,14 +27,15 @@ import {
     TextInput,
     Dimensions,
     Linking
-} from 'react-native';
+    } from 'react-native';
 
-require('react-native-material-kit');
+// custom components
+import Tastr_Connected from './components/Tastr_Connected.js';
 
 var width = Dimensions.get('window').width;
 var styles = require('./styles/styles.js');
 var strings = require('./const/lang.js');
-strings.setLanguage('fr');
+strings.setLanguage('en');
 
 
 // configs
@@ -65,11 +66,18 @@ export default class Tastr extends Component {
         Cookie.get(conf.cookie_location).then((cookie) => {
             console.log(cookie);
             // Vérify the cookie
-            if (cookie && cookie.profile_music && cookie.profile_music != 'undefined' && this.state.apiToConnect == 'moodmusic') {
-                if (cookie.profile_show && cookie.profile_show != 'undefined') {
-                    this.setState({apiToConnect: 'done', id_moodmusic: cookie.profile_music, bs_access_token: cookie.profile_show});
-                } else {
-                    this.setState({apiToConnect: 'show', id_moodmusic: cookie.profile_music});
+            // If the user was connected before
+            if (cookie && cookie.id_user) {
+                this.setState({apiToConnect: 'done'});
+            } else {
+                // If the user has just connected apis
+                if (cookie && cookie.profile_music && cookie.profile_music != 'undefined' && this.state.apiToConnect == 'moodmusic') {
+                    if (cookie.profile_show && cookie.profile_show != 'undefined') {
+                        this.setState({apiToConnect: 'done', id_moodmusic: cookie.profile_music, bs_access_token: cookie.profile_show});
+                    } else {
+                        // The user connected only moodmusic
+                        this.setState({apiToConnect: 'show', id_moodmusic: cookie.profile_music});
+                    }
                 }
             }
         },(error) => console.log(error));
@@ -95,15 +103,16 @@ export default class Tastr extends Component {
                     email: email
                 })
             })
-            .then((response) => { return response.json()})
-            .then((responseData) => { return responseData;})
-            .then((data) => {
-                if (data.error) reject(data.message);
-                else            resolve(data);
-            })
-            .catch(function(err) {
-                console.log("Moodmusic n'a pas répondu :(" + err);
-            });
+                .then((response) => { return response.json()})
+                .then((responseData) => { return responseData;})
+                .then((data) => {
+                    if (data.error) reject(data.message);
+                    else            resolve(data);
+                })
+                .catch(function(err) {
+                    console.log("Moodmusic n'a pas répondu :(" + err);
+                    reject(err);
+                });
         });
     }
 
@@ -148,6 +157,7 @@ export default class Tastr extends Component {
             let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (re.test(email)) {
                 // Envoyer email avec le code
+                anchor.refs.button_getCode.bounceOutLeft();
                 this._envoyerMail(email).then((data) => {
                     console.log(data);
                     // this is a valid email address
@@ -160,6 +170,7 @@ export default class Tastr extends Component {
                     anchor.setState({showCode: true});
                 }, (error) => {
                     alert(error);
+                    anchor.refs.button_getCode.bounceInLeft(400);
                 })
             } else {
                 // invalid email, maybe show an error to the user.
@@ -172,7 +183,7 @@ export default class Tastr extends Component {
                 this._envoyerCode(code).then((data) => {
                     // this is a valid code
                     console.log(data);
-                    this.setState({moodmusic_infos: {id: data.me._id}});
+                    this.setState({moodmusic_infos: {id: data.me._id, name: data.me.name, email: data.me.email}});
                     this._moodmusicConnected();
                 }, (error) => {
                     alert(error);
@@ -188,13 +199,12 @@ export default class Tastr extends Component {
     // Action performed when the user has written the right code
     _moodmusicConnected() {
 
-        if (this.state.profile_music) {
-            Cookie.set(conf.cookie_location, 'profile_music', this.state.profile_music).then((cookie) => {
+        if (this.state.moodmusic_infos && this.state.moodmusic_infos.id) {
+            Cookie.set(conf.cookie_location, 'profile_music', this.state.moodmusic_infos.id).then((cookie) => {
                 // Passer à la connection des séries TV
                 this.setState({apiToConnect: 'show'});
             });
         }
-
         // Animation
         this.refs.page1.transitionTo({flex: 1});
         this.refs.page1.bounceInDown();
@@ -204,6 +214,7 @@ export default class Tastr extends Component {
 
     // Afficher la connexion ou l'écran suivant quand on est connecté
     _renderComponent() {
+
         console.log(this.state);
         if(this.state.apiToConnect == 'done') {
             return (
@@ -243,7 +254,9 @@ export default class Tastr extends Component {
                                             <View style={styles.textfield}>
                                                 <TextField ref='textfield_email' label={'Email'} keyboardType="email-address" highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
                                             </View>
-                                            <Button title="OBTENIR MON CODE" color='white' onPress={this._connecterMoodmusic} color='white' />
+                                            <Animatable.View ref='button_getCode'>
+                                                <Button ref='button_getCode' title="OBTENIR MON CODE" color='white' onPress={this._connecterMoodmusic} color='white' />
+                                            </Animatable.View>
                                         </View>
                                     </Animatable.View>
                                     <Animatable.View ref='code_connect' style={styles.code_connect}>
@@ -291,8 +304,8 @@ class ConnectMusic extends Component {
     _vueConnexionMoodmusic () {
         this.props.pages.refs.page1.bounceOutUp(800);
         setTimeout(() => {
-                this.props.pages.refs.page2.transitionTo({flex: 20, opacity: 1});
-                this.props.pages.refs.page2.bounceInUp()
+            this.props.pages.refs.page2.transitionTo({flex: 20, opacity: 1});
+            this.props.pages.refs.page2.bounceInUp()
         } ,400);
     }
 
@@ -380,14 +393,48 @@ class ConnectShow extends Component {
 
     _showConnected () {
         this._BetaSeriesOauth().then((data) => {
-            this.props.pages.setState({
-                apiToConnect: 'done',
-                show_infos: {
-                    show_provider: data.show_provider,
-                    access_token: data.access_token
-                }
-            });
-        })
+            var bsOauth = data;
+            var anchor = this;
+            //anchor.props.pages.setState({apiToConnect: 'done'})
+
+            // Envoyer l'utilisateur au serveur pour l'enregistrer en BDD
+            fetch('http://localhost:8080/user/new', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: this.props.pages.state.moodmusic_infos.name,
+                    email: this.props.pages.state.moodmusic_infos.email,
+                    id_moodmusic: this.props.pages.state.moodmusic_infos.id,
+                    show_infos: {
+                        show_provider: bsOauth.show_provider,
+                        access_token: bsOauth.access_token
+                    }
+                })
+            })
+                .then((response) => { return response.json()})
+                .then((responseData) => { return responseData;})
+                .then((data) => {
+                    var id_user = data.id_user;
+                    Cookie.clear(conf.cookie_location).then(() =>
+                            Cookie.set(conf.cookie_location,'id_user',id_user).then(() =>
+                                    console.log("cookie id_user set !"),
+                                anchor.props.pages.setState({
+                                    apiToConnect: 'done',
+                                    show_infos: {
+                                        show_provider: bsOauth.show_provider,
+                                        access_token: bsOauth.access_token
+                                    }
+                                })
+                            )
+                    )
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+        });
     }
 
     render() {
@@ -432,24 +479,6 @@ class swiper extends Component {
                 <Tastr />
                 <Tastr />
             </Swiper>
-        )
-    }
-}
-
-class Tastr_Connected extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <Animatable.View ref="connecte" style={styles.page}>
-                <View style={styles.backdropView}>
-                    <Text style={styles.h1}>
-                        Vous êtes maintenant connecté à Tastr !
-                    </Text>
-                </View>
-            </Animatable.View>
         )
     }
 }
