@@ -50,6 +50,7 @@
 		9011D0111E733BE500D95CB0 /* TVShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011D00F1E733BE500D95CB0 /* TVShow.swift */; };
 		9011D0121E733BE500D95CB0 /* TVShowDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011D0101E733BE500D95CB0 /* TVShowDataSource.swift */; };
 		9011D0141E733BF100D95CB0 /* TVShowTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011D0131E733BF100D95CB0 /* TVShowTableRowController.swift */; };
+		9050A3A21E74539300DB2F37 /* DetailInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9050A3A11E74539300DB2F37 /* DetailInterfaceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -352,6 +353,7 @@
 		9011D00F1E733BE500D95CB0 /* TVShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVShow.swift; sourceTree = "<group>"; };
 		9011D0101E733BE500D95CB0 /* TVShowDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVShowDataSource.swift; sourceTree = "<group>"; };
 		9011D0131E733BF100D95CB0 /* TVShowTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVShowTableRowController.swift; sourceTree = "<group>"; };
+		9050A3A11E74539300DB2F37 /* DetailInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailInterfaceController.swift; sourceTree = "<group>"; };
 		93BF4C8ECFE14359BEBE203B /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
 		B26F5C0D683A4CD0AB624166 /* libRCTMaterialKit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTMaterialKit.a; sourceTree = "<group>"; };
 		CD1B98F3236641DF992E57B5 /* ReactNativeLocalization.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeLocalization.xcodeproj; path = "../node_modules/react-native-localization/ReactNativeLocalization.xcodeproj"; sourceTree = "<group>"; };
@@ -642,6 +644,7 @@
 				9011D00F1E733BE500D95CB0 /* TVShow.swift */,
 				9011D0131E733BF100D95CB0 /* TVShowTableRowController.swift */,
 				9011D0101E733BE500D95CB0 /* TVShowDataSource.swift */,
+				9050A3A11E74539300DB2F37 /* DetailInterfaceController.swift */,
 				9011CFFB1E7339C800D95CB0 /* InterfaceController.swift */,
 				9011CFFD1E7339C800D95CB0 /* ExtensionDelegate.swift */,
 				9011CFFF1E7339C800D95CB0 /* NotificationController.swift */,
@@ -1223,6 +1226,7 @@
 				9011D0111E733BE500D95CB0 /* TVShow.swift in Sources */,
 				9011D0121E733BE500D95CB0 /* TVShowDataSource.swift in Sources */,
 				9011CFFC1E7339C800D95CB0 /* InterfaceController.swift in Sources */,
+				9050A3A21E74539300DB2F37 /* DetailInterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1330,7 +1334,6 @@
 				DEVELOPMENT_TEAM = T7562M4U35;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS/**";
 				INFOPLIST_FILE = tastr/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1351,7 +1354,6 @@
 				DEVELOPMENT_TEAM = T7562M4U35;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS/**";
 				INFOPLIST_FILE = tastr/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

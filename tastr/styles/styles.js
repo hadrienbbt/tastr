@@ -24,7 +24,7 @@ module.exports = StyleSheet.create({
         color: '#FFFFFF',
         textAlign: 'center',
         marginBottom: 5,
-        fontSize: 15,
+        fontSize: 20,
     },
     backgroundImage: {
         flex: 1,
@@ -70,7 +70,7 @@ module.exports = StyleSheet.create({
         textAlign: 'center',
         backgroundColor: 'transparent',
         marginBottom: 30,
-        fontSize: 15,
+        fontSize: 20,
     },
     viewButton: {
         flex: 1,
@@ -122,5 +122,12 @@ module.exports = StyleSheet.create({
     },
     justify_start: {
         justifyContent: 'flex-start',
+    },
+    instructions_group: {
+        textAlign: 'center',
+        marginTop: 10,
+        marginBottom: 0,
+        marginLeft: width * 0.2,
+        marginRight: width * 0.2,
     },
 });

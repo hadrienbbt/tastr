@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38" orientation="portrait">
+    <device id="watch42" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -9,10 +9,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--Tastr-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="tastr_WatchOS" customModuleProvider="target">
+                <controller title="Tastr" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="tastr_WatchOS" customModuleProvider="target">
                     <items>
                         <table alignment="left" id="dMm-Nj-oyn">
                             <items>
@@ -42,6 +42,7 @@
                                     <connections>
                                         <outlet property="episode" destination="1uW-m5-z56" id="32I-O1-fNo"/>
                                         <outlet property="titre" destination="3Ta-rt-hIv" id="tkP-DL-5tU"/>
+                                        <segue destination="PHy-pH-8zx" kind="push" id="OIx-ja-csd"/>
                                     </connections>
                                 </tableRow>
                             </items>
@@ -53,6 +54,90 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--Details-->
+        <scene sceneID="Ib9-9t-PNZ">
+            <objects>
+                <controller identifier="DetailInterfaceController" title="Details" id="PHy-pH-8zx" customClass="DetailInterfaceController" customModule="tastr_WatchOS_Extension">
+                    <items>
+                        <group width="1" alignment="left" verticalAlignment="center" layout="vertical" spacing="10" id="u5W-BP-BRl">
+                            <items>
+                                <label alignment="center" verticalAlignment="center" text="C'était comment ?" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.90000000000000002" id="uUb-gq-fdV">
+                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                </label>
+                                <group width="1" alignment="center" verticalAlignment="center" spacing="10" id="sz8-5I-xmT">
+                                    <items>
+                                        <group alignment="center" verticalAlignment="center" layout="vertical" id="H3t-OT-e0u">
+                                            <items>
+                                                <button alignment="center" title="🙂" id="k3a-Vb-ZK2">
+                                                    <fontDescription key="font" type="system" pointSize="25"/>
+                                                </button>
+                                                <label alignment="center" text="good" id="t5F-fj-He8"/>
+                                            </items>
+                                        </group>
+                                        <group alignment="center" verticalAlignment="center" layout="vertical" id="yFS-Ud-yXa">
+                                            <items>
+                                                <button alignment="center" title="😁" id="hZU-sf-pye">
+                                                    <fontDescription key="font" type="system" pointSize="25"/>
+                                                </button>
+                                                <label alignment="center" text="fun" id="KsT-mm-gAM"/>
+                                            </items>
+                                        </group>
+                                        <group alignment="center" verticalAlignment="center" layout="vertical" id="DU0-hx-b2b">
+                                            <items>
+                                                <button alignment="center" title="😱" id="mrd-Uv-t7O">
+                                                    <fontDescription key="font" type="system" pointSize="25"/>
+                                                </button>
+                                                <label alignment="center" text="wow" id="bPp-Yh-Uml"/>
+                                            </items>
+                                        </group>
+                                    </items>
+                                    <variation key="device=watch38mm" spacing="5"/>
+                                </group>
+                                <group width="1" alignment="center" verticalAlignment="center" spacing="10" id="uR3-7u-DCv">
+                                    <items>
+                                        <group alignment="center" verticalAlignment="center" layout="vertical" id="t2t-94-Oui">
+                                            <items>
+                                                <button alignment="center" title="😢" id="32F-Fb-u6s">
+                                                    <fontDescription key="font" type="system" pointSize="25"/>
+                                                </button>
+                                                <label alignment="center" text="sad" id="iKV-1S-XoC"/>
+                                            </items>
+                                        </group>
+                                        <group alignment="center" verticalAlignment="center" layout="vertical" id="YSs-XX-8b6">
+                                            <items>
+                                                <button alignment="center" title="😕" id="1jn-iK-MgJ">
+                                                    <fontDescription key="font" type="system" pointSize="25"/>
+                                                </button>
+                                                <label alignment="center" text="soso" id="76T-Dg-G7X"/>
+                                            </items>
+                                        </group>
+                                        <group alignment="center" verticalAlignment="center" layout="vertical" id="TQA-iP-3xT">
+                                            <items>
+                                                <button alignment="center" title="😵" id="5po-7K-F8m">
+                                                    <fontDescription key="font" type="system" pointSize="25"/>
+                                                </button>
+                                                <label alignment="center" text="bad" id="Psp-ez-O4h"/>
+                                            </items>
+                                        </group>
+                                    </items>
+                                    <variation key="device=watch38mm" spacing="5"/>
+                                </group>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="bad" destination="5po-7K-F8m" id="8Gk-f8-D7o"/>
+                        <outlet property="fun" destination="hZU-sf-pye" id="krE-Rn-gTa"/>
+                        <outlet property="good" destination="k3a-Vb-ZK2" id="gpX-Hr-tbb"/>
+                        <outlet property="sad" destination="32F-Fb-u6s" id="AXs-8l-u2f"/>
+                        <outlet property="soso" destination="1jn-iK-MgJ" id="98q-yw-7ED"/>
+                        <outlet property="titre" destination="uUb-gq-fdV" id="fhc-j9-7uI"/>
+                        <outlet property="wow" destination="mrd-Uv-t7O" id="LhS-yA-FWc"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="468" y="345"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
