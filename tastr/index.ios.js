@@ -15,7 +15,6 @@ import {
     AppRegistry,
     Text,
     View,
-    Image,
     } from 'react-native';
 
 // custom components
@@ -29,7 +28,6 @@ strings.setLanguage('en');
 
 // configs
 var conf = require('./const/conf.js');
-var splashcreen = require('./img/splashcreen3.png');
 
 const dismissKeyboard = require('dismissKeyboard');
 
@@ -37,10 +35,10 @@ export default class Tastr extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {isConnected: true};
+        this.state = {isConnected: null};
         this._ConnexionController = this._ConnexionController.bind(this);
         this._renderComponent = this._renderComponent.bind(this);
-        this._ConnexionController
+        this._ConnexionController()
     }
 
     _ConnexionController() {
@@ -54,7 +52,6 @@ export default class Tastr extends Component {
 
     // Afficher la connexion ou l'écran suivant quand on est connecté
     _renderComponent() {
-
         console.log(this.state);
         if(this.state.isConnected == null) {
 
@@ -62,11 +59,7 @@ export default class Tastr extends Component {
             if(!this.state.isConnected)
                 return (<WorkflowConnection anchor={this} />);
             else
-                return (
-                    <Image source={splashcreen} style={styles.backgroundImage}>
-                        <SelectionGroupe />
-                    </Image>
-                )
+                return (<SelectionGroupe />)
         }
     }
 

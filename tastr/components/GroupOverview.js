@@ -9,6 +9,7 @@ import {
     Dimensions,
     TouchableWithoutFeedback,
     LayoutAnimation,
+    Image,
 } from 'react-native';
 
 var width = Dimensions.get('window').width;
@@ -17,6 +18,7 @@ export default class GroupOverview extends Component {
     constructor(props) {
         super(props);
         this._unwrapableIfNeeded = this._unwrapableIfNeeded.bind(this);
+        this._displayInnerCircle = this._displayInnerCircle.bind(this);
         var circle_color;
         switch (this.props.series.length) {
             case 1:
@@ -62,15 +64,33 @@ export default class GroupOverview extends Component {
                 circle_color = '#3F51B5'
                 break;
         }
-        this.state = {circle_color: circle_color, maxLengthDisplay: 50, minimize: true};
+        this.state = {circle_color: circle_color, circle_color_selected: '#009688', isChecked: this.props.isChecked, maxLengthDisplay: 50, minimize: true};
+    }
+
+    _displayInnerCircle() {
+        if (!this.state.isChecked)
+            return(
+                <Text style={{
+                    textAlign: 'center',
+                    color: 'white',
+                    fontSize: 20,
+                }}>{this.props.series.length}</Text>
+            )
+        else
+            return (
+                <Image  source={require('../img/checked.png')}
+                        style={{width: 28, height: 28}}/>
+            )
     }
 
     _unwrapableIfNeeded() {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
         if (this.props.series.join(', ').length > this.state.maxLengthDisplay)
             return(
-            <TouchableWithoutFeedback onPress={() => this.setState({minimize: !this.state.minimize})}>
-                <View>
+            <TouchableWithoutFeedback onPress={() => {
+                LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+                this.setState({minimize: !this.state.minimize})
+            }}>
+                <View style={{width: 150}}>
                     <Text style={{
                         color: '#03A9F4',
                         fontSize: 12,
@@ -79,7 +99,7 @@ export default class GroupOverview extends Component {
                     <Text style={{
                         color: '#9E9E9E',
                         fontSize: 12,
-                    }}>Groupe de force {this.props.series.length}</Text>
+                    }}>Groupe de niveau {this.props.series.length}</Text>
                 </View>
             </TouchableWithoutFeedback>
             )
@@ -89,52 +109,51 @@ export default class GroupOverview extends Component {
                     <Text style={{
                         color: '#9E9E9E',
                         fontSize: 12,
-                    }}>Groupe de force {this.props.series.length}</Text>
+                    }}>Groupe de niveau {this.props.series.length}</Text>
                 </View>
             )
     }
 
     render() {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
         return(
-            <View style={{
-                width: 0.9 * width,
-                flexDirection: 'row',
-                marginTop: 15,
-                paddingLeft: 30,
-                paddingRight: 10,
+            <TouchableWithoutFeedback onPress={() => {
+                this.setState({isChecked: !this.state.isChecked})
+                this.props._selectionnerGroupe(this.props._id)
             }}>
                 <View style={{
-                    flex: 1,
-                    flexDirection: 'column',
+                    width: 0.9 * width,
+                    flexDirection: 'row',
+                    marginTop: 15,
+                    paddingLeft: 30,
+                    paddingRight: 10,
                 }}>
-                    <Text style={{
-                        color: 'white',
-                        fontSize: 16,
-                        paddingRight: 10,
-                        width: 0.9 * width - 90,
-                    }}>{this.props.series.join(', ').length > this.state.maxLengthDisplay && this.state.minimize ? this.props.series.join(', ').slice(0,this.props.series.join(', ').indexOf(' ',this.state.maxLengthDisplay)) + '...' : this.props.series.join(', ')}</Text>
-                    {this._unwrapableIfNeeded()}
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                    }}>
+                        <Text style={{
+                            color: 'white',
+                            fontSize: 16,
+                            paddingRight: 10,
+                            width: 0.9 * width - 90,
+                        }}>{this.props.series.join(', ').length > this.state.maxLengthDisplay && this.state.minimize ? this.props.series.join(', ').slice(0,this.props.series.join(', ').indexOf(' ',this.state.maxLengthDisplay)) + '...' : this.props.series.join(', ')}</Text>
+                        {this._unwrapableIfNeeded()}
+                    </View>
+                    <View style={{
+                        height: 40,
+                        width: 40,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: this.state.isChecked ? this.state.circle_color_selected: this.state.circle_color,
+                        borderRadius: 50,
+                        shadowOpacity: 0.7,
+                        shadowOffset: {width:0, height:4},
+                        shadowRadius: 2,
+                        shadowColor: 'black',
+                    }}>{this._displayInnerCircle()}
+                    </View>
                 </View>
-                <View style={{
-                    height: 40,
-                    width: 40,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: this.state.circle_color,
-                    borderRadius: 50,
-                    shadowOpacity: 0.7,
-                    shadowOffset: {width:0, height:4},
-                    shadowRadius: 2,
-                    shadowColor: 'black',
-                }}>
-                    <Text style={{
-                        textAlign: 'center',
-                        color: 'white',
-                        fontSize: 20,
-                    }}>{this.props.series.length}</Text>
-                </View>
-            </View>
+            </TouchableWithoutFeedback>
         )
     }
 }
