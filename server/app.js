@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var MongoClient = require("mongodb").MongoClient;
 var ObjectID = require('mongodb').ObjectID;
+var tvst = require('tvshowtime-api');
 
 var port = 8080;
 
@@ -17,6 +18,7 @@ require('./js/response.js');
 
 var app = express();
 var db;
+var conf = require('../tastr/const/conf.js');
 
 // db connect
 MongoClient.connect("mongodb://localhost/tastr", function(error, bdd) {
@@ -69,6 +71,32 @@ app.get('/user', function(req,res) {
             res.respond({user: resp[0]},200);
         })
         : res.respond({user: null},200);
+});
+
+app.get('/user/findgroups', function(req,res) {
+    var access_token = req.param('access_token');
+});
+
+app.post('/tvst/token', function(req,res) {
+    var code = req.param('code');
+    var url = 'https://api.tvshowtime.com/v1/oauth/access_token';
+    console.log(code);
+    var options = JSON.stringify({
+        client_id: conf.tvst_key,
+        client_secret: conf.tvst_secret,
+        redirect_uri: conf.server_domain + '/tvst/token/authorize',
+        code: code
+    });
+
+    request.post(url,options,function(error,response) {
+        if(error) throw error;
+        console.log(response.body);
+    });
+});
+
+app.post('/tvst/token/authorize', function(req,res) {
+    console.log(req);
+    res.respond('coucou toi',200);
 });
 
 app.listen(port);

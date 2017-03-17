@@ -10,7 +10,8 @@
     "express-session": "^1.15.1",
     "mongodb": "^2.2.24",
     "querystring": "~0.2.0",
-    "request": "~2.34.0"
+    "request": "~2.34.0",
+    "tvshowtime-api": "^1.2.1"
   },
   "repository": {
     "type": "git",

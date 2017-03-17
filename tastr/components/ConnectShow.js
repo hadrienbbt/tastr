@@ -148,14 +148,12 @@ export default class ConnectShow extends Component {
         show_provider == 'tvst' ? funcConnectShow = this._TVSTOauth : funcConnectShow = this._BetaSeriesOauth;
 
         funcConnectShow().then((data) => {
-            console.log('DATA');
-            console.log(data);
             var bsOauth = data;
             var anchor = this;
             if (!this.props.pages.state.moodmusic_infos) anchor.props.pages.setState({apiToConnect: 'moodmusic'})
             else {
                 // Envoyer l'utilisateur au serveur pour l'enregistrer en BDD
-                fetch('http://localhost:8080/user/new', {
+                fetch(conf.server_domain+'/user/new', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -176,16 +174,16 @@ export default class ConnectShow extends Component {
                     .then((data) => {
                         var id_user = data.id_user;
                         Cookie.clear(conf.cookie_location).then(() =>
-                                Cookie.set(conf.cookie_location,'id_user',id_user).then(() =>
-                                        console.log("cookie id_user set !"),
-                                    anchor.props.pages.setState({
-                                        apiToConnect: 'done',
-                                        show_infos: {
-                                            show_provider: bsOauth.show_provider,
-                                            access_token: bsOauth.access_token
-                                        }
-                                    })
-                                )
+                            Cookie.set(conf.cookie_location,'id_user',id_user).then(() =>
+                                    console.log("cookie id_user set !"),
+                                anchor.props.pages.setState({
+                                    apiToConnect: 'done',
+                                    show_infos: {
+                                        show_provider: bsOauth.show_provider,
+                                        access_token: bsOauth.access_token
+                                    }
+                                })
+                            )
                         )
                     })
                     .catch(function(err) {

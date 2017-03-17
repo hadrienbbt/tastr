@@ -17,14 +17,16 @@ import {
     View,
     } from 'react-native';
 
+// functions tastr
+var tastr = require('./functions/tastr_functions');
+
 // custom components
-import SelectionGroupe from './components/SelectionGroupe.js';
 import WorkflowConnection from './components/WorkflowConnection.js';
+import Setup from './components/Setup.js';
 
 var styles = require('./styles/styles.js');
 var strings = require('./const/lang.js');
-strings.setLanguage('en');
-
+strings.setLanguage('fr');
 
 // configs
 var conf = require('./const/conf.js');
@@ -58,8 +60,14 @@ export default class Tastr extends Component {
         } else {
             if(!this.state.isConnected)
                 return (<WorkflowConnection anchor={this} />);
-            else
-                return (<SelectionGroupe />)
+            else {
+                tastr.getUser().then((user) => {
+                    console.log('USER : ' + JSON.stringify(user))
+                    tastr.token = user.show_infos.access_token;
+                    tastr.getMemberInfos().then((member) => console.log(member))
+                })
+                return (<Setup />)
+            }
         }
     }
 
