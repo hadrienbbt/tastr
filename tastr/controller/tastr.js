@@ -33,6 +33,8 @@ exports.getContext = function(id_user) {
     })
 }
 
+
+
 exports.getUser = function(_id) {
     return new Promise(function(resolve,reject) {
         fetch(conf.server_domain+'/user?id_user=' + _id, {

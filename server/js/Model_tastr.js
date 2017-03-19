@@ -43,6 +43,9 @@ exports.BetaSerieRequest = function(method,url,token,params = {}) {
     });
 }
 
+
+
+
 exports.searchShowByName = function(token) {
     return new Promise(function(resolve,reject) {
         var title = this.refs.textfield_searchShowByName.state.text.split(' ').join('+');

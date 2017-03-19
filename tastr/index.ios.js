@@ -18,7 +18,7 @@ import {
     } from 'react-native';
 
 // functions tastr
-var tastr = require('./model/tastr.js');
+var controllerTastr = require('./controller/tastr.js');
 
 // custom components
 import WorkflowConnection from './components/WorkflowConnection.js';
@@ -55,7 +55,8 @@ export default class Tastr extends Component {
 
     // Afficher la connexion ou l'écran suivant quand on est connecté
     _renderComponent() {
-        console.log(this.state);
+        this.state.isConnected = true;
+        this.state.id_user = '58cdf3f9ddddd93d74401bf3';
         if(this.state.isConnected == null) {
 
         } else {
@@ -63,7 +64,8 @@ export default class Tastr extends Component {
                 return (<WorkflowConnection anchor={this} />);
             else {
                 console.log('connecté!');
-                tastr.getContext(this.state.id_user).then((data) => console.log(data),(error) => console.log(error))
+                console.log(this.state.id_user);
+                controllerTastr.getContext(this.state.id_user).then((data) => console.log(data),(error) => console.log(error))
                 /*tastr.getUser(this.state.id_user).then((user) => {
                     console.log('USER : ' + JSON.stringify(user))
                 })*/
