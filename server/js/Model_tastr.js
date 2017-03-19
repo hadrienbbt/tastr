@@ -46,9 +46,8 @@ exports.BetaSerieRequest = function(method,url,token,params = {}) {
 
 
 
-exports.searchShowByName = function(token) {
+exports.searchShowByName = function(title, token) {
     return new Promise(function(resolve,reject) {
-        var title = this.refs.textfield_searchShowByName.state.text.split(' ').join('+');
         var url = 'https://api.betaseries.com/shows/search?title='+title+'&summary=false&order=popularity&nbpp=1';
         exports.BetaSerieRequest('GET',url,token).then((data) => resolve(data), (err) => reject(err));
     })

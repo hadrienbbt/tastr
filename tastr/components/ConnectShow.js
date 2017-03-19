@@ -178,6 +178,7 @@ export default class ConnectShow extends Component {
                                     console.log("cookie id_user set !"),
                                 anchor.props.pages.setState({
                                     apiToConnect: 'done',
+                                    id_user: id_user,
                                     show_infos: {
                                         show_provider: bsOauth.show_provider,
                                         access_token: bsOauth.access_token

@@ -45,18 +45,18 @@ export default class Tastr extends Component {
 
     _ConnexionController() {
         // if there isn't a cookie for the user id, show connection workflow
-         Cookie.get(conf.cookie_location).then(
+        Cookie.get(conf.cookie_location).then(
             (cookie) => {
                 if (cookie && cookie.id_user) this.setState({isConnected: true, id_user: cookie.id_user})
                 else this.setState({isConnected: false})
             },(error) => console.log(error)
-         );
+        );
     }
 
     // Afficher la connexion ou l'écran suivant quand on est connecté
     _renderComponent() {
         this.state.isConnected = true;
-        this.state.id_user = '58cdf3f9ddddd93d74401bf3';
+        this.state.id_user = '58ced4dc4ba97f710e15645b';
         if(this.state.isConnected == null) {
 
         } else {
@@ -65,11 +65,19 @@ export default class Tastr extends Component {
             else {
                 console.log('connecté!');
                 console.log(this.state.id_user);
-                controllerTastr.getContext(this.state.id_user).then((data) => console.log(data),(error) => console.log(error))
+
+                if (!this.state.groups) {
+                    var anchor = this;
+                    controllerTastr.getContext(this.state.id_user).then(
+                        (data) => anchor.setState({groups: data}),
+                        (error) => console.log(error)
+                    )
+                } else {
+                    return (<Setup groups={this.state.groups} />)
+                }
                 /*tastr.getUser(this.state.id_user).then((user) => {
                     console.log('USER : ' + JSON.stringify(user))
                 })*/
-                return (<Setup />)
             }
         }
     }

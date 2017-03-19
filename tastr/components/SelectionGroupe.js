@@ -31,16 +31,10 @@ export default class SelectionGroupe extends Component {
             allGroups: false,
             groupsChecked: [],
             dataSourceFav: ds.cloneWithRows([
-                {_id: 1, series: ['Black Mirror','The 100','Humans']},
-                {_id: 2, series: ['The OA', 'American Horror Story']}
+                {_id: 1, shows: ['Black Mirror','The 100','Humans']},
+                {_id: 2, shows: ['The OA', 'American Horror Story']}
             ]),
-            dataSourceNiveau: ds.cloneWithRows([
-                {_id: 3, series: ['The 100','Black Mirror','Humans', 'The OA', 'American Horror Story','The 100','Black Mirror','Humans','The OA','The 100','Black Mirror','The OA']},
-                {_id: 4, series: ['The 100','Black Mirror','Humans', 'The OA', 'American Horror Story','The 100','Black Mirror','Humans', 'The OA','The 100','Black Mirror']},
-                {_id: 5, series: ['The OA', 'American Horror Story']},
-                {_id: 6, series: ['The 100','Black Mirror','Humans', 'The OA', 'American Horror Story','The 100','Black Mirror','Black Mirror','Black Mirror']},
-                {_id: 7, series: ['The 100','Black Mirror','Humans', 'The OA', 'American Horror Story','The 100','Black Mirror','Black Mirror','Black Mirror']}
-            ])
+            dataSourceNiveau: ds.cloneWithRows(this.props.groups)
         }
     }
 
@@ -77,12 +71,12 @@ export default class SelectionGroupe extends Component {
                     <HeaderSection title="Séries favorites" />
                     <ListView
                         dataSource={this.state.dataSourceFav}
-                        renderRow={(rowData) => <GroupOverview _id={rowData._id} isChecked={anchor.state.allGroups} _selectionnerGroupe={anchor._selectionnerGroupe} series={rowData.series} />}
+                        renderRow={(rowData) => <GroupOverview _id={rowData._id} isChecked={anchor.state.allGroups} _selectionnerGroupe={anchor._selectionnerGroupe} shows={rowData.shows} />}
                     />
                     <HeaderSection title="Niveau du groupe" />
                     <ListView
                         dataSource={this.state.dataSourceNiveau}
-                        renderRow={(rowData) => <GroupOverview _id={rowData._id} isChecked={anchor.state.allGroups} _selectionnerGroupe={anchor._selectionnerGroupe} series={rowData.series} />}
+                        renderRow={(rowData) => <GroupOverview _id={rowData._id} isChecked={anchor.state.allGroups} _selectionnerGroupe={anchor._selectionnerGroupe} shows={rowData.shows} />}
                     />
                     <View style={{
                         backgroundColor: '#DDDDDD',

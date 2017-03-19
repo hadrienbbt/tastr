@@ -56,12 +56,15 @@ export default class WorkflowConnection extends Component {
             // Vérify the cookie
             // If the user was connected before
             if (cookie && cookie.id_user) {
-                this.props.anchor.setState({isConnected: true});
+                this.props.anchor.setState({isConnected: true, id_user: cookie.id_user});
             } else {
                 // If the user has just connected apis
                 if (cookie && cookie.profile_music && cookie.profile_music != 'undefined' && this.state.apiToConnect == 'moodmusic') {
                     if (cookie.profile_show && cookie.profile_show != 'undefined') {
-                        this.props.anchor.setState({isConnected: true});
+                        if (this.state.id_user)
+                            this.props.anchor.setState({isConnected: true, id_user: this.state.id_user});
+                        else
+                            this.props.anchor.setState({isConnected: false});
                     } else {
                         // The user connected only moodmusic
                         this.setState({apiToConnect: 'show', id_moodmusic: cookie.profile_music});

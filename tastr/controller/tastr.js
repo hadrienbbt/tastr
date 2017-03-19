@@ -12,7 +12,10 @@ var exports = module.exports = {};
 
 exports.getContext = function(id_user) {
     return new Promise(function(resolve,reject){
-        fetch(conf.server_domain+'/user/show/refresh?id_user=' + id_user, {
+        //var path = '/group/find/possible';
+        var path = '/user/show/refresh';
+
+        fetch(conf.server_domain + path + '?id_user=' + id_user, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -26,12 +29,25 @@ exports.getContext = function(id_user) {
                 return responseData;
             })
             .then((groupesPossibles) => {
-                console.log('reponse librairie react-native reçue, recherche de groupes...');
-                resolve(groupesPossibles.groups)
+                console.log('reponse librairie react-native reçue...');
+                var groups = groupesPossibles.groups;
+                var formatData = [];
+
+                for (var i = 0; i<groups.length; i++) {
+                    formatData.push({_id: i, shows: []})
+                    for (var j=0; j<groups[i].shows.length; j++) {
+                        formatData[formatData.length-1].shows.push(groups[i].shows[j].title)
+                    }
+                }
+                resolve(formatData);
             })
             .catch(function (err) {reject(err)})
     })
 }
+
+
+
+
 
 
 

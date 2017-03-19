@@ -20,7 +20,7 @@ export default class GroupOverview extends Component {
         this._unwrapableIfNeeded = this._unwrapableIfNeeded.bind(this);
         this._displayInnerCircle = this._displayInnerCircle.bind(this);
         var circle_color;
-        switch (this.props.series.length) {
+        switch (this.props.shows.length) {
             case 1:
                 circle_color = '#3F51B5'
                 break;
@@ -57,11 +57,8 @@ export default class GroupOverview extends Component {
             case 12:
                 circle_color = '#B71C1C'
                 break;
-            case 13:
-                circle_color = '#3F51B5'
-                break;
-            case 14:
-                circle_color = '#3F51B5'
+            default :
+                circle_color = '#B71C1C'
                 break;
         }
         this.state = {circle_color: circle_color, circle_color_selected: '#009688', isChecked: this.props.isChecked, maxLengthDisplay: 50, minimize: true};
@@ -74,7 +71,7 @@ export default class GroupOverview extends Component {
                     textAlign: 'center',
                     color: 'white',
                     fontSize: 20,
-                }}>{this.props.series.length}</Text>
+                }}>{this.props.shows.length}</Text>
             )
         else
             return (
@@ -84,7 +81,7 @@ export default class GroupOverview extends Component {
     }
 
     _unwrapableIfNeeded() {
-        if (this.props.series.join(', ').length > this.state.maxLengthDisplay)
+        if (this.props.shows.join(', ').length > this.state.maxLengthDisplay)
             return(
             <TouchableWithoutFeedback onPress={() => {
                 LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
@@ -99,7 +96,7 @@ export default class GroupOverview extends Component {
                     <Text style={{
                         color: '#9E9E9E',
                         fontSize: 12,
-                    }}>Groupe de niveau {this.props.series.length}</Text>
+                    }}>Groupe de niveau {this.props.shows.length}</Text>
                 </View>
             </TouchableWithoutFeedback>
             )
@@ -109,7 +106,7 @@ export default class GroupOverview extends Component {
                     <Text style={{
                         color: '#9E9E9E',
                         fontSize: 12,
-                    }}>Groupe de niveau {this.props.series.length}</Text>
+                    }}>Groupe de niveau {this.props.shows.length}</Text>
                 </View>
             )
     }
@@ -136,7 +133,7 @@ export default class GroupOverview extends Component {
                             fontSize: 16,
                             paddingRight: 10,
                             width: 0.9 * width - 90,
-                        }}>{this.props.series.join(', ').length > this.state.maxLengthDisplay && this.state.minimize ? this.props.series.join(', ').slice(0,this.props.series.join(', ').indexOf(' ',this.state.maxLengthDisplay)) + '...' : this.props.series.join(', ')}</Text>
+                        }}>{this.props.shows.join(', ').length > this.state.maxLengthDisplay && this.state.minimize ? this.props.shows.join(', ').slice(0,this.props.shows.join(', ').indexOf(' ',this.state.maxLengthDisplay)) + '...' : this.props.shows.join(', ')}</Text>
                         {this._unwrapableIfNeeded()}
                     </View>
                     <View style={{
