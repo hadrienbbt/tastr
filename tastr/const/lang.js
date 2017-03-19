@@ -7,7 +7,7 @@
 import LocalizedStrings from 'react-native-localization';
 
 module.exports = new LocalizedStrings({
-    "en-US":{
+    "en-US": {
         hello:"Tastr says hello!",
         headline:"When your tastes lead you to discovery",
         instructions_music: "Let's start by signing in with Moodmusic 👍",
@@ -16,7 +16,7 @@ module.exports = new LocalizedStrings({
         instructions_code:"We sent you a code, type it to confirm who you are. 👻",
 
     },
-    en:{
+    en: {
         hello:"Tastr says hello!",
         headline:"When your tastes lead you to discovery",
         instructions_music: "Let's start by signing in with Moodmusic 👍",

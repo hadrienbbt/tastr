@@ -4,61 +4,46 @@
 
 'use strict'
 
-import Cookie from 'react-native-cookie';
 // configs
-var conf = require('../const/conf.js');
+var conf = require('../../tastr/const/conf.js');
+var request = require('request');
 
 var exports = module.exports = {};
 
-exports.getUser = function() {
+exports.getMemberInfos = function(access_token) {
+    console.log('requete de librairie bs avec ' + access_token);
     return new Promise(function(resolve,reject) {
-        Cookie.get(conf.cookie_location).then((cookie) => {
-            if (cookie.id_user)
-                fetch(conf.server_domain+'/user?id_user=' + cookie.id_user, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                })
-                    .then((response) => {
-                        return response.json()
-                    })
-                    .then((responseData) => {
-                        return responseData;
-                    })
-                    .then((data) => resolve(data.user))
-                    .catch(function (err) {reject(err)})
-        })
-    });
+        var url = 'https://api.betaseries.com/members/infos';
+        exports.BetaSerieRequest('GET',url,access_token).then((data) => {
+            var member = JSON.parse(data).member;
+            resolve(member)
+        }, (err) => reject(err));
+    })
 }
 
-exports.BetaSerieRequest = function(method,url,token = '',params = {}) {
+exports.BetaSerieRequest = function(method,url,token,params = {}) {
     // Exception cases
     if (method != 'GET' && method != 'POST' && method != 'PUT' && method != 'DELETE')   throw new Exception('invalid REST method');
 
     return new Promise(function(resolve, reject) {
-        fetch(url,{
+        request({
             method: method,
+            url: url,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'X-BetaSeries-Version': 2.4,
                 'X-BetaSeries-Key': conf.bs_key,
-                'Authorization': 'Bearer ' + exports.token ? exports.token : token
+                'Authorization': 'Bearer ' + token
             }
+        }, function(error,response) {
+            if(response.error) reject(response.error)
+            resolve(response.body);
         })
-            .then((response) => {return response.json()})
-            .then((responseData) => {return responseData;})
-            .then((data) => {
-                resolve(data);
-            })
-            .catch(function (err) {reject(err)})
     });
 }
 
-
-exports.searchShowByName = function(token = '') {
+exports.searchShowByName = function(token) {
     return new Promise(function(resolve,reject) {
         var title = this.refs.textfield_searchShowByName.state.text.split(' ').join('+');
         var url = 'https://api.betaseries.com/shows/search?title='+title+'&summary=false&order=popularity&nbpp=1';
@@ -66,17 +51,10 @@ exports.searchShowByName = function(token = '') {
     })
 }
 
-exports.getFavoriteShows = function(token = '') {
+exports.getFavoriteShows = function(token) {
     return new Promise(function(resolve,reject) {
         var url = 'https://api.betaseries.com/shows/favorites'
         exports.BetaSerieRequest('GET', url, token).then((data) => resolve(data), (err) => reject(err));
-    })
-}
-
-exports.getMemberInfos = function(token = '') {
-    return new Promise(function(resolve,reject) {
-        var url = 'https://api.betaseries.com/members/infos';
-        exports.BetaSerieRequest('GET',url,token).then((data) => resolve(data), (err) => reject(err));
     })
 }
 

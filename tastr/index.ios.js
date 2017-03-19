@@ -1,6 +1,6 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * Tastr
+ * https://github.com/hadrienbbt/tastr
  * @flow
  *
  * author: hadrien barbat
@@ -18,7 +18,7 @@ import {
     } from 'react-native';
 
 // functions tastr
-var tastr = require('./functions/tastr_functions');
+var tastr = require('./model/tastr.js');
 
 // custom components
 import WorkflowConnection from './components/WorkflowConnection.js';
@@ -40,14 +40,15 @@ export default class Tastr extends Component {
         this.state = {isConnected: null};
         this._ConnexionController = this._ConnexionController.bind(this);
         this._renderComponent = this._renderComponent.bind(this);
-        this._ConnexionController()
+        this._ConnexionController();
     }
 
     _ConnexionController() {
         // if there isn't a cookie for the user id, show connection workflow
          Cookie.get(conf.cookie_location).then(
             (cookie) => {
-                this.setState({isConnected: (cookie && cookie.id_user) ? true : false })
+                if (cookie && cookie.id_user) this.setState({isConnected: true, id_user: cookie.id_user})
+                else this.setState({isConnected: false})
             },(error) => console.log(error)
          );
     }
@@ -61,11 +62,11 @@ export default class Tastr extends Component {
             if(!this.state.isConnected)
                 return (<WorkflowConnection anchor={this} />);
             else {
-                tastr.getUser().then((user) => {
+                console.log('connecté!');
+                tastr.getContext(this.state.id_user).then((data) => console.log(data),(error) => console.log(error))
+                /*tastr.getUser(this.state.id_user).then((user) => {
                     console.log('USER : ' + JSON.stringify(user))
-                    tastr.token = user.show_infos.access_token;
-                    tastr.getMemberInfos().then((member) => console.log(member))
-                })
+                })*/
                 return (<Setup />)
             }
         }
