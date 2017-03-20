@@ -21,6 +21,7 @@ import {
 var controllerTastr = require('./controller/tastr.js');
 
 // custom components
+import Splashscreen from './components/Splashscreen.js';
 import WorkflowConnection from './components/WorkflowConnection.js';
 import Setup from './components/Setup.js';
 
@@ -37,10 +38,11 @@ export default class Tastr extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {isConnected: null};
+        //this.state = {isConnected: null};
+        this.state = {isConnected: true, id_user: '58ced4dc4ba97f710e15645b'}
         this._ConnexionController = this._ConnexionController.bind(this);
         this._renderComponent = this._renderComponent.bind(this);
-        this._ConnexionController();
+        this._ConnexionController;
     }
 
     _ConnexionController() {
@@ -53,26 +55,24 @@ export default class Tastr extends Component {
         );
     }
 
+
     // Afficher la connexion ou l'écran suivant quand on est connecté
     _renderComponent() {
-        this.state.isConnected = true;
-        this.state.id_user = '58ced4dc4ba97f710e15645b';
         if(this.state.isConnected == null) {
-
+            return (<Splashscreen />)
         } else {
             if(!this.state.isConnected)
                 return (<WorkflowConnection anchor={this} />);
             else {
-                console.log('connecté!');
-                console.log(this.state.id_user);
-
                 if (!this.state.groups) {
+                    console.log('on va chercher le contexte ...');
                     var anchor = this;
                     controllerTastr.getContext(this.state.id_user).then(
-                        (data) => anchor.setState({groups: data}),
+                        (groups) => anchor.setState({groups: groups}),
                         (error) => console.log(error)
                     )
                 } else {
+                    console.log(this.state.id_user + ' est connecté!');
                     return (<Setup groups={this.state.groups} />)
                 }
                 /*tastr.getUser(this.state.id_user).then((user) => {

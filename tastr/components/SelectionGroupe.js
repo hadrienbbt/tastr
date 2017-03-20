@@ -1,3 +1,9 @@
+/**
+ * Created by hadrien1 on 16/03/17.
+ */
+
+'use strict'
+
 import React, { Component, PropTypes } from 'react';
 import * as Animatable from 'react-native-animatable';
 import TextField from 'react-native-md-textinput';
@@ -30,11 +36,8 @@ export default class SelectionGroupe extends Component {
         this.state = {
             allGroups: false,
             groupsChecked: [],
-            dataSourceFav: ds.cloneWithRows([
-                {_id: 1, shows: ['Black Mirror','The 100','Humans']},
-                {_id: 2, shows: ['The OA', 'American Horror Story']}
-            ]),
-            dataSourceNiveau: ds.cloneWithRows(this.props.groups)
+            dataSourceFav: ds.cloneWithRows(this.props.groups.favorites),
+            dataSourceNiveau: ds.cloneWithRows(this.props.groups.shows)
         }
     }
 

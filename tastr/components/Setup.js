@@ -2,6 +2,8 @@
  * Created by hadrien1 on 16/03/17.
  */
 
+'use strict'
+
 import React, { Component, PropTypes } from 'react';
 import * as Animatable from 'react-native-animatable';
 

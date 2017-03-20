@@ -12,8 +12,8 @@ var exports = module.exports = {};
 
 exports.getContext = function(id_user) {
     return new Promise(function(resolve,reject){
-        //var path = '/group/find/possible';
-        var path = '/user/show/refresh';
+        var path = '/group/find/possible';
+        //var path = '/user/show/refresh';
 
         fetch(conf.server_domain + path + '?id_user=' + id_user, {
             method: 'GET',
@@ -29,17 +29,22 @@ exports.getContext = function(id_user) {
                 return responseData;
             })
             .then((groupesPossibles) => {
-                console.log('reponse librairie react-native reçue...');
-                var groups = groupesPossibles.groups;
-                var formatData = [];
-
-                for (var i = 0; i<groups.length; i++) {
-                    formatData.push({_id: i, shows: []})
-                    for (var j=0; j<groups[i].shows.length; j++) {
-                        formatData[formatData.length-1].shows.push(groups[i].shows[j].title)
+                console.log('contexte reçu !\n Le voici :'+JSON.stringify(groupesPossibles));
+                // Transforme les données reçues en groupes exploitables par Tastr
+                function formatGroup (groups) {
+                    var formatData = [];
+                    for (var i = 0; i<groups.length; i++) {
+                        formatData.push({_id: i, shows: []})
+                        for (var j=0; j<groups[i].shows.length; j++) {
+                            formatData[formatData.length-1].shows.push(groups[i].shows[j].title)
+                        }
                     }
+                    return formatData;
                 }
-                resolve(formatData);
+                var formatedFavorites = formatGroup(groupesPossibles.groups.favorites);
+                var formatedShows = formatGroup(groupesPossibles.groups.shows);
+                var groups = {favorites: formatedFavorites, shows: formatedShows}
+                resolve(groups);
             })
             .catch(function (err) {reject(err)})
     })

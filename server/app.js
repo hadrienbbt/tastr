@@ -1,6 +1,8 @@
 // app.js
 // Hadrien Barbat
 
+'use strict'
+
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
@@ -76,48 +78,63 @@ app.get('/user/show/refresh', function(req,res) {
             // Obtenir les séries suivies par l'utilisateur
             Tastr.getMemberInfos(user.show_infos.access_token).then((member) => {
                 console.log('reponse de librairie reçue');
-                var seriesSuivies = member.favorites.concat(member.shows);
+                var seriesSuivies = member.shows;
+                // Récupérer seulement l'id_tvdb des series favorites
+                var seriesFavorites = member.favorites.map((serie) => {return serie.thetvdb_id.toString()});
+                console.log('++++++++++++++++++++')
+                console.log(seriesFavorites);
+                console.log('++++++++++++++++++++')
                 var countDone = 0;
 
-                // Ajouter chaque séries à la bdd (si besoin)...
-                for(var i = 0; i< seriesSuivies.length; i++) {
-                    var serieCourante = seriesSuivies[i];
-                    db.collection('show').findAndModify(
-                        {id_tvdb: serieCourante.thetvdb_id},
-                        {},{
-                            id_tvdb: serieCourante.thetvdb_id,
-                            id_imdb: serieCourante.imdb_id,
-                            title: serieCourante.title,
-                            genres: serieCourante.genres,
-                            note: {
-                                total: serieCourante.notes.total,
-                                mean: serieCourante.notes.mean
-                            },
-                            images: serieCourante.images,
-                            description: serieCourante.description
-                        },{new: true, upsert: true}, (err,resp) => {
-                            // ... et l'affecter à l'utilisateur
-                            if(err) throw err;
-                            var id_serie = resp.value._id.toString();
-                            db.collection('user').update(
-                                {_id: id_user},
-                                {$addToSet: {shows: id_serie}},
-                                {upsert: true},
-                                (err,resp) => {
-                                    if(err) throw err;
-                                    // S'il n'y a plus de série à traiter ensuite, on y va
-                                    ++countDone == seriesSuivies.length ?
-                                        res.redirect('/user/show/friends?id_user='+id_user) : null;
-                                }
-                            );
-                        }
-                    );
-                }
+                // Réinitialiser les séries favorites
+                db.collection('user').update({_id: id_user},{$unset: {favorites: 1}},(err,resp) => {
+                    // Ajouter chaque séries à la bdd (si besoin)...
+                    console.log('Ajouter chaque séries à la bdd (si besoin)...');
+                    for(var i = 0; i< seriesSuivies.length; i++) {
+                        var serieCourante = seriesSuivies[i];
+                        db.collection('show').findAndModify(
+                            {id_tvdb: serieCourante.thetvdb_id},
+                            {},{
+                                id_tvdb: serieCourante.thetvdb_id,
+                                id_imdb: serieCourante.imdb_id,
+                                title: serieCourante.title,
+                                genres: serieCourante.genres,
+                                note: {
+                                    total: serieCourante.notes.total,
+                                    mean: serieCourante.notes.mean
+                                },
+                                images: serieCourante.images,
+                                description: serieCourante.description
+                            },{new: true, upsert: true}, (err,resp) => {
+                                // ... et l'affecter à l'utilisateur (en ajoutant aux favorites si besoin)
+                                if(err) throw err;
+                                var id_serie = resp.value._id.toString();
+                                // Si le tableau des favoris contient l'id_tvdb de la série courante, on l'ajoutera aux favoris
+                                var update = seriesFavorites.includes(resp.value.id_tvdb.toString()) ?
+                                    {$addToSet: {shows: id_serie}, $push: {favorites: id_serie}}
+                                    : {$addToSet: {shows: id_serie}};
+                                db.collection('user').update(
+                                    {_id: id_user},
+                                    update,
+                                    {upsert: true},
+                                    (err,resp) => {
+                                        if(err) throw err;
+                                        // S'il n'y a plus de série à traiter ensuite, on y va
+                                        ++countDone == seriesSuivies.length ?
+                                            res.redirect('/user/show/friends?id_user='+id_user) : null;
+                                    }
+                                );
+                            }
+                        );
+                    }
+                });
             }, (err) => res.respond(err,500))
         })
-        : res.respond({user: null},200);
+    : res.respond({user: null},200);
 });
 
+// obtenir un tableau associatif série -> utilisateur pour manipuler plus simplement la recherche de groupe
+// usersPerSeries[séries suivies par l'utilisateur] = [utilisateurs qui la regardent]
 app.get('/user/show/friends', function(req,res) {
     var id_user = ObjectID.isValid(req.param('id_user')) ? new ObjectID(req.param('id_user')) : null;
 
@@ -129,28 +146,36 @@ app.get('/user/show/friends', function(req,res) {
             var user = resp.splice(i, 1); //[0];
             var others = user; //resp
             user = user[0];
+            var showsToConnect = user.shows;
 
             // Regarder quels groupes on peut former selon les séries de l'utilisateur
             // Savoir quels personnes regardent chaque série de l'utilisateur
 
-            var usersPerSeries = {};
+            var usersPerSeries = {favorites : {}, shows: {}};
             console.log("recherche d'amis pour les séries...");
-            for (var i = 0; i < user.shows.length; i++) {
-                usersPerSeries[user.shows[i]] = new Array();
+            for (var i = 0; i < showsToConnect.length; i++) {
+                user.favorites.includes(showsToConnect[i]) ?
+                    usersPerSeries.favorites[showsToConnect[i]] = new Array()
+                :usersPerSeries.shows[showsToConnect[i]] = new Array();
                 for (var j = 0; j < others.length; j++) {
 
                     // Si la personne regarde une même série sn que l'utilisateur :
                     // on ajoute la personne dans la case sn du tableau usersPerSeries
-                    others[j].shows.includes(user.shows[i]) ? usersPerSeries[user.shows[i]].push(others[j]._id) : null;
+                    // EDIT : On l'ajoute à l'objet favorites si l'utilisateur l'a marquée comme favorites
+                    others[j].shows.includes(showsToConnect[i]) ?
+                        user.favorites.includes(showsToConnect[i]) ?
+                            usersPerSeries.favorites[showsToConnect[i]].push(others[j]._id)
+                        : usersPerSeries.shows[showsToConnect[i]].push(others[j]._id)
+                    : null;
                 }
             }
-            // On trie le tableau par taille de cases
+            // Trier le tableau par taille de cases
 
             //console.log(usersPerSeries);
             req.session.usersPerSeries = usersPerSeries;
-            res.redirect('/group/find/possible?id_user='+id_user);
+            res.redirect('/group/find/possible?favorites=true&id_user='+id_user);
         })
-        : res.respond({user: null},200);
+    : res.respond({user: null},200);
 });
 
 // Regrouper les series que plusieurs personnes regardent dans un objet similaire à un groupe
@@ -160,8 +185,19 @@ app.get('/group/find/possible', function(req,res) {
     var id_user = ObjectID.isValid(req.param('id_user')) ? new ObjectID(req.param('id_user')) : null;
 
     if (req.session.usersPerSeries) {
-        usersPerSeries = req.session.usersPerSeries;
+        usersPerSeries = req.param('favorites') ? req.session.usersPerSeries.favorites : req.session.usersPerSeries.shows;
         console.log(usersPerSeries);
+
+        // Définir la prochaine route en fonction du remplissage de l'objet retour
+        var next = req.param('favorites') ? (groupPossible) => {
+            req.session.groups = {};
+            req.session.groups.favorites = groupPossible;
+            res.redirect('/group/find/possible?id_user='+id_user);
+        } : (groupPossible) => {
+            req.session.usersPerSeries = null;
+            req.session.groups.shows = groupPossible;
+            res.respond({groups: req.session.groups}, 200);
+        }
 
         var groupPossible = [];
 
@@ -217,8 +253,7 @@ app.get('/group/find/possible', function(req,res) {
                     groupPossible[i].shows[j].title = shows[k].title;
                 }
             }
-            req.session.usersPerSeries = null;
-            res.respond({groups: groupPossible}, 200);
+            next(groupPossible);
         })
 
     } else {
