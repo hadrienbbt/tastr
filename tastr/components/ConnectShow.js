@@ -150,8 +150,14 @@ export default class ConnectShow extends Component {
         funcConnectShow().then((data) => {
             var bsOauth = data;
             var anchor = this;
-            if (!this.props.pages.state.moodmusic_infos) anchor.props.pages.setState({apiToConnect: 'moodmusic'})
-            else {
+            if (!this.props.pages.state.moodmusic_infos) {
+
+                // Inverser les commentaires pour être obligé de passer par moodmusic pour se connecter à Tastr
+                // anchor.props.pages.setState({apiToConnect: 'moodmusic'})
+                this.props.pages.state.moodmusic_infos = {name: 'test', email: 'exemple@test.io', id: '0'}
+            // else {
+                //***********************************************************************************************
+
                 // Envoyer l'utilisateur au serveur pour l'enregistrer en BDD
                 fetch(conf.server_domain+'/user/new', {
                     method: 'POST',

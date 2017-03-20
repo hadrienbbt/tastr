@@ -12,8 +12,8 @@ var exports = module.exports = {};
 
 exports.getContext = function(id_user) {
     return new Promise(function(resolve,reject){
-        var path = '/group/find/possible';
-        //var path = '/user/show/refresh';
+        //var path = '/group/find/possible';
+        var path = '/user/show/refresh';
 
         fetch(conf.server_domain + path + '?id_user=' + id_user, {
             method: 'GET',
@@ -29,7 +29,7 @@ exports.getContext = function(id_user) {
                 return responseData;
             })
             .then((groupesPossibles) => {
-                console.log('contexte reçu !\n Le voici :'+JSON.stringify(groupesPossibles));
+                console.log('contexte reçu !\n Le voici :'+groupesPossibles);
                 // Transforme les données reçues en groupes exploitables par Tastr
                 function formatGroup (groups) {
                     var formatData = [];
