@@ -55,7 +55,6 @@ export default class Tastr extends Component {
         );
     }
 
-
     // Afficher la connexion ou l'écran suivant quand on est connecté
     _renderComponent() {
         if(this.state.isConnected == null) {

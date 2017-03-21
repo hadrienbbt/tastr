@@ -12,8 +12,8 @@ var exports = module.exports = {};
 
 exports.getContext = function(id_user) {
     return new Promise(function(resolve,reject){
-        //var path = '/group/find/possible';
-        var path = '/user/show/refresh';
+        var path = '/group/find/possible';
+        //var path = '/user/show/refresh';
 
         fetch(conf.server_domain + path + '?id_user=' + id_user, {
             method: 'GET',

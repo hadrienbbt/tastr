@@ -143,10 +143,12 @@ app.get('/user/show/friends', function(req,res) {
         db.collection("user").find().toArray(function(err,resp) {
             var i = 0;
             while (resp[i]._id != id_user.toString()) i++;
-            var user = resp.splice(i, 1); //[0];
-            var others = user; //resp
-            user = user[0];
+            var user = resp.splice(i, 1)[0];
+            var others = resp; //user;
+            //user = user[0];
             var showsToConnect = user.shows;
+            // Si l'utilisateur n'a pas de série favorite : tableau vide
+            if(!user.favorites) user.favorites = [];
 
             // Regarder quels groupes on peut former selon les séries de l'utilisateur
             // Savoir quels personnes regardent chaque série de l'utilisateur
@@ -168,6 +170,14 @@ app.get('/user/show/friends', function(req,res) {
                         : usersPerSeries.shows[showsToConnect[i]].push(others[j]._id)
                     : null;
                 }
+                // Si le tableau qu'on a créé n'a pas été rempli par des id_user, on le détruit
+                user.favorites.includes(showsToConnect[i]) ?
+                    usersPerSeries.favorites[showsToConnect[i]].length == 0 ?
+                        delete usersPerSeries.favorites[showsToConnect[i]]
+                    :   null
+                :   usersPerSeries.shows[showsToConnect[i]].length == 0 ?
+                        delete usersPerSeries.shows[showsToConnect[i]]
+                    :   null;
             }
             // Trier le tableau par taille de cases
 
@@ -186,6 +196,8 @@ app.get('/group/find/possible', function(req,res) {
 
     if (req.session.usersPerSeries) {
         usersPerSeries = req.param('favorites') ? req.session.usersPerSeries.favorites : req.session.usersPerSeries.shows;
+        console.log('*******************');
+        console.log('USERS PAR SERIES ');
         console.log(usersPerSeries);
 
         // Définir la prochaine route en fonction du remplissage de l'objet retour
@@ -196,6 +208,13 @@ app.get('/group/find/possible', function(req,res) {
         } : (groupPossible) => {
             req.session.usersPerSeries = null;
             req.session.groups.shows = groupPossible;
+
+            // Trier les groupes  par ordre décroissant de niveau
+            for (var type_groupe in req.session.groups) req.session.groups[type_groupe].sort((a,b) => {return b.shows.length - a.shows.length})
+            console.log('*******************');
+            console.log('GROUPES POSSIBLES');
+            console.log(req.session.groups);
+
             res.respond({groups: req.session.groups}, 200);
         }
 
@@ -225,14 +244,14 @@ app.get('/group/find/possible', function(req,res) {
                     do {
                         regarde = id_viewers[i] == id_viewers_compare[i] ? true : false;
                         i++;
-                    } while (regarde && i != id_viewers.length)
+                    } while (regarde && i < id_viewers.length)
 
                 } else regarde = false;
 
                 if (regarde) {
                     groupPossible[groupPossible.length-1].shows.push({_id: id_show_compare})
                     delete usersPerSeries[id_show_compare];
-                } else console.log('pas les même viewers');
+                } // else console.log('pas les même viewers');
             }
         }
 
