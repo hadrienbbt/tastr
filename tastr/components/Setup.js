@@ -48,7 +48,7 @@ export default class Setup extends Component {
                         </Animatable.View>
 
                         <Animatable.View ref='selectionGroup' style={{flex: null, width: 0}}>
-                            <SelectionGroupe groups={this.props.groups} />
+                            <SelectionGroupe id_user={this.props.id_user} groups={this.props.groups} />
                         </Animatable.View>
                     </View>
                 </View>

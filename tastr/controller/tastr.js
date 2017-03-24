@@ -12,7 +12,7 @@ var exports = module.exports = {};
 
 exports.getContext = function(id_user) {
     return new Promise(function(resolve,reject){
-        var path = '/group/find/possible';
+        let path = '/group/find/existing';
         //var path = '/user/show/refresh';
 
         fetch(conf.server_domain + path + '?id_user=' + id_user, {
@@ -29,28 +29,54 @@ exports.getContext = function(id_user) {
                 return responseData;
             })
             .then((groupesPossibles) => {
-                console.log('contexte reçu !\n Le voici :'+groupesPossibles);
+                console.log('contexte reçu !\n Le voici :'+JSON.stringify(groupesPossibles));
                 // Transforme les données reçues en groupes exploitables par Tastr
                 function formatGroup (groups) {
+
                     var formatData = [];
                     for (var i = 0; i<groups.length; i++) {
-                        formatData.push({_id: i, shows: []})
+                        formatData.push({_id: i/* mettre id_groupe quand existera*/, shows: []})
+                        formatData[formatData.length-1].participants = groups[i].participants;
                         for (var j=0; j<groups[i].shows.length; j++) {
-                            formatData[formatData.length-1].shows.push(groups[i].shows[j].title)
+                            formatData[formatData.length-1].shows.push(groups[i].shows[j]);
                         }
                     }
                     return formatData;
                 }
                 var formatedFavorites = formatGroup(groupesPossibles.groups.favorites);
                 var formatedShows = formatGroup(groupesPossibles.groups.shows);
-                var groups = {favorites: formatedFavorites, shows: formatedShows}
+                var formatedExisting = formatGroup(groupesPossibles.groups.existing)
+                var groups = {favorites: formatedFavorites, shows: formatedShows, existing: formatedExisting}
                 resolve(groups);
             })
             .catch(function (err) {reject(err)})
     })
 }
 
+exports.creerGroupes = function(id_user, groupsToCreate) {
+    var options = {
+        id_user: id_user,
+        groups: groupsToCreate,
+    };
+    return new Promise(function(resolve,reject) {
 
+        // Demander au serveur de créer les goupes
+        let path = '/group/create';
+        console.log(options);
+        fetch(conf.server_domain + path, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(options)
+        })
+        .then((response) => {return response.json()})
+        .then((responseData) => {return responseData})
+        .then((data) => resolve(data))
+        .catch((err) => reject(err))
+    })
+}
 
 
 

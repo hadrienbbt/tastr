@@ -121,7 +121,7 @@ app.get('/user/show/refresh', function(req,res) {
                                         if(err) throw err;
                                         // S'il n'y a plus de série à traiter ensuite, on y va
                                         ++countDone == seriesSuivies.length ?
-                                            res.redirect('/user/show/friends?id_user='+id_user) : null;
+                                            res.redirect('/group/find/existing?id_user='+id_user) : null;
                                     }
                                 );
                             }
@@ -146,7 +146,7 @@ app.get('/user/show/friends', function(req,res) {
             var user = resp.splice(i, 1)[0];
             var others = resp; //user;
             //user = user[0];
-            var showsToConnect = user.shows;
+            var showsToConnect = user.shows ? user.shows : [];
             // Si l'utilisateur n'a pas de série favorite : tableau vide
             if(!user.favorites) user.favorites = [];
 
@@ -164,6 +164,7 @@ app.get('/user/show/friends', function(req,res) {
                     // Si la personne regarde une même série sn que l'utilisateur :
                     // on ajoute la personne dans la case sn du tableau usersPerSeries
                     // EDIT : On l'ajoute à l'objet favorites si l'utilisateur l'a marquée comme favorites
+                    if (!others[j].shows) others[j].shows = []; // Cas où l'utilisateur courant n'a pas de séries enregistrées
                     others[j].shows.includes(showsToConnect[i]) ?
                         user.favorites.includes(showsToConnect[i]) ?
                             usersPerSeries.favorites[showsToConnect[i]].push(others[j]._id)
@@ -202,18 +203,17 @@ app.get('/group/find/possible', function(req,res) {
 
         // Définir la prochaine route en fonction du remplissage de l'objet retour
         var next = req.param('favorites') ? (groupPossible) => {
-            req.session.groups = {};
             req.session.groups.favorites = groupPossible;
             res.redirect('/group/find/possible?id_user='+id_user);
         } : (groupPossible) => {
-            req.session.usersPerSeries = null;
+            req.session.usersPerSeries = null; // plus besoin de ça
             req.session.groups.shows = groupPossible;
 
             // Trier les groupes  par ordre décroissant de niveau
             for (var type_groupe in req.session.groups) req.session.groups[type_groupe].sort((a,b) => {return b.shows.length - a.shows.length})
             console.log('*******************');
             console.log('GROUPES POSSIBLES');
-            console.log(req.session.groups);
+            console.log(JSON.stringify(req.session.groups, null, 4));
 
             res.respond({groups: req.session.groups}, 200);
         }
@@ -226,7 +226,7 @@ app.get('/group/find/possible', function(req,res) {
 
             groupPossible.push({
                 shows: [{_id: id_show}],
-                participants: id_viewers
+                participants: id_viewers.concat([id_user]) // ajouter l'utilisateur courant aux participants à la conv
             });
 
             delete usersPerSeries[id_show];
@@ -259,10 +259,6 @@ app.get('/group/find/possible', function(req,res) {
         db.collection('show').find().toArray(function (err, resp) {
             var shows = resp;
             for (var i = 0; i < groupPossible.length; i++) {
-                // Insérer en tant que groupe temporaire
-                /*db.collection('group_tmp').findAndModify({
-
-                })*/
 
                 // affecter les titres
                 for (var j = 0; j < groupPossible[i].shows.length; j++) {
@@ -285,34 +281,73 @@ app.get('/group/find/possible', function(req,res) {
 });
 
 // Trouver des groupes existants à rejoindre
-app.get('/group/find', function(req,res) {
+app.get('/group/find/existing', function(req,res) {
+
+    // Déclaration de l'objet retour
+    req.session.groups = {}
 
     var id_user = ObjectID.isValid(req.param('id_user')) ? new ObjectID(req.param('id_user')) : null;
 
     id_user ?
-        // Obtenir l'utilisateur 
+    // Obtenir l'utilisateur
         db.collection("user").find({_id: id_user}).toArray(function(err,resp) {
             var user = resp[0];
-            var groups = {};
-            groups.possible = new Array();
+            var existing = new Array();
             
-            db.collection('group').find().toArray(function (err, resp) {
+            db.collection('groupe').find().toArray(function (err, resp) {
                 var allGroups = resp;
                 for (var i = 0; i < allGroups.length; i++) {
                     // on regarde pour chaque groupe si l'utilisateur regarde toutes les séries qui le contient
                     var regarde = true;
                     var j = 0;
                     do {
-                        regarde = user.shows.includes(allGroups[i].shows[j]) ? true : false;
+                        regarde = user.shows.includes(allGroups[i].shows[j]._id) ? true : false;
                         j++;
-                    } while (regarde && j != allGroups[i].shows[j].length)
+                    } while (regarde && j < allGroups[i].shows.length)
                     // Proposer le groupe à l'utilisateur
-                    regarde ? groups.possible.push(allGroups[i]) : null;
+                    regarde ? existing.push({
+                        _id: allGroups[i]._id,
+                        shows: allGroups[i].shows,
+                        participants: allGroups[i].participants,
+                    }) : null;
                 }
-                res.respond({groups: groups},200);
+                // Aller chercher les titres des séries pour pouvoir les afficher coté client
+                db.collection('show').find().toArray(function (err, resp) {
+                    var shows = resp;
+                    for (var i = 0; i < existing.length; i++) {
+
+                        // affecter les titres
+                        for (var j = 0; j < existing[i].shows.length; j++) {
+                            var _idAChercher = existing[i].shows[j]._id;
+                            var k = 0;
+                            while (shows[k]._id != _idAChercher ) k++;
+                            existing[i].shows[j] = {
+                                _id: _idAChercher,
+                                title: shows[k].title
+                            }
+                        }
+                    }
+                    req.session.groups.existing = existing;
+                    res.redirect('/user/show/friends?id_user='+id_user);
+                })
             })
         })
-        : res.respond({user: null},200);
+    : res.respond({user: null},200);
+});
+
+app.post('/group/create', function(req,res) {
+    var tabGroupsToCreate = req.param('groups');
+    db.collection('show').find().toArray((err,resp) => {
+        var shows = resp;
+        for (var i = 0; i<tabGroupsToCreate.length; i++) {
+            var groupe = tabGroupsToCreate[i];
+            db.collection("groupe").insert({
+                messages:[], shows: groupe.shows, participants: groupe.participants}, (err,resp) => {
+                console.log(resp);
+            })
+        }
+        res.respond({message: 'groupes créés !'},200);
+    })
 });
 
 // Get the user with given id

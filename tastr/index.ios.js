@@ -72,7 +72,7 @@ export default class Tastr extends Component {
                     )
                 } else {
                     console.log(this.state.id_user + ' est connecté!');
-                    return (<Setup groups={this.state.groups} />)
+                    return (<Setup id_user={this.state.id_user} groups={this.state.groups} />)
                 }
                 /*tastr.getUser(this.state.id_user).then((user) => {
                     console.log('USER : ' + JSON.stringify(user))

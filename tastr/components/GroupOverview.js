@@ -115,7 +115,14 @@ export default class GroupOverview extends Component {
                 circle_color = '#263238'
                 break;
         }
-        this.state = {circle_color: circle_color, circle_color_selected: '#009688', isChecked: this.props.isChecked, maxLengthDisplay: 50, minimize: true};
+        this.state = {
+            _ids: this.props.shows.map((show) => {return show._id}),
+            shows: this.props.shows.map((show) => {return show.title}),
+            circle_color: circle_color,
+            circle_color_selected: '#009688',
+            isChecked: this.props.isChecked,
+            maxLengthDisplay: 50,
+            minimize: true};
     }
 
     _displayInnerCircle() {
@@ -135,7 +142,7 @@ export default class GroupOverview extends Component {
     }
 
     _unwrapableIfNeeded() {
-        if (this.props.shows.join(', ').length > this.state.maxLengthDisplay)
+        if (this.state.shows.join(', ').length > this.state.maxLengthDisplay)
             return(
             <TouchableWithoutFeedback onPress={() => {
                 LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
@@ -187,7 +194,7 @@ export default class GroupOverview extends Component {
                             fontSize: 16,
                             paddingRight: 10,
                             width: 0.9 * width - 90,
-                        }}>{this.props.shows.join(', ').length > this.state.maxLengthDisplay && this.state.minimize ? this.props.shows.join(', ').slice(0,this.props.shows.join(', ').indexOf(' ',this.state.maxLengthDisplay)) + '...' : this.props.shows.join(', ')}</Text>
+                        }}>{this.state.shows.join(', ').length > this.state.maxLengthDisplay && this.state.minimize ? this.state.shows.join(', ').slice(0,this.state.shows.join(', ').indexOf(' ',this.state.maxLengthDisplay)) + '...' : this.state.shows.join(', ')}</Text>
                         {this._unwrapableIfNeeded()}
                     </View>
                     <View style={{

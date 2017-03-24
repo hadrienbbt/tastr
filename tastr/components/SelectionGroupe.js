@@ -23,6 +23,9 @@ import {
 import HeaderSection from './HeaderSection.js';
 import GroupOverview from './GroupOverview.js';
 
+// functions tastr
+var controllerTastr = require('../controller/tastr.js');
+
 // config
 var styles = require('../styles/styles.js');
 var conf = require('../const/conf.js');
@@ -32,13 +35,17 @@ export default class SelectionGroupe extends Component {
     constructor(props) {
         super(props);
         this._selectionnerGroupe = this._selectionnerGroupe.bind(this)
+        this._envoyerGroupesSelectionnes = this._envoyerGroupesSelectionnes.bind(this)
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            allGroups: false,
+            allGroupsCheked: false,
             groupsChecked: [],
             dataSourceFav: ds.cloneWithRows(this.props.groups.favorites),
-            dataSourceNiveau: ds.cloneWithRows(this.props.groups.shows)
+            dataSourceNiveau: ds.cloneWithRows(this.props.groups.shows),
+            dataSourceExistants: ds.cloneWithRows(this.props.groups.existing),
+            ids: this.props.groups.favorites.concat(this.props.groups.shows).concat(this.props.groups.existing).map((group,index) => {return index}),
         }
+        console.log(this.state.ids);
     }
 
     _selectionnerGroupe(_id) {
@@ -46,8 +53,25 @@ export default class SelectionGroupe extends Component {
         this.state.groupsChecked.sort()
     }
 
+    // Récupérer tout les groupes sélectionnés et les ajouter à un tableau qu'on enverra au controler pour créer les groupes
+    _envoyerGroupesSelectionnes() {
+        var tabIndexGroupesSelectionnes = this.state.groupsChecked;
+        var tabGroupes = this.props.groups.favorites.concat(this.props.groups.shows).concat(this.props.groups.existing);
+        var groupsToCreate = new Array();
+        for(var i = 0; i < tabIndexGroupesSelectionnes.length; i++)
+            groupsToCreate.push(tabGroupes[tabIndexGroupesSelectionnes[i]]);
+        groupsToCreate.length == 0 ? alert('Sélectionnez au moins un groupe à rejoindre !')
+        :controllerTastr.creerGroupes(this.props.id_user,groupsToCreate).then(
+            (data) => console.log(data),
+            (err) => console.log(err)
+        );
+    }
+
+
     render() {
-        var anchor = this;
+        var anchor = this,
+            i=0;
+
         return (
             <ScrollView>
                 <View style={{
@@ -68,25 +92,35 @@ export default class SelectionGroupe extends Component {
                             paddingRight: 10,
                             width: width*0.9}}>
                             <Text style={{textAlign: 'right', fontSize: 15, color: 'white'}}>
-                            {!this.state.allGroups ? 'Tout sélectionner' : 'Tout désélectionner'}</Text>
+                            {!this.state.allGroupsCheked ? 'Tout sélectionner' : 'Tout désélectionner'}</Text>
                         </View>
                     </TouchableWithoutFeedback> */ }
                     <HeaderSection title="Séries favorites" />
                     <ListView
+                        enableEmptySections={true}
                         dataSource={this.state.dataSourceFav}
-                        renderRow={(rowData) => <GroupOverview _id={rowData._id} isChecked={anchor.state.allGroups} _selectionnerGroupe={anchor._selectionnerGroupe} shows={rowData.shows} />}
+                        renderRow={(rowData) => <GroupOverview _id={this.state.ids[i++]} isChecked={anchor.state.allGroupsCheked} _selectionnerGroupe={anchor._selectionnerGroupe} shows={rowData.shows} />}
                     />
                     <HeaderSection title="Niveau du groupe" />
                     <ListView
+                        enableEmptySections={true}
                         dataSource={this.state.dataSourceNiveau}
-                        renderRow={(rowData) => <GroupOverview _id={rowData._id} isChecked={anchor.state.allGroups} _selectionnerGroupe={anchor._selectionnerGroupe} shows={rowData.shows} />}
+                        renderRow={(rowData) => <GroupOverview _id={this.state.ids[i++]} isChecked={anchor.state.allGroupsCheked} _selectionnerGroupe={anchor._selectionnerGroupe} shows={rowData.shows} />}
                     />
+                    <HeaderSection title={this.props.groups.existing.length > 1 ? "Groupes existants" : "Groupe existant"} />
+                    <ListView
+                        enableEmptySections={true}
+                        dataSource={this.state.dataSourceExistants}
+                        renderRow={(rowData) => <GroupOverview _id={this.state.ids[i++]} isChecked={anchor.state.allGroupsCheked} _selectionnerGroupe={anchor._selectionnerGroupe} shows={rowData.shows} />}
+                    />
+
+
                     <View style={{
                         backgroundColor: '#DDDDDD',
                         margin: 30
                     }}>
                         <Button
-                        onPress={() => console.log(this.state.groupsChecked)}
+                        onPress={this._envoyerGroupesSelectionnes} // récup le tableau concat et envoyer les groupes au serveur
                         title="SUIVANT"
                         color="#424242"
                         accessibilityLabel="Tap here to validate group selection" />

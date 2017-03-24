@@ -45,7 +45,7 @@ export default class Tutoriel extends Component {
                         width: 40,
                         justifyContent: 'center',
                         alignItems: 'center',
-                        backgroundColor: '#FF5722',
+                        backgroundColor: '#4CAF50',
                         borderRadius: 50,
                         shadowOpacity: 0.7,
                         shadowOffset: {width:0, height:4},
@@ -56,12 +56,12 @@ export default class Tutoriel extends Component {
                             textAlign: 'center',
                             color: 'white',
                             fontSize: 20,
-                        }}>9</Text>
+                        }}>6</Text>
                     </View>
                     <Text style={[styles.h2, {
                         marginLeft: 15,
                         color: 'white',
-                    }]}>= Groupe de niveau 9</Text>
+                    }]}>= Groupe de niveau 6</Text>
                 </View>
 
                 <View style={{
