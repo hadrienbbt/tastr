@@ -38,11 +38,11 @@ export default class Tastr extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {isConnected: null};
-        //this.state = {isConnected: true, id_user: '58ced4dc4ba97f710e15645b'}
+        //this.state = {isConnected: null};
+        this.state = {isConnected: true, id_user: '58ced4dc4ba97f710e15645b'}
         this._ConnexionController = this._ConnexionController.bind(this);
         this._renderComponent = this._renderComponent.bind(this);
-        this._ConnexionController();
+        this._ConnexionController;
     }
 
     _ConnexionController() {
@@ -74,9 +74,9 @@ export default class Tastr extends Component {
                     console.log(this.state.id_user + ' est connecté!');
                     return (<Setup id_user={this.state.id_user} groups={this.state.groups} />)
                 }
-                /*tastr.getUser(this.state.id_user).then((user) => {
+                /* tastr.getUser(this.state.id_user).then((user) => {
                     console.log('USER : ' + JSON.stringify(user))
-                })*/
+                }) */
             }
         }
     }

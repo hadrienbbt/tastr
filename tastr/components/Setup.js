@@ -27,15 +27,29 @@ import SelectionGroupe from './SelectionGroupe.js';
 export default class Setup extends Component {
     constructor(props) {
         super(props)
-        this._pageSuivante = this._pageSuivante.bind(this);
+        this._pageGroupes = this._pageGroupes.bind(this);
+        this._pageTuto = this._pageTuto.bind(this);
+
     }
 
-    _pageSuivante() {
+    _pageGroupes() {
         this.refs.tutoriel.transitionTo({flex: null, width: 0})
         this.refs.tutoriel.bounceOutLeft(400)
 
         this.refs.selectionGroup.transitionTo({flex: 1, width: null})
         this.refs.selectionGroup.bounceInRight(1000)
+    }
+
+    _pageTuto() {
+        this.refs.tutoriel.transitionTo({flex: 1, width: null})
+        this.refs.tutoriel.bounceInLeft(400)
+
+        this.refs.selectionGroup.transitionTo({flex: null, width: 0})
+        this.refs.selectionGroup.bounceOutRight(1000)
+    }
+
+    componentDidMount() {
+        this._pageTuto();
     }
 
     render() {
@@ -44,7 +58,7 @@ export default class Setup extends Component {
                 <View style={styles.page}>
                     <View style={[styles.backdropView,styles.container_menu_slide]}>
                         <Animatable.View ref='tutoriel' style={{flex: 1, width: null, alignItems: 'center'}}>
-                            <Tutoriel _pageSuivante={this._pageSuivante.bind(this)} />
+                            <Tutoriel _pageSuivante={this._pageGroupes.bind(this)} />
                         </Animatable.View>
 
                         <Animatable.View ref='selectionGroup' style={{flex: null, width: 0}}>

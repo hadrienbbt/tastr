@@ -337,17 +337,30 @@ app.get('/group/find/existing', function(req,res) {
 
 app.post('/group/create', function(req,res) {
     var tabGroupsToCreate = req.param('groups');
-    db.collection('show').find().toArray((err,resp) => {
-        var shows = resp;
-        for (var i = 0; i<tabGroupsToCreate.length; i++) {
-            var groupe = tabGroupsToCreate[i];
-            db.collection("groupe").insert({
-                messages:[], shows: groupe.shows, participants: groupe.participants}, (err,resp) => {
-                console.log(resp);
-            })
-        }
-        res.respond({message: 'groupes créés !'},200);
-    })
+    console.log(tabGroupsToCreate);
+    tabGroupsToCreate.length > 0 ?
+        db.collection('show').find().toArray((err,resp) => {
+            var shows = resp;
+            for (var i = 0; i<tabGroupsToCreate.length; i++) {
+                var groupe = tabGroupsToCreate[i];
+                groupe && groupe.shows && groupe.participants ?
+                    db.collection("groupe").insert({
+                        messages:[], shows: groupe.shows, participants: groupe.participants}, (err,resp) => {
+                        console.log(resp);
+                    })
+                :res.respond(new Error("invalid group provided"),500);
+            }
+            res.respond({message: 'groupes créés !'},200);
+        })
+    :res.respond(new Error("no group provided"),500);
+});
+
+app.post('/group/join', function(req,res) {
+    var tabGroupsToJoin = req.param('groups');
+    console.log(tabGroupsToJoin);
+    tabGroupsToJoin.length > 0 ?
+        res.respond({message: 'groupes rejoints !'},200)
+    :res.respond(new Error("no group provided"),500);
 });
 
 // Get the user with given id
@@ -360,7 +373,6 @@ app.get('/user', function(req,res) {
         })
         : res.respond({user: null},200);
 });
-
 
 
 

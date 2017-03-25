@@ -33,19 +33,45 @@ var width = Dimensions.get('window').width;
 
 export default class SelectionGroupe extends Component {
     constructor(props) {
-        super(props);
+        super(props)
+        this._afficherGroupes = this._afficherGroupes.bind(this)
         this._selectionnerGroupe = this._selectionnerGroupe.bind(this)
         this._envoyerGroupesSelectionnes = this._envoyerGroupesSelectionnes.bind(this)
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             allGroupsCheked: false,
             groupsChecked: [],
-            dataSourceFav: ds.cloneWithRows(this.props.groups.favorites),
-            dataSourceNiveau: ds.cloneWithRows(this.props.groups.shows),
-            dataSourceExistants: ds.cloneWithRows(this.props.groups.existing),
-            ids: this.props.groups.favorites.concat(this.props.groups.shows).concat(this.props.groups.existing).map((group,index) => {return index}),
+            groups : [{
+                label : this.props.groups.favorites.length > 1 ? "Séries favorites" : "Série favorite",
+                dataSource: ds.cloneWithRows(this.props.groups.favorites)
+            },{
+                label: 'Niveau du groupe',
+                dataSource: ds.cloneWithRows(this.props.groups.shows)
+            },{
+                label: this.props.groups.existing.length > 1 ? "Groupes existants" : "Groupe existant",
+                dataSource: ds.cloneWithRows(this.props.groups.existing)
+            }],
         }
-        console.log(this.state.ids);
+    }
+
+    _afficherGroupes() {
+        var render = [],
+            key = 0,
+            id_groupe_tmp = 0;
+        for (var i=0; i<this.state.groups.length; i++) {
+            if (this.state.groups[i].dataSource.getRowCount() > 0) {
+                render.push(<HeaderSection key={key++} title={this.state.groups[i].label} />)
+                render.push(
+                    <ListView
+                        key={key++}
+                        enableEmptySections={true}
+                        dataSource={this.state.groups[i].dataSource}
+                        renderRow={(rowData) => <GroupOverview _id={id_groupe_tmp++} isChecked={this.state.allGroupsCheked} _selectionnerGroupe={this._selectionnerGroupe} shows={rowData.shows} />}
+                    />
+                )
+            }
+        }
+        return render;
     }
 
     _selectionnerGroupe(_id) {
@@ -53,25 +79,43 @@ export default class SelectionGroupe extends Component {
         this.state.groupsChecked.sort()
     }
 
-    // Récupérer tout les groupes sélectionnés et les ajouter à un tableau qu'on enverra au controler pour créer les groupes
+    // Récupérer tous les groupes sélectionnés et les ajouter à un tableau qu'on enverra au controler pour créer les groupes
     _envoyerGroupesSelectionnes() {
-        var tabIndexGroupesSelectionnes = this.state.groupsChecked;
-        var tabGroupes = this.props.groups.favorites.concat(this.props.groups.shows).concat(this.props.groups.existing);
-        var groupsToCreate = new Array();
-        for(var i = 0; i < tabIndexGroupesSelectionnes.length; i++)
-            groupsToCreate.push(tabGroupes[tabIndexGroupesSelectionnes[i]]);
-        groupsToCreate.length == 0 ? alert('Sélectionnez au moins un groupe à rejoindre !')
-        :controllerTastr.creerGroupes(this.props.id_user,groupsToCreate).then(
-            (data) => console.log(data),
-            (err) => console.log(err)
-        );
+        console.log(this.state.groupsChecked)
+
+        var tabIndexGroupesSelectionnes = this.state.groupsChecked // numéro de ligne des groupes selectionnés par l'utilisateur (commence à 0)
+
+        var tabGroupes = this.props.groups.favorites.concat(this.props.groups.shows) // tableau de groupes ligne par ligne
+        var groupsToCreate = new Array()
+        var groupsToJoin = new Array()
+
+        for(var i = 0; i < tabGroupes.length; i++)
+            if(tabIndexGroupesSelectionnes.includes(i))
+                groupsToCreate.push(tabGroupes[i]);
+
+        // La suite des groupes sélectionnés sont les groupes existants
+        // On les rejoint
+        for(var i = tabGroupes.length; i < tabGroupes.length + this.props.groups.existing.length; i++)
+            if(tabIndexGroupesSelectionnes.includes(i))
+                groupsToJoin.push(this.props.groups.existing[i-tabGroupes.length]); // enlever l'offset
+
+        if (groupsToCreate.length + groupsToJoin.length == 0) alert('Sélectionnez au moins un groupe à rejoindre !')
+        else {
+            if (groupsToCreate.length > 0)
+                controllerTastr.creerGroupes(this.props.id_user, groupsToCreate).then(
+                    (data) => console.log(data),
+                    (err) => console.log(err)
+                )
+            if (groupsToJoin.length > 0)
+                controllerTastr.rejoindreGroupes(this.props.id_user, groupsToJoin).then(
+                    (data) => console.log(data),
+                    (err) => console.log(err)
+                )
+        }
     }
 
 
     render() {
-        var anchor = this,
-            i=0;
-
         return (
             <ScrollView>
                 <View style={{
@@ -95,26 +139,7 @@ export default class SelectionGroupe extends Component {
                             {!this.state.allGroupsCheked ? 'Tout sélectionner' : 'Tout désélectionner'}</Text>
                         </View>
                     </TouchableWithoutFeedback> */ }
-                    <HeaderSection title="Séries favorites" />
-                    <ListView
-                        enableEmptySections={true}
-                        dataSource={this.state.dataSourceFav}
-                        renderRow={(rowData) => <GroupOverview _id={this.state.ids[i++]} isChecked={anchor.state.allGroupsCheked} _selectionnerGroupe={anchor._selectionnerGroupe} shows={rowData.shows} />}
-                    />
-                    <HeaderSection title="Niveau du groupe" />
-                    <ListView
-                        enableEmptySections={true}
-                        dataSource={this.state.dataSourceNiveau}
-                        renderRow={(rowData) => <GroupOverview _id={this.state.ids[i++]} isChecked={anchor.state.allGroupsCheked} _selectionnerGroupe={anchor._selectionnerGroupe} shows={rowData.shows} />}
-                    />
-                    <HeaderSection title={this.props.groups.existing.length > 1 ? "Groupes existants" : "Groupe existant"} />
-                    <ListView
-                        enableEmptySections={true}
-                        dataSource={this.state.dataSourceExistants}
-                        renderRow={(rowData) => <GroupOverview _id={this.state.ids[i++]} isChecked={anchor.state.allGroupsCheked} _selectionnerGroupe={anchor._selectionnerGroupe} shows={rowData.shows} />}
-                    />
-
-
+                    {this._afficherGroupes()}
                     <View style={{
                         backgroundColor: '#DDDDDD',
                         margin: 30

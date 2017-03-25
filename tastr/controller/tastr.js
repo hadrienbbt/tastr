@@ -12,8 +12,8 @@ var exports = module.exports = {};
 
 exports.getContext = function(id_user) {
     return new Promise(function(resolve,reject){
-        let path = '/group/find/existing';
-        //var path = '/user/show/refresh';
+        //let path = '/group/find/existing';
+        let path = '/user/show/refresh';
 
         fetch(conf.server_domain + path + '?id_user=' + id_user, {
             method: 'GET',
@@ -29,7 +29,7 @@ exports.getContext = function(id_user) {
                 return responseData;
             })
             .then((groupesPossibles) => {
-                console.log('contexte reçu !\n Le voici :'+JSON.stringify(groupesPossibles));
+                console.log('contexte reçu !\n Le voici :'+groupesPossibles);
                 // Transforme les données reçues en groupes exploitables par Tastr
                 function formatGroup (groups) {
 
@@ -73,12 +73,36 @@ exports.creerGroupes = function(id_user, groupsToCreate) {
         })
         .then((response) => {return response.json()})
         .then((responseData) => {return responseData})
-        .then((data) => resolve(data))
+        .then((data) => resolve(exports.rejoindreGroupes(id_user,groupsToCreate))) // Rejoindre les groupes précédemment créés
         .catch((err) => reject(err))
     })
 }
 
+exports.rejoindreGroupes = function(id_user,groupsToJoin) {
+    var options = {
+        id_user: id_user,
+        groups: groupsToJoin,
+    };
+    return new Promise(function(resolve,reject) {
 
+        // Demander au serveur de rejoindre les goupes
+        let path = '/group/join';
+        console.log(options);
+        fetch(conf.server_domain + path, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(options)
+        })
+            .then((response) => {return response.json()})
+            .then((responseData) => {return responseData})
+            .then((data) => resolve(data))
+            .catch((err) => reject(err))
+    })
+
+}
 
 
 
