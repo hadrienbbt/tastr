@@ -42,7 +42,7 @@ export default class SelectionGroupe extends Component {
             allGroupsCheked: false,
             groupsChecked: [],
             groups : [{
-                label : this.props.groups.favorites.length > 1 ? "Séries favorites" : "Série favorite",
+                label : this.props.groups.favorites.length > 2  || (this.props.groups.favorites.length == 1 && this.props.groups.favorites[0].shows.length > 1) ? "Séries favorites" : "Série favorite",
                 dataSource: ds.cloneWithRows(this.props.groups.favorites)
             },{
                 label: 'Niveau du groupe',

@@ -49,7 +49,7 @@ export default class Setup extends Component {
     }
 
     componentDidMount() {
-        this._pageTuto();
+        this._pageGroupes();
     }
 
     render() {

@@ -10,6 +10,20 @@ var request = require('request');
 
 var exports = module.exports = {};
 
+exports.similarGroupExists = function(shows, groups) {
+    var idShows = shows.map((show) => {return show._id}).sort().join(','),
+        tabIdShows = groups.map((group) => {return group.shows.map((show) => {return show._id}).sort().join(',')});
+
+    return tabIdShows.includes(idShows) ? true : false;
+
+    /*console.log('++++++++++++++');
+    console.log('tab id show')
+    console.log(idShows);
+    console.log('tab id shows')
+    console.log(tabIdShows);
+    console.log('++++++++++++++');*/
+}
+
 exports.getMemberInfos = function(access_token) {
     console.log('requete de librairie bs avec ' + access_token);
     return new Promise(function(resolve,reject) {
@@ -42,8 +56,6 @@ exports.BetaSerieRequest = function(method,url,token,params = {}) {
         })
     });
 }
-
-
 
 
 exports.searchShowByName = function(title, token) {

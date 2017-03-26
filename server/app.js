@@ -202,6 +202,8 @@ app.get('/group/find/possible', function(req,res) {
         console.log(usersPerSeries);
 
         // Définir la prochaine route en fonction du remplissage de l'objet retour
+        // D'abord les favoris puis les normales
+        // A la fin des normales on renvoit les groupes
         var next = req.param('favorites') ? (groupPossible) => {
             req.session.groups.favorites = groupPossible;
             res.redirect('/group/find/possible?id_user='+id_user);
@@ -211,66 +213,79 @@ app.get('/group/find/possible', function(req,res) {
 
             // Trier les groupes  par ordre décroissant de niveau
             for (var type_groupe in req.session.groups) req.session.groups[type_groupe].sort((a,b) => {return b.shows.length - a.shows.length})
-            console.log('*******************');
+            /*console.log('*******************');
             console.log('GROUPES POSSIBLES');
-            console.log(JSON.stringify(req.session.groups, null, 4));
+            console.log(JSON.stringify(req.session.groups, null, 4));*/
+
 
             res.respond({groups: req.session.groups}, 200);
         }
 
         var groupPossible = [];
 
-        // récupérer chaque show et le comparer avec les autres
-        for (var id_show in usersPerSeries) {
-            var id_viewers = usersPerSeries[id_show];
+        // Récupérer les groupes pour ne pas proposer d'ajouter un groupe qui existe déjà
+        db.collection('groupe').find().toArray((err,resp) => {
+            if (err) res.respond(new Error('error database'), 500)
+            else {
+                var groupsFromDb = resp;
+                // récupérer chaque show et le comparer avec les autres
+                for (var id_show in usersPerSeries) {
+                    var id_viewers = usersPerSeries[id_show];
 
-            groupPossible.push({
-                shows: [{_id: id_show}],
-                participants: id_viewers.concat([id_user]) // ajouter l'utilisateur courant aux participants à la conv
-            });
+                    groupPossible.push({
+                        shows: [{_id: id_show}],
+                        participants: id_viewers.concat([id_user]) // ajouter l'utilisateur courant aux participants à la conv
+                    });
 
-            delete usersPerSeries[id_show];
+                    delete usersPerSeries[id_show];
 
-            for (var id_show_compare in usersPerSeries) {
-                var id_viewers_compare = usersPerSeries[id_show_compare];
-                // Si tous les viewers de id_viewers sont dans id_viewers_compare :
-                // On ajoute la série aux shows de groupPossible
-                var regarde;
-                if (id_viewers.length == id_viewers_compare.length) {
-                    id_viewers.sort();
-                    id_viewers_compare.sort();
-                    regarde = true;
-                    var i = 0;
-                    do {
-                        regarde = id_viewers[i] == id_viewers_compare[i] ? true : false;
-                        i++;
-                    } while (regarde && i < id_viewers.length)
+                    for (var id_show_compare in usersPerSeries) {
+                        var id_viewers_compare = usersPerSeries[id_show_compare];
+                        // Si il y a seulement les viewers de id_viewers  dans id_viewers_compare :
+                        // On ajoute la série aux shows de groupPossible
+                        // Autrement dit si tout le monde regarde les deux série que l'on compare, le niveau monte d'1
+                        var regarde;
+                        if (id_viewers.length == id_viewers_compare.length) {
+                            id_viewers.sort();
+                            id_viewers_compare.sort();
+                            regarde = true;
+                            var i = 0;
+                            do {
+                                regarde = id_viewers[i] == id_viewers_compare[i] ? true : false;
+                                i++;
+                            } while (regarde && i < id_viewers.length)
 
-                } else regarde = false;
+                        } else regarde = false;
 
-                if (regarde) {
-                    groupPossible[groupPossible.length-1].shows.push({_id: id_show_compare})
-                    delete usersPerSeries[id_show_compare];
-                } // else console.log('pas les même viewers');
-            }
-        }
-
-        // Aller chercher les titres des séries pour pouvoir les afficher coté client
-        db.collection('show').find().toArray(function (err, resp) {
-            var shows = resp;
-            for (var i = 0; i < groupPossible.length; i++) {
-
-                // affecter les titres
-                for (var j = 0; j < groupPossible[i].shows.length; j++) {
-                    var _idAChercher = groupPossible[i].shows[j]._id;
-                    var k = 0;
-                    while (shows[k]._id != _idAChercher ) k++;
-                    groupPossible[i].shows[j].title = shows[k].title;
+                        if (regarde) {
+                            groupPossible[groupPossible.length - 1].shows.push({_id: id_show_compare})
+                            delete usersPerSeries[id_show_compare];
+                        } // else console.log('pas les même viewers');
+                    }
+                    // On a un groupe possible,
+                    // il faut maintenant regarder s'il y a un groupe analogue qui existe déjà
+                    // Si c'est le cas ce n'est pas la peine de le proposer à l'utilisateur car il sera dans la section des groupes existants
+                    if (Tastr.similarGroupExists(groupPossible[groupPossible.length - 1].shows, groupsFromDb))
+                        groupPossible.pop()
                 }
-            }
-            next(groupPossible);
-        })
 
+                // Aller chercher les titres des séries pour pouvoir les afficher coté client
+                db.collection('show').find().toArray(function (err, resp) {
+                    var shows = resp;
+                    for (var i = 0; i < groupPossible.length; i++) {
+
+                        // affecter les titres
+                        for (var j = 0; j < groupPossible[i].shows.length; j++) {
+                            var _idAChercher = groupPossible[i].shows[j]._id;
+                            var k = 0;
+                            while (shows[k]._id != _idAChercher ) k++;
+                            groupPossible[i].shows[j].title = shows[k].title;
+                        }
+                    }
+                    next(groupPossible);
+                })
+            }
+        })
     } else {
         if (id_user) {
             res.redirect('/user/show/friends?id_user='+id_user)
@@ -348,6 +363,8 @@ app.post('/group/create', function(req,res) {
                         messages:[], shows: groupe.shows, participants: groupe.participants}, (err,resp) => {
                         console.log(resp);
                     })
+                    // Modifier les groupes existants
+                    // pour accomplir un transfert des séries
                 :res.respond(new Error("invalid group provided"),500);
             }
             res.respond({message: 'groupes créés !'},200);
