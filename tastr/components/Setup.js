@@ -49,7 +49,7 @@ export default class Setup extends Component {
     }
 
     componentDidMount() {
-        this._pageGroupes();
+        this._pageTuto();
     }
 
     render() {
@@ -62,7 +62,7 @@ export default class Setup extends Component {
                         </Animatable.View>
 
                         <Animatable.View ref='selectionGroup' style={{flex: null, width: 0}}>
-                            <SelectionGroupe id_user={this.props.id_user} groups={this.props.groups} />
+                            <SelectionGroupe anchor={this.props.anchor} id_user={this.props.id_user} groups={this.props.groups} />
                         </Animatable.View>
                     </View>
                 </View>

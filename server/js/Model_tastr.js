@@ -10,18 +10,74 @@ var request = require('request');
 
 var exports = module.exports = {};
 
+exports.getGroupsOf = (id_user,db) => {
+    var id_user = id_user.toString();
+    return new Promise((resolve,reject) => {
+        db.collection('groupe').find({participants: {$in: [ id_user ]}}).toArray((err,resp) =>
+            err ? reject(err) : resolve(resp)
+        )
+    })
+}
+
+exports.addUserToGroups = (id_user,groupsToJoin,db) => {
+    var groups = groupsToJoin;
+
+    return new Promise((resolve,reject) => {
+        for (var i =0; i< groups.length; i++) {
+            console.log(groups[i])
+
+            db.collection('groupe').update({
+                    participants: {
+                        $all : groups[i].participants,
+                        $nin: [id_user]
+                    },
+                    shows : {
+                        $all : groups[i].shows
+                    }
+                }, {
+                    $push: {
+                        participants: id_user
+                    }
+                }, {multi: true}, (err, resp) =>
+                    err ? reject(err) : i == groups.length ? resolve(resp) : null
+            )
+        }
+    });
+}
+
 exports.similarGroupExists = function(shows, groups) {
     var idShows = shows.map((show) => {return show._id}).sort().join(','),
         tabIdShows = groups.map((group) => {return group.shows.map((show) => {return show._id}).sort().join(',')});
 
     return tabIdShows.includes(idShows) ? true : false;
+}
 
-    /*console.log('++++++++++++++');
-    console.log('tab id show')
-    console.log(idShows);
-    console.log('tab id shows')
-    console.log(tabIdShows);
-    console.log('++++++++++++++');*/
+exports.transfererSeries = function(aGroup, id_user, db) {
+    var group = aGroup;
+
+    // Obtenir tous les participants au groupe sauf l'utilisateur
+    var participantsSansUser = group.participants;
+    participantsSansUser.splice(group.participants.indexOf(id_user),1);
+
+    // Récupérer tous les groupes qui contiennent les participants : participantsSansUser
+    db.collection('groupe').update({
+        _id: {
+            $ne: group._id
+        },
+        participants: {
+            $all : participantsSansUser
+        }
+    },{
+        $pull: {
+            shows : {
+                $in: group.shows
+            }
+        }
+    },{multi: true}, (err,resp) => {
+        if (err) throw err;
+        // Supprimer les groupes sans séries
+        db.collection('groupe').remove({shows: []});
+    })
 }
 
 exports.getMemberInfos = function(access_token) {
@@ -71,21 +127,3 @@ exports.getFavoriteShows = function(token) {
         exports.BetaSerieRequest('GET', url, token).then((data) => resolve(data), (err) => reject(err));
     })
 }
-
-/*
-fetch(conf.server_domain+'/user/findgroups?id_user=' + cookie.id_user, {
-    method: 'GET',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    }
-})
-    .then((response) => {
-        return response.json()
-    })
-    .then((responseData) => {
-        return responseData;
-    })
-    .then((data) => resolve(data.user))
-    .catch(function (err) {reject(err)})
-*/

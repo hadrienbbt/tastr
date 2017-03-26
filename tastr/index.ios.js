@@ -67,16 +67,17 @@ export default class Tastr extends Component {
                     console.log('on va chercher le contexte ...');
                     var anchor = this;
                     controllerTastr.getContext(this.state.id_user).then(
-                        (groups) => anchor.setState({groups: groups}),
+                        (data) => anchor.setState({user: data.user, groups: data.groups, setupDone: data.setupDone}),
                         (error) => console.log(error)
                     )
                 } else {
-                    console.log(this.state.id_user + ' est connecté!');
-                    return (<Setup id_user={this.state.id_user} groups={this.state.groups} />)
+                    if (!this.state.setupDone) {
+                        console.log(this.state.id_user + ' est connecté!');
+                        return (<Setup anchor={this} id_user={this.state.id_user} groups={this.state.groups} />)
+                    } else {
+                        return (<Splashscreen />)
+                    }
                 }
-                /* tastr.getUser(this.state.id_user).then((user) => {
-                    console.log('USER : ' + JSON.stringify(user))
-                }) */
             }
         }
     }

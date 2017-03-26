@@ -81,6 +81,7 @@ export default class SelectionGroupe extends Component {
 
     // Récupérer tous les groupes sélectionnés et les ajouter à un tableau qu'on enverra au controler pour créer les groupes
     _envoyerGroupesSelectionnes() {
+        var page = this;
         console.log(this.state.groupsChecked)
 
         var tabIndexGroupesSelectionnes = this.state.groupsChecked // numéro de ligne des groupes selectionnés par l'utilisateur (commence à 0)
@@ -101,16 +102,15 @@ export default class SelectionGroupe extends Component {
 
         if (groupsToCreate.length + groupsToJoin.length == 0) alert('Sélectionnez au moins un groupe à rejoindre !')
         else {
-            if (groupsToCreate.length > 0)
-                controllerTastr.creerGroupes(this.props.id_user, groupsToCreate).then(
-                    (data) => console.log(data),
-                    (err) => console.log(err)
-                )
-            if (groupsToJoin.length > 0)
-                controllerTastr.rejoindreGroupes(this.props.id_user, groupsToJoin).then(
-                    (data) => console.log(data),
-                    (err) => console.log(err)
-                )
+            controllerTastr.creerGroupes(this.props.id_user, groupsToCreate).then(
+                (data) =>
+                    controllerTastr.rejoindreGroupes(this.props.id_user, groupsToJoin).then(
+                        (data) => page.props.anchor.setState({setupDone: true}),
+                        (err) => console.log(err)
+                    ),
+                (err) => console.log(err)
+            )
+
         }
     }
 

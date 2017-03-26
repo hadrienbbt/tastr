@@ -11,6 +11,37 @@ var conf = require('../const/conf.js');
 var exports = module.exports = {};
 
 exports.getContext = function(id_user) {
+    var id_user = id_user;
+    // Vérifier si l'utilisateur fait déjà partie de groupes
+    // a-t-il déjà passé la phase setup ou pas ?
+    return new Promise((resolve,reject) => {
+        let path = '/user'
+        fetch(conf.server_domain + path + '?id_user=' + id_user,{
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+            .then((response) => {return response.json()})
+            .then((responseData) => {return responseData;})
+            .then((dataUser) => {
+                console.log('contexte reçu !\n Le voici :'+JSON.stringify(dataUser));
+
+                // Si le tableau des groupes de l'utilisateur est vide, on lui propose d'en rejoindre
+                // ET on signifie à la vue qu'il faut présenter des groupes à rejoindre
+                if (dataUser.groups.length == 0) {
+                    console.log('On va chercher des groupes à rejoindre...')
+                    exports.chercherGroupes(id_user).then((groups) =>
+                        resolve({user: dataUser.user, groups: groups, setupDone: false})
+                    )
+                } else resolve({user: dataUser.user,groups: dataUser.groups, setupDone: true})
+            })
+            .catch(function (err) {reject(err)})
+    })
+}
+
+exports.chercherGroupes = function(id_user) {
     return new Promise(function(resolve,reject){
         let path = '/group/find/existing';
         //let path = '/user/show/refresh';
@@ -29,7 +60,8 @@ exports.getContext = function(id_user) {
                 return responseData;
             })
             .then((groupesPossibles) => {
-                console.log('contexte reçu !\n Le voici :'+groupesPossibles);
+                console.log('groupes reçus !\n Les voici :'+groupesPossibles);
+
                 // Transforme les données reçues en groupes exploitables par Tastr
                 function formatGroup (groups) {
 
@@ -73,7 +105,7 @@ exports.creerGroupes = function(id_user, groupsToCreate) {
         })
         .then((response) => {return response.json()})
         .then((responseData) => {return responseData})
-        .then((data) => resolve(exports.rejoindreGroupes(id_user,groupsToCreate))) // Rejoindre les groupes précédemment créés
+        .then((data) => resolve(data)) // Rejoindre les groupes précédemment créés
         .catch((err) => reject(err))
     })
 }

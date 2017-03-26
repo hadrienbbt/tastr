@@ -197,9 +197,9 @@ app.get('/group/find/possible', function(req,res) {
 
     if (req.session.usersPerSeries) {
         usersPerSeries = req.param('favorites') ? req.session.usersPerSeries.favorites : req.session.usersPerSeries.shows;
-        console.log('*******************');
+        /*console.log('*******************');
         console.log('USERS PAR SERIES ');
-        console.log(usersPerSeries);
+        console.log(usersPerSeries);*/
 
         // Définir la prochaine route en fonction du remplissage de l'objet retour
         // D'abord les favoris puis les normales
@@ -213,11 +213,10 @@ app.get('/group/find/possible', function(req,res) {
 
             // Trier les groupes  par ordre décroissant de niveau
             for (var type_groupe in req.session.groups) req.session.groups[type_groupe].sort((a,b) => {return b.shows.length - a.shows.length})
-            /*console.log('*******************');
+            console.log('*******************');
             console.log('GROUPES POSSIBLES');
-            console.log(JSON.stringify(req.session.groups, null, 4));*/
-
-
+            //console.log(JSON.stringify(req.session.groups, null, 4));
+            console.log(req.session.groups);
             res.respond({groups: req.session.groups}, 200);
         }
 
@@ -234,7 +233,7 @@ app.get('/group/find/possible', function(req,res) {
 
                     groupPossible.push({
                         shows: [{_id: id_show}],
-                        participants: id_viewers.concat([id_user]) // ajouter l'utilisateur courant aux participants à la conv
+                        participants: id_viewers.concat(id_user) // ajouter l'utilisateur courant aux participants à la conv
                     });
 
                     delete usersPerSeries[id_show];
@@ -350,46 +349,69 @@ app.get('/group/find/existing', function(req,res) {
     : res.respond({user: null},200);
 });
 
+// Créer les groupes sélecionnés par l'utilisateur
+// Modifier les groupes existant pour insérer l'utilisateur dans le réseau sans doublon de séries pour les gens
 app.post('/group/create', function(req,res) {
     var tabGroupsToCreate = req.param('groups');
+    var id_user = req.param('id_user');
     console.log(tabGroupsToCreate);
-    tabGroupsToCreate.length > 0 ?
-        db.collection('show').find().toArray((err,resp) => {
-            var shows = resp;
-            for (var i = 0; i<tabGroupsToCreate.length; i++) {
-                var groupe = tabGroupsToCreate[i];
-                groupe && groupe.shows && groupe.participants ?
-                    db.collection("groupe").insert({
-                        messages:[], shows: groupe.shows, participants: groupe.participants}, (err,resp) => {
-                        console.log(resp);
-                    })
+    if(tabGroupsToCreate.length > 0) {
+        console.log('CREATION DES GROUPES');
+        for (var i = 0; i < tabGroupsToCreate.length; i++) {
+            var groupe = tabGroupsToCreate[i];
+            groupe && groupe.shows && groupe.participants ?
+                db.collection("groupe").insert({
+                    messages: [], shows: groupe.shows, participants: groupe.participants
+                }, (err, resp) => {
                     // Modifier les groupes existants
                     // pour accomplir un transfert des séries
-                :res.respond(new Error("invalid group provided"),500);
-            }
-            res.respond({message: 'groupes créés !'},200);
-        })
-    :res.respond(new Error("no group provided"),500);
+                    Tastr.transfererSeries(resp.ops[0], id_user, db)
+                })
+                : res.respond(new Error("invalid group provided"), 500);
+        }
+        res.respond({message: 'groupes créés et rejoints !'}, 200);
+    } else res.respond({message: 'aucun groupe à créer'}, 200);
 });
 
 app.post('/group/join', function(req,res) {
     var tabGroupsToJoin = req.param('groups');
-    console.log(tabGroupsToJoin);
+    var id_user = req.param('id_user');
+
     tabGroupsToJoin.length > 0 ?
-        res.respond({message: 'groupes rejoints !'},200)
-    :res.respond(new Error("no group provided"),500);
+        Tastr.addUserToGroups(id_user,tabGroupsToJoin,db).then(
+            () => res.respond({message: 'groupes rejoints !'},200),
+            (err) => res.respond(err,500)
+        )
+    :res.respond({message: 'aucun groupe à rejoindre'}, 200);
 });
 
-// Get the user with given id
+// Get the user and the groups which he belongs
+// param : id_user
 app.get('/user', function(req,res) {
-    console.log(req.param('id_user'));
     var id_user = ObjectID.isValid(req.param('id_user')) ? new ObjectID(req.param('id_user')) : null;
+
     id_user ?
         db.collection("user").find({_id: id_user}).toArray(function(err,resp) {
-            res.respond({user: resp[0]},200);
+            var user = resp[0];
+            Tastr.getGroupsOf(user._id,db).then(
+                (groups) => res.respond({user: user, groups: groups},200),
+                (error) => res.respond(new Error("user non trouvé"),500)
+            )
         })
-        : res.respond({user: null},200);
+    : res.respond({user: null},200);
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
