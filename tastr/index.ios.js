@@ -15,6 +15,7 @@ import {
     AppRegistry,
     Text,
     View,
+    Image
     } from 'react-native';
 
 // functions tastr
@@ -28,6 +29,7 @@ import Setup from './components/Setup.js';
 var styles = require('./styles/styles.js');
 var strings = require('./const/lang.js');
 strings.setLanguage('fr');
+var splashcreen = require('./img/splashcreen3.png');
 
 // configs
 var conf = require('./const/conf.js');
@@ -44,6 +46,7 @@ export default class Tastr extends Component {
         this._renderComponent = this._renderComponent.bind(this);
         this._ConnexionController;
     }
+
 
     _ConnexionController() {
         // if there isn't a cookie for the user id, show connection workflow
@@ -75,6 +78,7 @@ export default class Tastr extends Component {
                         console.log(this.state.id_user + ' est connecté!');
                         return (<Setup anchor={this} id_user={this.state.id_user} groups={this.state.groups} />)
                     } else {
+                        // Afficher les discussions
                         return (<Splashscreen />)
                     }
                 }
@@ -85,7 +89,9 @@ export default class Tastr extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                 {this._renderComponent()}
+                <Image source={splashcreen} style={styles.backgroundImage}>
+                    {this._renderComponent()}
+                </Image>
             </View>
         );
     }

@@ -26,7 +26,7 @@ exports.getContext = function(id_user) {
             .then((response) => {return response.json()})
             .then((responseData) => {return responseData;})
             .then((dataUser) => {
-                console.log('contexte reçu !\n Le voici :'+JSON.stringify(dataUser));
+                console.log('contexte reçu !\n Le voici :'+ dataUser);
 
                 // Si le tableau des groupes de l'utilisateur est vide, on lui propose d'en rejoindre
                 // ET on signifie à la vue qu'il faut présenter des groupes à rejoindre
