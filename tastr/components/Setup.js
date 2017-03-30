@@ -6,7 +6,6 @@
 
 import React, { Component, PropTypes } from 'react';
 import * as Animatable from 'react-native-animatable';
-
 import {
     Text,
     View,

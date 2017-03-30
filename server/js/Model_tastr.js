@@ -39,7 +39,7 @@ exports.addUserToGroups = (id_user,groupsToJoin,db) => {
                         participants: id_user
                     }
                 }, {multi: true}, (err, resp) =>
-                    err ? reject(err) : i == groups.length ? resolve(resp) : null
+                    err ? reject(err) : i == groups.length ? resolve() : null
             )
         }
     });
