@@ -40,11 +40,11 @@ export default class Tastr extends Component {
 
     constructor(props) {
         super(props);
-        //this.state = {isConnected: null};
-        this.state = {isConnected: true, id_user: '58ced4dc4ba97f710e15645b'}
+        this.state = {isConnected: null};
+        //this.state = {isConnected: true, id_user: '58ced4dc4ba97f710e15645b'}
         this._ConnexionController = this._ConnexionController.bind(this);
         this._renderComponent = this._renderComponent.bind(this);
-        this._ConnexionController;
+        this._ConnexionController();
     }
 
 
