@@ -6,19 +6,19 @@ Native WebApp to meet new people
 `git clone https://github.com/hadrienbbt/tastr`
 `cd tastr`
 
-### Step 2 :
+### Step 2 (this step is optional for running but necessary for working) :
 Install mongoDB
 `mongod --dbpath server/db`
 
 ### Step 4 :
 Install node.js
-In another terminal window, type:
 `npm install`
+
+### Step 5 (this step is optional for running but necessary for working) :
 `cd server`
 `node app.js`
 
-### Step 4 :
-In another terminal window, type:
+### Step 6 :
 `cd tastr/tastr`
 `react-native link`
 `react-native run-ios`
