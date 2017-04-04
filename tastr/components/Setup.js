@@ -17,8 +17,6 @@ import {
 // config
 var styles = require('../styles/styles.js');
 var conf = require('../const/conf.js');
-var width = Dimensions.get('window').width;
-var splashcreen = require('../img/splashcreen3.png');
 
 import Tutoriel from './Tutoriel.js';
 import SelectionGroupe from './SelectionGroupe.js';

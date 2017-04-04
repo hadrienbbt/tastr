@@ -24,7 +24,7 @@ import HeaderSection from './HeaderSection.js';
 import GroupOverview from './GroupOverview.js';
 
 // functions tastr
-var controllerTastr = require('../controller/tastr.js');
+var modelTastr = require('../model/tastr.js');
 
 // config
 var styles = require('../styles/styles.js');
@@ -121,9 +121,9 @@ export default class SelectionGroupe extends Component {
                     groupsToJoin.push(this.props.groups.existing[i-tabGroupes.length]); // enlever l'offset
 
             var page = this;
-            controllerTastr.creerGroupes(this.props.id_user, groupsToCreate).then(
+            modelTastr.creerGroupes(this.props.id_user, groupsToCreate).then(
                 (data) =>
-                    controllerTastr.rejoindreGroupes(this.props.id_user, groupsToJoin).then(
+                    modelTastr.rejoindreGroupes(this.props.id_user, groupsToJoin).then(
                         (data) => page.props.anchor.setState({setupDone: true}),
                         (err) => console.log(err)
                     ),

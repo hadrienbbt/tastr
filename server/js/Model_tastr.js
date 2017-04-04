@@ -14,7 +14,9 @@ exports.getGroupsOf = (id_user,db) => {
     var id_user = id_user.toString();
     return new Promise((resolve,reject) => {
         db.collection('groupe').find({participants: {$in: [ id_user ]}}).toArray((err,resp) =>
-            err ? reject(err) : resolve(resp)
+            err ? reject(err) : resolve(
+                resp.sort((a,b) => b.shows.length - a.shows.length)
+            )
         )
     })
 }

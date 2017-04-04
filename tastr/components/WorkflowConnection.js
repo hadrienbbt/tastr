@@ -43,7 +43,7 @@ export default class WorkflowConnection extends Component {
         this._moodmusicConnected = this._moodmusicConnected.bind(this);
         this.state = {
             showCode: false,
-            apiToConnect: 'moodmusic',
+            apiToConnect: 'show',
         };
     }
 

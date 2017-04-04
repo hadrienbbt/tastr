@@ -394,8 +394,11 @@ app.get('/user', function(req,res) {
         db.collection("user").find({_id: id_user}).toArray(function(err,resp) {
             var user = resp[0];
             Tastr.getGroupsOf(user._id,db).then(
-                (groups) => res.respond({user: user, groups: groups},200),
-                (error) => res.respond(new Error("user non trouvé"),500)
+                (groups) => {res.respond({user: user, groups: groups},200)},
+                (error) => {
+                    console.log("pas d'user " + error);
+                    res.respond(new Error("user non trouvé"))
+                }
             )
         })
     : res.respond({user: null},200);

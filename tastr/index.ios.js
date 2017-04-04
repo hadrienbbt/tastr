@@ -17,9 +17,10 @@ import {
     View,
     Image
     } from 'react-native';
+import Tastr_Connected from "./components/Tastr_Connected";
 
 // functions tastr
-var controllerTastr = require('./controller/tastr.js');
+var modelTastr = require('./model/tastr.js');
 
 // custom components
 import Splashscreen from './components/Splashscreen.js';
@@ -36,15 +37,15 @@ var conf = require('./const/conf.js');
 
 const dismissKeyboard = require('dismissKeyboard');
 
-export default class Tastr extends Component {
+export default class Controller extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {isConnected: null};
-        //this.state = {isConnected: true, id_user: '58ced4dc4ba97f710e15645b'}
+        //this.state = {isConnected: null};
+        this.state = {isConnected: true, id_user: '58ced4dc4ba97f710e15645b'}
         this._ConnexionController = this._ConnexionController.bind(this);
         this._renderComponent = this._renderComponent.bind(this);
-        this._ConnexionController();
+        this._ConnexionController
     }
 
 
@@ -68,18 +69,20 @@ export default class Tastr extends Component {
             else {
                 if (!this.state.groups) {
                     console.log('on va chercher le contexte ...');
-                    var anchor = this;
-                    controllerTastr.getContext(this.state.id_user).then(
+                    var anchor = this; // == el.onclick = () => this.doSomething()
+                    modelTastr.getContext(this.state.id_user).then(
                         (data) => anchor.setState({user: data.user, groups: data.groups, setupDone: data.setupDone}),
                         (error) => console.log(error)
                     )
                 } else {
                     if (!this.state.setupDone) {
-                        console.log(this.state.id_user + ' est connecté!');
+                        console.log(this.state.id_user + ' est connecté et doit sélectionner des groupes à rejoindre!');
                         return (<Setup anchor={this} id_user={this.state.id_user} groups={this.state.groups} />)
                     } else {
+                      console.log(this.state.id_user + ' est connecté et appartient à des groupes');
+
                         // Afficher les discussions
-                        return (<Splashscreen />)
+                        return (<Tastr_Connected model={modelTastr} user={this.state.user} groups={this.state.groups}/>)
                     }
                 }
             }
@@ -109,11 +112,11 @@ class swiper extends Component {
                 showsButtons={false}
                 loop= {true}
                 index={0}>
-                <Tastr />
-                <Tastr />
+                <Controller />
+                <Controller />
             </Swiper>
         )
     }
 }
 
-AppRegistry.registerComponent('tastr', () => Tastr);
+AppRegistry.registerComponent('tastr', () => Controller);
