@@ -3,47 +3,59 @@
  */
 
 import React, { Component } from 'react';
-import TextField from 'react-native-md-textinput';
 import {
     Text,
     View,
-    Button,
+    Navigator,
+    Image
     } from 'react-native';
 
+import Title from "./Title";
+import Swipable_Tabs from "./Swipable_Tabs";
+
 var styles = require('../styles/styles.js');
+var splashcreen = require('../img/splashcreen3.png');
 
 export default class Tastr_Connected extends Component {
     constructor(props) {
-        super(props);
-        this.state = {model: this.props.model, user: this.props.user, groups: this.props.groups}
-        this._getShow = this._getShow.bind(this)
-        console.log(this.state.groups)
+        super(props)
+
+        this.state = { model: this.props.model, user: this.props.user, groups: this.props.groups}
+        this._navigatorRenderScene = this._navigatorRenderScene.bind(this)
     }
 
-    _getShow() {
-        var access_token = this.state.user.show_infos.access_token;
-        var name = this.refs.textfield_searchShowByName.state.text;
-        this.state.model.searchShowByName(name,access_token).then(
-            (show) => console.log(show),
-            (error) => console.log(error)
-        )
+    _navigatorRenderScene (route, navigator) {
+        switch (route.id) {
+            case 0:
+                return (
+                    <Swipable_Tabs
+                        navigator={navigator}
+                        route={route}
+                        user={this.state.user}
+                        groups={this.state.groups}
+                        model={this.state.model}
+                    />
+                );
+            case 1: // messages du groupe
+                console.log(route.id_groupe)
+                return (
+                    <View style={{flex: 1, backgroundColor: '#009688'}}>
+                        <Title subtitle='Messages'/>
+                    </View>
+                );
+        }
     }
 
     render() {
+
         return (
-            <View style={styles.backdropView}>
-                <View style={styles.view_music_connection}>
-                    <Text style={[styles.instructions, styles.biggerFont]}>
-                        Recherchez une série
-                    </Text>
-                    <View style={styles.textfield}>
-                        <TextField ref='textfield_searchShowByName' label={'Série'} highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
-                    </View>
-                    <View ref='button_getCode'>
-                        <Button ref='button_getCode' title="GO" color='white' onPress={this._getShow}/>
-                    </View>
-                </View>
-            </View>
+            <Navigator
+                initialRoute={{id:0}}
+                renderScene={this._navigatorRenderScene}
+                configureScene={(route, routeStack) =>
+                    Navigator.SceneConfigs.PushFromRight}
+                style={{flex: 1}}
+            />
         )
     }
 }

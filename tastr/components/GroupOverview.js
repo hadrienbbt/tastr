@@ -175,14 +175,17 @@ export default class GroupOverview extends Component {
     render() {
         return(
             <TouchableWithoutFeedback onPress={() => {
-                this.setState({isChecked: !this.state.isChecked})
+                if(!this.props.bloquerSelection) {
+                    this.setState({isChecked: !this.state.isChecked})
+                }
                 this.props._selectionnerGroupe(this.props._id)
             }}>
                 <View style={{
                     width: 0.9 * width,
                     flexDirection: 'row',
                     marginTop: 15,
-                    paddingLeft: 30,
+                    marginBottom: 5,
+                    paddingLeft: 35,
                     paddingRight: 10,
                 }}>
                     <View style={{

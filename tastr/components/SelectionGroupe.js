@@ -34,11 +34,11 @@ var width = Dimensions.get('window').width;
 export default class SelectionGroupe extends Component {
     constructor(props) {
         super(props)
-        this._renderFollowing = this._renderFollowing.bind(this);
+        this._renderFollowing = this._renderFollowing.bind(this)
         this._afficherGroupes = this._afficherGroupes.bind(this)
         this._selectionnerGroupe = this._selectionnerGroupe.bind(this)
         this._envoyerGroupesSelectionnes = this._envoyerGroupesSelectionnes.bind(this)
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
         this.state = {
             allGroupsCheked: false,
             groupsChecked: [],
@@ -136,12 +136,7 @@ export default class SelectionGroupe extends Component {
     render() {
         return (
             <ScrollView>
-                <View style={{
-                    flex: 1,
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    marginTop: 30,
-                }}>
+                <View style={styles.marginContainer}>
                     <Text style={styles.h1}>Bienvenue sur Tastr !</Text>
                     <Text style={[styles.h2, styles.instructions_group, {width: 0.7 * width}]}>À propos de quelles séries veux-tu discuter ?</Text>
                     { /* Tout (dé)sélectionner

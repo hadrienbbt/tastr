@@ -24,13 +24,7 @@ export default class Tutoriel extends Component {
 
     render() {
         return (
-            <View style={{
-                flex: 1,
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-                marginTop: 30,
-                width: width * 0.9
-            }}>
+            <View style={[styles.marginContainer,{width: width * 0.9}]}>
                 <Text style={styles.h1}>Bienvenue sur Tastr !</Text>
                 <Text style={[styles.h2, {marginTop: 25}]}>Tu vas pouvoir rejoindre des groupes de discussion sur tes séries préférées et rencontrer tes nouveaux internet buddies !</Text>
                 <Text style={[styles.h2, {marginTop: 25}]}>Le niveau du groupe correspond au nombre de séries que vous avez tous en commun. Découvrez ensemble de nouvelles séries et gagnez des niveaux pour impressionner tout le monde !</Text>

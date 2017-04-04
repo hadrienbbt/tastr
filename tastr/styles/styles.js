@@ -130,4 +130,30 @@ module.exports = StyleSheet.create({
         marginLeft: width * 0.2,
         marginRight: width * 0.2,
     },
+    icn_navbar: {
+        height: 26,
+        width: 26,
+        marginBottom: 5,
+    },
+    container_navtab: {
+        height: 42,
+        width: 80, // WIDTH TAB CLICKABLE
+        alignItems: 'center'
+    },
+    spaceTab: {
+        width: (width - (80*3))/4, //width - (WIDTH_TAB_CLICKABLE * NB_TAB) / NB_BLANK
+    },
+    marginContainer: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginTop: 30,
+    },
+    rightArrow: {
+        height: 20,
+        width: 20,
+        marginTop: 25,
+        marginLeft: 5,
+    },
+
 });

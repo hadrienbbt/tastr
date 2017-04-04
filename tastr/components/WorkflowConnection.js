@@ -245,7 +245,7 @@ export default class WorkflowConnection extends Component {
                                             <TextField ref='textfield_email' label={'Email'} keyboardType="email-address" highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
                                         </View>
                                         <Animatable.View ref='button_getCode'>
-                                            <Button ref='button_getCode' title="OBTENIR MON CODE" color='white' onPress={this._connecterMoodmusic} color='white' />
+                                            <Button ref='button_getCode' title="OBTENIR MON CODE" color='white' onPress={this._connecterMoodmusic} />
                                         </Animatable.View>
                                     </View>
                                 </Animatable.View>
@@ -257,7 +257,7 @@ export default class WorkflowConnection extends Component {
                                         <View style={styles.textfield}>
                                             <TextField ref='textfield_code' label={'Code'} keyboardType={'numeric'} highlightColor={'white'} labelColor={'white'} textColor={'white'}/>
                                         </View>
-                                        <Button title="SE CONNECTER" color='white' onPress={this._connecterMoodmusic} color='white' />
+                                        <Button title="SE CONNECTER" color='white' onPress={this._connecterMoodmusic} />
                                     </View>
                                 </Animatable.View>
                             </View>
