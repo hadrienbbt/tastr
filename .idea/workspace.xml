@@ -2,33 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c821161e-59f6-442b-9901-ed4d29579866" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/db/journal/WiredTigerLog.0000000008" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tastr/img/splashcreen.png" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/tastr/controller/tastr.js" afterPath="$PROJECT_DIR$/tastr/model/tastr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/WiredTiger.wt" afterPath="$PROJECT_DIR$/server/db/WiredTiger.wt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/collection-0--4524344232601947395.wt" afterPath="$PROJECT_DIR$/server/db/collection-0--4524344232601947395.wt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/collection-0-8288801240397073690.wt" afterPath="$PROJECT_DIR$/server/db/collection-0-8288801240397073690.wt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/collection-2--4078000718091888855.wt" afterPath="$PROJECT_DIR$/server/db/collection-2--4078000718091888855.wt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/collection-5--4524344232601947395.wt" afterPath="$PROJECT_DIR$/server/db/collection-5--4524344232601947395.wt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/diagnostic.data/metrics.interim" afterPath="$PROJECT_DIR$/server/db/diagnostic.data/metrics.interim" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/index-1--4524344232601947395.wt" afterPath="$PROJECT_DIR$/server/db/index-1--4524344232601947395.wt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/index-3--4078000718091888855.wt" afterPath="$PROJECT_DIR$/server/db/index-3--4078000718091888855.wt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/sizeStorer.wt" afterPath="$PROJECT_DIR$/server/db/sizeStorer.wt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wireframe/tastr.xd" afterPath="$PROJECT_DIR$/wireframe/tastr.xd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.js" afterPath="$PROJECT_DIR$/server/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/WiredTiger.turtle" afterPath="$PROJECT_DIR$/server/db/WiredTiger.turtle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/mongod.lock" afterPath="$PROJECT_DIR$/server/db/mongod.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/js/Model_tastr.js" afterPath="$PROJECT_DIR$/server/js/Model_tastr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/ConnectShow.js" afterPath="$PROJECT_DIR$/tastr/components/ConnectShow.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/SelectionGroupe.js" afterPath="$PROJECT_DIR$/tastr/components/SelectionGroupe.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/Setup.js" afterPath="$PROJECT_DIR$/tastr/components/Setup.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/Tastr_Connected.js" afterPath="$PROJECT_DIR$/tastr/components/Tastr_Connected.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/WorkflowConnection.js" afterPath="$PROJECT_DIR$/tastr/components/WorkflowConnection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/index.ios.js" afterPath="$PROJECT_DIR$/tastr/index.ios.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/ios/tastr.xcodeproj/xcshareddata/xcschemes/tastr.xcscheme" afterPath="$PROJECT_DIR$/tastr/ios/tastr.xcodeproj/xcshareddata/xcschemes/tastr.xcscheme" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/package.json" afterPath="$PROJECT_DIR$/tastr/package.json" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/db/diagnostic.data/metrics.interim" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/diagnostic.data/metrics.2017-04-03T20-27-23Z-00000" afterPath="$PROJECT_DIR$/server/db/diagnostic.data/metrics.2017-04-03T20-27-23Z-00000" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="ProjetInfo_2A.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,8 +39,8 @@
       <file leaf-file-name="Tastr_Connected.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tastr/components/Tastr_Connected.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="14" lean-forward="true" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+            <state relative-caret-position="680">
+              <caret line="40" column="12" lean-forward="true" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="12" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#45#86#0" expanded="true" />
@@ -457,12 +433,12 @@
       <updated>1486478669048</updated>
       <workItem from="1491247839124" duration="245000" />
       <workItem from="1491248198004" duration="15000" />
-      <workItem from="1491251287631" duration="6312000" />
+      <workItem from="1491251287631" duration="6553000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6572000" />
+    <option name="totallyTimeSpent" value="6813000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="586" y="0" width="1094" height="1045" extended-state="0" />
@@ -902,8 +878,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tastr/components/Tastr_Connected.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="14" lean-forward="true" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+        <state relative-caret-position="680">
+          <caret line="40" column="12" lean-forward="true" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="12" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#45#86#0" expanded="true" />
