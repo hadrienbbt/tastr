@@ -9,6 +9,7 @@ import {
 
 import NavBar from './NavBar.js';
 import Conversations from "./Conversations.js"
+import ToWatchList from "./ToWatchList";
 
 import Title from "./Title";
 
@@ -23,6 +24,7 @@ export default class Swipable_Tabs extends Component {
         this._getShow = this._getShow.bind(this)
         this._onMomentumScrollEnd = this._onMomentumScrollEnd.bind(this)
         this._changeTab = this._changeTab.bind(this)
+
     }
 
     _getShow() {
@@ -46,7 +48,6 @@ export default class Swipable_Tabs extends Component {
     render() {
         return (
             <View style={{flex:1}}>
-                {/*this._renderTab()*/}
                 <View style={{flex:1}}>
                     <Swiper
                         ref='tabs'
@@ -54,18 +55,13 @@ export default class Swipable_Tabs extends Component {
                         showsPagination={false}
                         showsButtons={false}
                         loop= {false}
-                        index={0}>
-                        <Conversations navigator={this.props.navigator} route={this.props.route} groups={this.state.groups} />
+                        index={this.state.selected}>
 
+                        <Conversations navigator={this.props.navigator} route={this.props.route} groups={this.state.groups} />
 
                         <View style={{flex: 1}}>
                             <Title subtitle='Séries qui pourraient te plaire'/>
-                        </View>
-
-
-                        <View style={styles.backdropView}>
-                            <Title subtitle='Épisodes à voir'/>
-                            <View style={{flex:1}}>
+                            {/*<View style={{flex:1}}>
                                 <View style={styles.view_music_connection}>
                                     <Text style={[styles.instructions, styles.biggerFont]}>
                                         Recherchez une série
@@ -78,7 +74,10 @@ export default class Swipable_Tabs extends Component {
                                     </View>
                                 </View>
                             </View>
+                            <View style={{height: 60}}/>*/}
                         </View>
+
+                        <ToWatchList user={this.state.user} model={this.state.model} />
                     </Swiper>
                 </View>
                 <NavBar changeTab={this._changeTab} activeTab={this.state.selected}/>

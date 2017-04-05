@@ -156,6 +156,26 @@ exports.getUser = function(_id) {
     })
 }
 
+exports.getToWatchList = (token) => {
+    return new Promise(function(resolve,reject) {
+        fetch(conf.server_domain+'/user/show/unseen?access_token=' + token, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((responseData) => {
+                return responseData;
+            })
+            .then((tabItems) => resolve(tabItems.tabItems))
+            .catch(function (err) {reject(err)})
+    })
+}
+
 exports.BetaSerieRequest = function(method,url,token = '',params = {}) {
     // Exception cases
     if (method != 'GET' && method != 'POST' && method != 'PUT' && method != 'DELETE')   throw new Exception('invalid REST method');
@@ -168,7 +188,7 @@ exports.BetaSerieRequest = function(method,url,token = '',params = {}) {
                 'Content-Type': 'application/json',
                 'X-BetaSeries-Version': 2.4,
                 'X-BetaSeries-Key': conf.bs_key,
-                'Authorization': 'Bearer ' + exports.token ? exports.token : token
+                'Authorization': 'Bearer ' + token
             }
         })
             .then((response) => {return response.json()})
@@ -179,7 +199,6 @@ exports.BetaSerieRequest = function(method,url,token = '',params = {}) {
             .catch(function (err) {reject(err)})
     });
 }
-
 
 exports.searchShowByName = function(name,token = '') {
     return new Promise(function(resolve,reject) {

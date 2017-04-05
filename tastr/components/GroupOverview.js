@@ -151,12 +151,12 @@ export default class GroupOverview extends Component {
                 <View style={{width: 150}}>
                     <Text style={{
                         color: '#03A9F4',
-                        fontSize: 12,
+                        fontSize: 15,
                     }}>{this.state.minimize ? 'Voir plus' : 'Voir moins'}
                     </Text>
                     <Text style={{
                         color: '#9E9E9E',
-                        fontSize: 12,
+                        fontSize: 15,
                     }}>Groupe de niveau {this.props.shows.length}</Text>
                 </View>
             </TouchableWithoutFeedback>
@@ -166,7 +166,7 @@ export default class GroupOverview extends Component {
                 <View>
                     <Text style={{
                         color: '#9E9E9E',
-                        fontSize: 12,
+                        fontSize: 15,
                     }}>Groupe de niveau {this.props.shows.length}</Text>
                 </View>
             )
@@ -194,7 +194,7 @@ export default class GroupOverview extends Component {
                     }}>
                         <Text style={{
                             color: 'white',
-                            fontSize: 16,
+                            fontSize: 20,
                             paddingRight: 10,
                             width: 0.9 * width - 90,
                         }}>{this.state.shows.join(', ').length > this.state.maxLengthDisplay && this.state.minimize ? this.state.shows.join(', ').slice(0,this.state.shows.join(', ').indexOf(' ',this.state.maxLengthDisplay)) + '...' : this.state.shows.join(', ')}</Text>

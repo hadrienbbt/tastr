@@ -29,8 +29,6 @@ export default class Conversations extends Component {
                 <View style={{flex: 1}}>
                     <Title subtitle='Tes conversations'/>
                     <ListView style={{flex: 1}}
-                      key={0}
-                      enableEmptySections={true}
                       dataSource={this.state.ds_groups}
                       renderRow={(rowData) =>
                           <View>
@@ -42,6 +40,7 @@ export default class Conversations extends Component {
                           </View>
                       }
                     />
+                    <View style={{height: 60}}/>
                 </View>
             </View>
         )

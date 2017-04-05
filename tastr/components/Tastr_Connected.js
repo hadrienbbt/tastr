@@ -2,19 +2,16 @@
  * Created by hadrien1 on 27/02/17.
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
     Text,
     View,
     Navigator,
     Image
-    } from 'react-native';
+    } from 'react-native'
 
-import Title from "./Title";
-import Swipable_Tabs from "./Swipable_Tabs";
-
-var styles = require('../styles/styles.js');
-var splashcreen = require('../img/splashcreen3.png');
+import Title from "./Title"
+import Swipable_Tabs from "./Swipable_Tabs"
 
 export default class Tastr_Connected extends Component {
     constructor(props) {
@@ -35,7 +32,7 @@ export default class Tastr_Connected extends Component {
                         groups={this.state.groups}
                         model={this.state.model}
                     />
-                );
+                )
             case 1: // messages du groupe
                 console.log(route.id_groupe)
                 return (
@@ -47,7 +44,6 @@ export default class Tastr_Connected extends Component {
     }
 
     render() {
-
         return (
             <Navigator
                 initialRoute={{id:0}}

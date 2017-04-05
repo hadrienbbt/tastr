@@ -9,6 +9,7 @@ import {
     TouchableWithoutFeedback,
     Image,
     Dimensions,
+    StyleSheet
 } from 'react-native';
 
 var styles = require('../styles/styles.js');
@@ -27,6 +28,44 @@ var tvshow_selected = require('../img/icn_navbar/tvshow_selected.png')
 export default class NavBar extends Component {
     constructor(props) {
         super(props)
+        this._rendertabs = this._rendertabs.bind(this)
+
+        this.state = { tabs: [
+            {
+                icn: groups,
+                icn_selected: groups_selected,
+                label: 'Groupes',
+            },
+            {
+                icn: upgrade,
+                icn_selected: upgrade_selected,
+                label: 'Découvrir',
+            },
+            {
+                icn: tvshow,
+                icn_selected: tvshow_selected,
+                label: 'Séries à voir',
+            },
+        ]}
+    }
+
+    _rendertabs() {
+        var render = []
+
+        for (var i = 0; i < this.state.tabs.length; i++) {
+            var tab = this.state.tabs[i]
+            render.push(
+                <TouchableWithoutFeedback key={i} onPress={this.props.changeTab.bind(this,i,this.props.activeTab)}>
+                    <View style={styles.container_navtab}>
+                        <Image source={this.props.activeTab == i ? tab.icn_selected : tab.icn} style={styles.icn_navbar}/>
+                        <Text style={styledText(this.props.activeTab,i)}>{tab.label}</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+            )
+            if (i != (this.state.tabs.length-1)) render.push(<View key={i+this.state.tabs.length} style={styles.spaceTab}/>)
+        }
+
+        return render
     }
 
     render() {
@@ -40,35 +79,21 @@ export default class NavBar extends Component {
                 <View style={{
                     width: width,
                     height: 60,
-                    backgroundColor: 'black',
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
                     flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <TouchableWithoutFeedback onPress={() => this.props.changeTab(0,this.props.activeTab)}>
-                        <View style={styles.container_navtab}>
-                            <Image source={this.props.activeTab == 0 ? groups_selected : groups} style={styles.icn_navbar}/>
-                            <Text style={{fontSize: 10,color: this.props.activeTab == 0 ? '#009688' : 'white'}}>Groupes</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
-                    <View style={styles.spaceTab}/>
-                    <TouchableWithoutFeedback onPress={() => this.props.changeTab(1,this.props.activeTab)}>
-                        <View style={styles.container_navtab}>
-                            <Image source={this.props.activeTab == 1 ? upgrade_selected : upgrade} style={styles.icn_navbar}/>
-                            <Text style={{fontSize: 10,color: this.props.activeTab == 1 ? '#009688' : 'white'}}>Améliorer</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
-                    <View style={styles.spaceTab}/>
-                    <TouchableWithoutFeedback onPress={() => this.props.changeTab(2,this.props.activeTab)}>
-                        <View style={styles.container_navtab}>
-                            <Image source={this.props.activeTab == 2 ? tvshow_selected : tvshow} style={styles.icn_navbar}/>
-                            <Text style={{fontSize: 10,color: this.props.activeTab == 2 ? '#009688' : 'white'}}>Séries</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
-
-
+                    {this._rendertabs()}
                 </View>
             </View>
         )
+    }
+}
+
+var styledText = (activeTab, tabNum) => {
+    return {
+        fontSize: 12,
+        color: activeTab == tabNum ? 'white' : '#9E9E9E',
     }
 }

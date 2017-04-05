@@ -115,6 +115,26 @@ exports.BetaSerieRequest = function(method,url,token,params = {}) {
     });
 }
 
+exports.getToWatchList = (token) => {
+    return new Promise((resolve, reject) => {
+        var url = 'https://api.betaseries.com/episodes/list?subtitles=all&limit=1'
+        exports.BetaSerieRequest('GET', url, token).then((data) => {
+            var shows = JSON.parse(data).shows
+            var tabItems = new Array()
+            for(var i = 0; i<shows.length; i++) {
+                var show = shows[i]
+                tabItems.push({
+                    title: show.title,
+                    code: show.unseen[0].code,
+                    remaining: show.remaining-1,
+                    subtitle: show.unseen[0].subtitles.length > 0 ? show.unseen[0].subtitles[0].url : null,
+                    id_tvdb: show.thetvdb_id,
+                })
+            }
+            resolve(tabItems)
+        }, (err) => reject(err))
+    })
+}
 
 exports.searchShowByName = function(title, token) {
     return new Promise(function(resolve,reject) {

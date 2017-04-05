@@ -131,8 +131,8 @@ module.exports = StyleSheet.create({
         marginRight: width * 0.2,
     },
     icn_navbar: {
-        height: 26,
-        width: 26,
+        height: 30,
+        width: 30,
         marginBottom: 5,
     },
     container_navtab: {

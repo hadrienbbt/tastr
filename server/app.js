@@ -404,6 +404,27 @@ app.get('/user', function(req,res) {
     : res.respond({user: null},200);
 });
 
+app.get('/user/show/unseen', (req,res) => {
+    var access_token = req.param('access_token') ? req.param('access_token') : null;
+
+    access_token ?
+        db.collection('show').find().toArray((err,allShows) =>
+            Tastr.getToWatchList(access_token).then((tabItems) => {
+                for (var i = 0; i<tabItems.length; i++) { // Ajouter une image au retour de la requete à betaseries
+
+                    var idToFind = tabItems[i].id_tvdb
+                    var id_show_from_db = allShows.findIndex(function(item, i){
+                        return item.id_tvdb === idToFind
+                    });
+
+                    tabItems[i].image = allShows[id_show_from_db].images.poster
+                }
+                res.respond({tabItems: tabItems})
+            })
+        )
+    : res.respond(new Error("Token needed"));
+})
+
 
 
 

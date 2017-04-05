@@ -138,7 +138,7 @@ export default class SelectionGroupe extends Component {
             <ScrollView>
                 <View style={styles.marginContainer}>
                     <Text style={styles.h1}>Bienvenue sur Tastr !</Text>
-                    <Text style={[styles.h2, styles.instructions_group, {width: 0.7 * width}]}>À propos de quelles séries veux-tu discuter ?</Text>
+                    <Text style={[styles.h2, styles.instructions_group, {width: 0.7 * width}]}>De quelles séries veux-tu discuter ?</Text>
                     { /* Tout (dé)sélectionner
                     <TouchableWithoutFeedback onPress={() => {
                         this._selectionnerGroupe(1)

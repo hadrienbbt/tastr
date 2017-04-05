@@ -21,8 +21,8 @@ export default class Title extends Component {
     render() {
         return (
             <View style={{alignItems: 'center'}}>
-                <Text style={[styles.h1, {marginTop: 20}]}>Tastr</Text>
-                <Text style={[styles.h2, {marginBottom: 20}]}>{this.props.subtitle}</Text>
+                <Text style={{marginTop: 30, fontSize: 32, color: 'white'}}>Tastr</Text>
+                <Text style={{marginBottom: 10, fontSize: 20, color: "#F5F5F5"}}>{this.props.subtitle}</Text>
             <View style={{width: 0.85 * width}}><Hr lineColor='#616161'/></View>
             </View>
         )
