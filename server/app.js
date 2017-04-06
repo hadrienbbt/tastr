@@ -425,7 +425,25 @@ app.get('/user/show/unseen', (req,res) => {
     : res.respond(new Error("Token needed"));
 })
 
+app.post('/chat/message/add', (req,res) => {
+    var message = req.param('message')
+    var id_group = req.param('id_group')
 
+    db.collection('groupe').update({_id: ObjectID(id_group)},{
+        $push: {
+            messages: {
+                $each: [message],
+                $position: 0
+            }
+        }
+    }, (err,resp) => {
+            if (err) res.respond(new Error(err))
+            else {
+                res.respond({success: 'BRAVO'}, 200)
+            }
+        }
+    )
+})
 
 
 

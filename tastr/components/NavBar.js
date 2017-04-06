@@ -47,6 +47,11 @@ export default class NavBar extends Component {
                 label: 'Séries à voir',
             },
         ]}
+
+    }
+
+    componentDidMount() {
+        this.setState({widthTab: width/this.state.tabs.length})
     }
 
     _rendertabs() {
@@ -56,13 +61,18 @@ export default class NavBar extends Component {
             var tab = this.state.tabs[i]
             render.push(
                 <TouchableWithoutFeedback key={i} onPress={this.props.changeTab.bind(this,i,this.props.activeTab)}>
-                    <View style={styles.container_navtab}>
+                    <View style={[styles.container_navtab,{width: this.state.widthTab}]}>
                         <Image source={this.props.activeTab == i ? tab.icn_selected : tab.icn} style={styles.icn_navbar}/>
                         <Text style={styledText(this.props.activeTab,i)}>{tab.label}</Text>
                     </View>
                 </TouchableWithoutFeedback>
             )
-            if (i != (this.state.tabs.length-1)) render.push(<View key={i+this.state.tabs.length} style={styles.spaceTab}/>)
+            if (i != (this.state.tabs.length-1))
+                render.push(
+                    <View key={i+this.state.tabs.length}
+                          style={{width: (width - (this.state.widthTab*this.state.tabs.length))/(this.state.tabs.length+1)}}//width - (WIDTH_TAB_CLICKABLE * NB_TAB) / NB_BLANK
+                    />
+                )
         }
 
         return render

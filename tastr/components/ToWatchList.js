@@ -38,7 +38,7 @@ export default class ToWatchList extends Component {
 
         this._getToWatchList = this._getToWatchList.bind(this)
         this._displayList = this._displayList.bind(this)
-        this._getToWatchList()
+        this._getToWatchList
     }
 
     _getToWatchList() {
@@ -52,7 +52,8 @@ export default class ToWatchList extends Component {
     _displayList() {
         if (this.state.ds_toWatch) {
             return (
-                <ListView style={{width: width}}
+                <ListView
+                    style={{width: width}}
                     dataSource={this.state.ds_toWatch}
                     renderRow={(rowData) =>
                         <ToWatchItem image={rowData.image} title={rowData.title} code={rowData.code} remaining={rowData.remaining} subtitle={rowData.subtitle} id_tvdb={rowData.id_tvdb} />

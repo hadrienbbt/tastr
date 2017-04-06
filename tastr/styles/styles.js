@@ -137,11 +137,7 @@ module.exports = StyleSheet.create({
     },
     container_navtab: {
         height: 42,
-        width: 80, // WIDTH TAB CLICKABLE
         alignItems: 'center'
-    },
-    spaceTab: {
-        width: (width - (80*3))/4, //width - (WIDTH_TAB_CLICKABLE * NB_TAB) / NB_BLANK
     },
     marginContainer: {
         flex: 1,

@@ -176,6 +176,31 @@ exports.getToWatchList = (token) => {
     })
 }
 
+exports.saveMessage = (messages, id_group) => {
+    if (messages.length == 1) {
+        fetch(conf.server_domain+'/chat/message/add', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: messages[0],
+                id_group: id_group
+            })
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((responseData) => {
+                return responseData;
+            })
+            .then((data) => console.log(data.success))
+            .catch((err) => console.log(err))
+
+    } else throw new Error('Pas ou trop de messages')
+}
+
 exports.BetaSerieRequest = function(method,url,token = '',params = {}) {
     // Exception cases
     if (method != 'GET' && method != 'POST' && method != 'PUT' && method != 'DELETE')   throw new Exception('invalid REST method');
