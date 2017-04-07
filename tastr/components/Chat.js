@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
-    View
+    View,
+    StyleSheet
 } from 'react-native';
 
 import { GiftedChat } from 'react-native-gifted-chat';
@@ -29,13 +30,27 @@ export default class Chat extends Component {
         console.log(messages)
         this.props.onSend(messages,this.props.index)
     }
+
     render() {
         return (
             <GiftedChat
                 messages={this.state.messages}
                 onSend={this.onSend}
                 user={{_id: this.props.user._id}}
+                containerStyle={{
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                }}
+                textInputProps={{color: 'white'}}
+                placeholder="Message"
             />
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: '#b2b2b2',
+        backgroundColor: '#FFFFFF',
+    }
+})

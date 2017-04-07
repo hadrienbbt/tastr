@@ -38,7 +38,7 @@ export default class ToWatchList extends Component {
 
         this._getToWatchList = this._getToWatchList.bind(this)
         this._displayList = this._displayList.bind(this)
-        this._getToWatchList
+        this._getToWatchList()
     }
 
     _getToWatchList() {

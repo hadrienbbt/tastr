@@ -47,6 +47,7 @@ export default class Tastr_Connected extends Component {
                         user={this.state.user}
                         groups={this.state.groups}
                         model={this.state.model}
+                        _disconnect={this.props._disconnect}
                     />
                 )
             case 1: // messages du groupe

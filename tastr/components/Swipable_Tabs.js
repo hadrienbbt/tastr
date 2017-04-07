@@ -9,7 +9,7 @@ import {
 
 import NavBar from './NavBar.js';
 import Conversations from "./Conversations.js"
-import ToWatchList from "./ToWatchList";
+import ToWatchList from "./ToWatchList.js";
 
 import Title from "./Title";
 
@@ -75,6 +75,7 @@ export default class Swipable_Tabs extends Component {
                                 </View>
                             </View>
                             <View style={{height: 60}}/>*/}
+                            <Button color="white" title="SE DECONNECTER" text="SE DECONNECTER" onPress={this.props._disconnect}/>
                         </View>
 
                         <ToWatchList user={this.state.user} model={this.state.model} />
