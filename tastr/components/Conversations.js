@@ -3,7 +3,6 @@ import {
     Text,
     View,
     Button,
-    TouchableHighlight,
     Navigator,
     ListView,
     TouchableWithoutFeedback,

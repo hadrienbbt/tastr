@@ -49,6 +49,18 @@ export default class ToWatchList extends Component {
         )
     }
 
+    _vu(id_tvdb, access_token) {
+        console.log('ajout vu à '+id_tvdb+'...')
+        return new Promise((resolve,reject) => this.state.model.postEpisodeWatched(id_tvdb, access_token).then(
+                (tabItems) => {
+                    this.setState({ds_toWatch: ds.cloneWithRows(tabItems)})
+                    console.log('vu succès !')
+                    resolve()
+                }, (error) => reject(error)
+            )
+        )
+    }
+
     _displayList() {
         if (this.state.ds_toWatch) {
             return (
@@ -56,7 +68,7 @@ export default class ToWatchList extends Component {
                     style={{width: width}}
                     dataSource={this.state.ds_toWatch}
                     renderRow={(rowData) =>
-                        <ToWatchItem image={rowData.image} title={rowData.title} code={rowData.code} remaining={rowData.remaining} subtitle={rowData.subtitle} id_tvdb={rowData.id_tvdb} />
+                        <ToWatchItem id_tvdb={rowData.id_tvdb} _vu={this._vu.bind(this,rowData.id_tvdb,this.state.user.show_infos.access_token)} image={rowData.image} title={rowData.title} code={rowData.code} remaining={rowData.remaining} subtitle={rowData.subtitle}/>
                     }
                 />
             )

@@ -7,7 +7,7 @@ import {
     Text,
     View,
     Navigator,
-    TouchableHighlight,
+    TouchableOpacity,
     Image
     } from 'react-native'
 
@@ -77,12 +77,12 @@ export default class Tastr_Connected extends Component {
                     return null;
                 } else {
                     return (
-                        <TouchableHighlight onPress={() => navigator.pop()}>
+                        <TouchableOpacity onPress={() => navigator.pop()}>
                             <View style={{flexDirection: 'row', margin: 10}}>
                                 <Image source={icn_back} style={{width: 20, height: 20}} />
                                 <Text style={{color: 'white', fontSize: 20}}>Groupes</Text>
                             </View>
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                     )
                 }
             },
@@ -108,9 +108,9 @@ export default class Tastr_Connected extends Component {
                     return null;
                 } else {
                     return (
-                        <TouchableHighlight onPress={() => console.log('infos')}>
+                        <TouchableOpacity onPress={() => console.log('infos')}>
                             <Image source={icn_info} style={{width: 25, height: 25,marginTop: 10, marginRight: 20}} />
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                     )
                 }
             }

@@ -19,7 +19,7 @@ export default class Swipable_Tabs extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {model: this.props.model, user: this.props.user, groups: this.props.groups, selected: 0}
+        this.state = {model: this.props.model, user: this.props.user, groups: this.props.groups, selected: 2}
 
         this._getShow = this._getShow.bind(this)
         this._onMomentumScrollEnd = this._onMomentumScrollEnd.bind(this)
@@ -75,10 +75,15 @@ export default class Swipable_Tabs extends Component {
                                 </View>
                             </View>
                             <View style={{height: 60}}/>*/}
-                            <Button color="white" title="SE DECONNECTER" text="SE DECONNECTER" onPress={this.props._disconnect}/>
                         </View>
 
                         <ToWatchList user={this.state.user} model={this.state.model} />
+
+                        <View style={{flex: 1}}>
+                            <Title subtitle='Ton profil' />
+                            <Button color="white" title="SE DECONNECTER" text="SE DECONNECTER" onPress={this.props._disconnect}/>
+                        </View>
+
                     </Swiper>
                 </View>
                 <NavBar changeTab={this._changeTab} activeTab={this.state.selected}/>

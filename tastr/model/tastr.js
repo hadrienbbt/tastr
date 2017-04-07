@@ -156,6 +156,30 @@ exports.getUser = function(_id) {
     })
 }
 
+exports.postEpisodeWatched = (id_tvdb,token) => {
+    return new Promise(function(resolve,reject) {
+        fetch(conf.server_domain+'/user/show/seen', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id_tvdb: id_tvdb,
+                access_token: token
+            })
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((responseData) => {
+                return responseData;
+            })
+            .then((tabItems) => resolve(tabItems.tabItems))
+            .catch(function (err) {reject(err)})
+    })
+}
+
 exports.getToWatchList = (token) => {
     return new Promise(function(resolve,reject) {
         fetch(conf.server_domain+'/user/show/unseen?access_token=' + token, {

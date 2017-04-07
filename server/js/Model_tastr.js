@@ -97,7 +97,7 @@ exports.BetaSerieRequest = function(method,url,token,params = {}) {
     // Exception cases
     if (method != 'GET' && method != 'POST' && method != 'PUT' && method != 'DELETE')   throw new Exception('invalid REST method');
 
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
         request({
             method: method,
             url: url,
@@ -108,11 +108,20 @@ exports.BetaSerieRequest = function(method,url,token,params = {}) {
                 'X-BetaSeries-Key': conf.bs_key,
                 'Authorization': 'Bearer ' + token
             }
-        }, function(error,response) {
-            if(response.error) reject(response.error)
-            resolve(response.body);
+        }, (error,response) => {
+            response.error ? reject(response.error) : resolve(response.body);
         })
     });
+}
+
+exports.postEpisodeWatched = (id_tvdb, token) => {
+    return new Promise((resolve,reject) => {
+        var url = 'https://api.betaseries.com/episodes/watched?thetvdb_id='+id_tvdb
+        exports.BetaSerieRequest('POST',url,token).then(
+            (data) => resolve(data),
+            (err) => reject(err)
+        )
+    })
 }
 
 exports.getToWatchList = (token) => {
@@ -128,7 +137,8 @@ exports.getToWatchList = (token) => {
                     code: show.unseen[0].code,
                     remaining: show.remaining-1,
                     subtitle: show.unseen[0].subtitles.length > 0 ? show.unseen[0].subtitles[0].url : null,
-                    id_tvdb: show.thetvdb_id,
+                    id_tvdb_show: show.thetvdb_id,
+                    id_tvdb: show.unseen[0].thetvdb_id,
                 })
             }
             resolve(tabItems)

@@ -410,17 +410,30 @@ app.get('/user/show/unseen', (req,res) => {
     access_token ?
         db.collection('show').find().toArray((err,allShows) =>
             Tastr.getToWatchList(access_token).then((tabItems) => {
+
                 for (var i = 0; i<tabItems.length; i++) { // Ajouter une image au retour de la requete à betaseries
 
-                    var idToFind = tabItems[i].id_tvdb
+                    var idToFind = tabItems[i].id_tvdb_show
                     var id_show_from_db = allShows.findIndex(function(item, i){
                         return item.id_tvdb === idToFind
                     });
-
-                    tabItems[i].image = allShows[id_show_from_db].images.poster
+                    if (id_show_from_db != -1)
+                        tabItems[i].image = allShows[id_show_from_db].images.poster
                 }
                 res.respond({tabItems: tabItems})
             })
+        )
+    : res.respond(new Error("Token needed"));
+})
+
+app.post('/user/show/seen', (req,res) => {
+    var access_token = req.param('access_token') ? req.param('access_token') : null;
+    var id_tvdb = req.param('id_tvdb')
+
+    access_token ?
+        Tastr.postEpisodeWatched(id_tvdb,access_token).then(
+            (data) => res.redirect('/user/show/unseen?access_token='+access_token),
+            (err) => console.log(err)
         )
     : res.respond(new Error("Token needed"));
 })
@@ -444,40 +457,51 @@ app.post('/chat/message/add', (req,res) => {
         }
     )
 })
+/*
+// SOCKET .IO
+var server = require('http').createServer(app);
 
+// Chargement de socket.io
+var io = require('socket.io').listen(server);
 
-
-
-
-
-
-
-
-
-
-
-
-app.post('/tvst/token', function(req,res) {
-    var code = req.param('code');
-    var url = 'https://api.tvshowtime.com/v1/oauth/access_token';
-    console.log(code);
-    var options = JSON.stringify({
-        client_id: conf.tvst_key,
-        client_secret: conf.tvst_secret,
-        redirect_uri: conf.server_domain + '/tvst/token/authorize',
-        code: code
-    });
-
-    request.post(url,options,function(error,response) {
-        if(error) throw error;
-        console.log(response.body);
-    });
+// Quand un client se connecte, on le note dans la console
+io.sockets.on('connection', function (socket) {
+    console.log('Un client est connecté !');
 });
 
-app.post('/tvst/token/authorize', function(req,res) {
-    console.log(req);
-    res.respond('coucou toi',200);
-});
-
+server.listen(port);
+*/
 app.listen(port);
 console.log("Listening on " + port);
+
+
+
+
+
+
+
+
+
+/*app.post('/tvst/token', function(req,res) {
+ var code = req.param('code');
+ var url = 'https://api.tvshowtime.com/v1/oauth/access_token';
+ console.log(code);
+ var options = JSON.stringify({
+ client_id: conf.tvst_key,
+ client_secret: conf.tvst_secret,
+ redirect_uri: conf.server_domain + '/tvst/token/authorize',
+ code: code
+ });
+
+ request.post(url,options,function(error,response) {
+ if(error) throw error;
+ console.log(response.body);
+ });
+ });
+
+ app.post('/tvst/token/authorize', function(req,res) {
+ console.log(req);
+ res.respond('coucou toi',200);
+ });*/
+
+

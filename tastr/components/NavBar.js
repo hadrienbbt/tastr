@@ -25,6 +25,9 @@ var upgrade_selected = require('../img/icn_navbar/upgrade_selected.png')
 var tvshow = require('../img/icn_navbar/tvshow.png')
 var tvshow_selected = require('../img/icn_navbar/tvshow_selected.png')
 
+var profile = require('../img/icn_navbar/profile.png')
+var profile_selected = require('../img/icn_navbar/profile_selected.png')
+
 export default class NavBar extends Component {
     constructor(props) {
         super(props)
@@ -46,6 +49,11 @@ export default class NavBar extends Component {
                 icn_selected: tvshow_selected,
                 label: 'Séries à voir',
             },
+            {
+                icn: profile,
+                icn_selected: profile_selected,
+                label: 'Profil'
+            }
         ]}
 
     }
