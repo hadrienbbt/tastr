@@ -2,20 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c821161e-59f6-442b-9901-ed4d29579866" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tastr/components/Discover.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/server/db/journal/WiredTigerLog.0000000014" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/WiredTiger.wt" afterPath="$PROJECT_DIR$/server/db/WiredTiger.wt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/collection-0--4524344232601947395.wt" afterPath="$PROJECT_DIR$/server/db/collection-0--4524344232601947395.wt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/collection-0-8288801240397073690.wt" afterPath="$PROJECT_DIR$/server/db/collection-0-8288801240397073690.wt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/collection-2--4078000718091888855.wt" afterPath="$PROJECT_DIR$/server/db/collection-2--4078000718091888855.wt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/collection-5--4524344232601947395.wt" afterPath="$PROJECT_DIR$/server/db/collection-5--4524344232601947395.wt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/diagnostic.data/metrics.2017-04-06T13-50-11Z-00000" afterPath="$PROJECT_DIR$/server/db/diagnostic.data/metrics.2017-04-06T13-50-11Z-00000" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/diagnostic.data/metrics.interim" afterPath="$PROJECT_DIR$/server/db/diagnostic.data/metrics.interim" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/journal/WiredTigerLog.0000000014" afterPath="$PROJECT_DIR$/server/db/journal/WiredTigerLog.0000000014" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/index-1--4524344232601947395.wt" afterPath="$PROJECT_DIR$/server/db/index-1--4524344232601947395.wt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/index-1-8288801240397073690.wt" afterPath="$PROJECT_DIR$/server/db/index-1-8288801240397073690.wt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/index-3--4078000718091888855.wt" afterPath="$PROJECT_DIR$/server/db/index-3--4078000718091888855.wt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/index-6--4524344232601947395.wt" afterPath="$PROJECT_DIR$/server/db/index-6--4524344232601947395.wt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/sizeStorer.wt" afterPath="$PROJECT_DIR$/server/db/sizeStorer.wt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.js" afterPath="$PROJECT_DIR$/server/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/WiredTiger.turtle" afterPath="$PROJECT_DIR$/server/db/WiredTiger.turtle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/Chat.js" afterPath="$PROJECT_DIR$/tastr/components/Chat.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/db/mongod.lock" afterPath="$PROJECT_DIR$/server/db/mongod.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/js/Model_tastr.js" afterPath="$PROJECT_DIR$/server/js/Model_tastr.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/ConnectShow.js" afterPath="$PROJECT_DIR$/tastr/components/ConnectShow.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/Swipable_Tabs.js" afterPath="$PROJECT_DIR$/tastr/components/Swipable_Tabs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/Tastr_Connected.js" afterPath="$PROJECT_DIR$/tastr/components/Tastr_Connected.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/ToWatchList.js" afterPath="$PROJECT_DIR$/tastr/components/ToWatchList.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/components/WorkflowConnection.js" afterPath="$PROJECT_DIR$/tastr/components/WorkflowConnection.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/index.ios.js" afterPath="$PROJECT_DIR$/tastr/index.ios.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastr/model/tastr.js" afterPath="$PROJECT_DIR$/tastr/model/tastr.js" />
     </list>
     <ignored path="ProjetInfo_2A.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,35 +44,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.ios.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tastr/index.ios.js">
+      <file leaf-file-name="Swipable_Tabs.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tastr/components/Swipable_Tabs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="60" column="21" lean-forward="false" selection-start-line="60" selection-start-column="21" selection-end-line="60" selection-end-column="21" />
+            <state relative-caret-position="13">
+              <caret line="22" column="108" lean-forward="false" selection-start-line="22" selection-start-column="108" selection-end-line="22" selection-end-column="108" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tastr_Connected.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tastr/components/Tastr_Connected.js">
+      <file leaf-file-name="Discover.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tastr/components/Discover.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="49" column="59" lean-forward="false" selection-start-line="49" selection-start-column="59" selection-end-line="49" selection-end-column="59" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#45#85#0" expanded="true" />
-                <element signature="e#2550#4592#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Chat.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tastr/components/Chat.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="56" lean-forward="true" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
+            <state relative-caret-position="593">
+              <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -71,14 +66,52 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Swipable_Tabs.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tastr/components/Swipable_Tabs.js">
+      <file leaf-file-name="tastr.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tastr/model/tastr.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="736">
-              <caret line="77" column="48" lean-forward="false" selection-start-line="77" selection-start-column="48" selection-end-line="77" selection-end-column="48" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="274">
+              <caret line="78" column="8" lean-forward="false" selection-start-line="78" selection-start-column="8" selection-end-line="78" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="869">
+              <caret line="102" column="32" lean-forward="true" selection-start-line="102" selection-start-column="32" selection-end-line="102" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GroupOverview.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tastr/components/GroupOverview.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="63">
+              <caret line="112" column="22" lean-forward="true" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConnectShow.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tastr/components/ConnectShow.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-67">
+              <caret line="125" column="22" lean-forward="true" selection-start-line="125" selection-start-column="22" selection-end-line="125" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model_tastr.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/js/Model_tastr.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -95,15 +128,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>contr</find>
-      <find>controllerTastr</find>
-      <find>voir</find>
-      <find>splashcreen</find>
-      <find>width</find>
-      <find>var modelTastr = require('./model/tastr.js');</find>
-      <find>getUser</find>
-      <find>cookie</find>
-      <find>getFavoriteShows</find>
       <find>view_music_connection</find>
       <find>Navigator</find>
       <find>_changerTab</find>
@@ -120,10 +144,20 @@
       <find>route</find>
       <find>Tit</find>
       <find>marginContainer</find>
-      <find>props</find>
       <find>styles</find>
       <find>img_subtitles</find>
       <find>quelles</find>
+      <find>dismissKeyboard</find>
+      <find>/user</find>
+      <find>then</find>
+      <find>getToWatchList</find>
+      <find>unseen</find>
+      <find>styl</find>
+      <find>show</find>
+      <find>props</find>
+      <find>@</find>
+      <find>post</find>
+      <find>includes</find>
     </findStrings>
     <replaceStrings>
       <replace>modelTastr</replace>
@@ -153,30 +187,31 @@
         <option value="$PROJECT_DIR$/tastr/const/lang.js" />
         <option value="$PROJECT_DIR$/tastr/components/Splashscreen.js" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/tastr/components/ConnectShow.js" />
         <option value="$PROJECT_DIR$/tastr/controller/tastr.js" />
         <option value="$PROJECT_DIR$/tastr/components/Setup.js" />
-        <option value="$PROJECT_DIR$/tastr/components/WorkflowConnection.js" />
         <option value="$PROJECT_DIR$/tastr/components/Tutoriel.js" />
         <option value="$PROJECT_DIR$/tastr/components/ToWatch.js" />
-        <option value="$PROJECT_DIR$/server/js/Model_tastr.js" />
         <option value="$PROJECT_DIR$/tastr/components/ToWatchItem.js" />
         <option value="$PROJECT_DIR$/tastr/components/GroupOverview.js" />
         <option value="$PROJECT_DIR$/tastr/components/SelectionGroupe.js" />
         <option value="$PROJECT_DIR$/tastr/components/Title.js" />
-        <option value="$PROJECT_DIR$/tastr/model/tastr.js" />
         <option value="$PROJECT_DIR$/tastr/components/Conversations.js" />
         <option value="$PROJECT_DIR$/tastr/components/CircleGroupLevel.js" />
         <option value="$PROJECT_DIR$/tastr/styles/styles.js" />
         <option value="$PROJECT_DIR$/tastr/components/NavBar.js" />
-        <option value="$PROJECT_DIR$/tastr/components/ToWatchList.js" />
-        <option value="$PROJECT_DIR$/server/app.js" />
-        <option value="$PROJECT_DIR$/tastr/const/conf.js" />
         <option value="$PROJECT_DIR$/tastr/components/Tastr_Connected.js" />
-        <option value="$PROJECT_DIR$/tastr/index.ios.js" />
-        <option value="$PROJECT_DIR$/tastr/components/Swipable_Tabs.js" />
         <option value="$PROJECT_DIR$/tastr/components/CustomToolbar.js" />
         <option value="$PROJECT_DIR$/tastr/components/Chat.js" />
+        <option value="$PROJECT_DIR$/tastr/components/WorkflowConnection.js" />
+        <option value="$PROJECT_DIR$/server/js/Model_tastr.js" />
+        <option value="$PROJECT_DIR$/tastr/const/conf.js" />
+        <option value="$PROJECT_DIR$/server/app.js" />
+        <option value="$PROJECT_DIR$/tastr/components/Swipable_Tabs.js" />
+        <option value="$PROJECT_DIR$/tastr/components/Discover.js" />
+        <option value="$PROJECT_DIR$/tastr/components/ToWatchList.js" />
+        <option value="$PROJECT_DIR$/tastr/index.ios.js" />
+        <option value="$PROJECT_DIR$/tastr/components/ConnectShow.js" />
+        <option value="$PROJECT_DIR$/tastr/model/tastr.js" />
       </list>
     </option>
   </component>
@@ -191,8 +226,8 @@
     <handled-path value="$PROJECT_DIR$/tastr/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="586" />
-    <option name="width" value="1094" />
+    <option name="x" value="642" />
+    <option name="width" value="1038" />
     <option name="height" value="1045" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -229,6 +264,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -269,7 +306,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="styles" />
+              <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -287,7 +324,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
+              <option name="myItemId" value="img" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -361,8 +398,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -374,7 +409,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="ToolWindowEvent Log.ShowToolbar" value="false" />
-    <property name="settings.editor.selected.configurable" value="fileTemplates" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/tastr/const/conf.js" />
   </component>
@@ -493,23 +528,40 @@
       <workItem from="1491315533712" duration="23818000" />
       <workItem from="1491381651651" duration="24851000" />
       <workItem from="1491486655111" duration="18889000" />
+      <workItem from="1491598002141" duration="115000" />
+      <workItem from="1491598281810" duration="4000" />
+      <workItem from="1491598763687" duration="484000" />
+      <workItem from="1491822669544" duration="1090000" />
+      <workItem from="1492271161703" duration="5375000" />
+      <workItem from="1492363823753" duration="20694000" />
+      <workItem from="1492520926445" duration="1780000" />
+      <workItem from="1492523792606" duration="3615000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74689000" />
+    <option name="totallyTimeSpent" value="107846000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="586" y="0" width="1094" height="1045" extended-state="0" />
+    <frame x="642" y="0" width="1038" height="1045" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19291705" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19764012" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991803" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13703704" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16474292" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -544,13 +596,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tastr/styles/styles.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tastr/const/lang.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -562,16 +607,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#520#576#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/const/lang.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="28" column="62" lean-forward="false" selection-start-line="28" selection-start-column="62" selection-end-line="28" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -579,19 +614,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#520#576#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/index.ios.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#520#576#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -655,13 +677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/.babelrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tastr/const/lang.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -689,13 +704,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/ConnectMusic.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/uml/Tastr.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -719,15 +727,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/Setup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -735,9 +734,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="20" column="29" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#45#97#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -745,25 +741,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="26" column="48" lean-forward="false" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/SelectionGroupe.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="140" column="105" lean-forward="false" selection-start-line="140" selection-start-column="98" selection-end-line="140" selection-end-column="105" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/Title.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="28" column="5" lean-forward="false" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-          <folding>
-            <element signature="e#47#88#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -771,7 +748,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -780,48 +756,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/model/tastr.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1076">
-          <caret line="178" column="47" lean-forward="true" selection-start-line="178" selection-start-column="47" selection-end-line="178" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/ToWatchItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="49" column="52" lean-forward="false" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/GroupOverview.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="14" column="35" lean-forward="false" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/CircleGroupLevel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="109" column="16" lean-forward="true" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-            <element signature="e#231#2910#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tastr/styles/styles.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="610">
           <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
-          <folding>
-            <marker date="1491501416000" expanded="true" signature="281:3296" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -829,123 +767,186 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="2" lean-forward="false" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/CustomToolbar.js" />
+    <entry file="file://$PROJECT_DIR$/tastr/components/Tastr_Connected.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="49" column="59" lean-forward="false" selection-start-line="49" selection-start-column="59" selection-end-line="49" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wireframe/chat.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/.babelrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/ConnectMusic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/SelectionGroupe.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="140" column="105" lean-forward="false" selection-start-line="140" selection-start-column="98" selection-end-line="140" selection-end-column="105" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/js/Model_tastr.js">
+    <entry file="file://$PROJECT_DIR$/tastr/img/test.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/CircleGroupLevel.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="99" column="18" lean-forward="true" selection-start-line="99" selection-start-column="18" selection-end-line="99" selection-end-column="18" />
-          <folding />
+        <state relative-caret-position="-1025">
+          <caret line="6" column="37" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/app.js">
+    <entry file="file://$PROJECT_DIR$/tastr/components/Title.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14">
-          <caret line="31" column="3" lean-forward="false" selection-start-line="31" selection-start-column="3" selection-end-line="31" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/ToWatchList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="55">
-          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/NavBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="47" column="14" lean-forward="false" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
-          <folding>
-            <element signature="e#47#88#0" expanded="true" />
-            <marker date="1491501793000" expanded="true" signature="736:3163" ph="{...}" />
-          </folding>
+        <state relative-caret-position="300">
+          <caret line="28" column="5" lean-forward="false" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tastr/components/Conversations.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="43" lean-forward="false" selection-start-line="42" selection-start-column="43" selection-end-line="42" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/ConnectShow.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="158" column="22" lean-forward="false" selection-start-line="158" selection-start-column="22" selection-end-line="158" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/WorkflowConnection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="64" column="51" lean-forward="true" selection-start-line="64" selection-start-column="51" selection-end-line="64" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/const/conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="44" lean-forward="false" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/Swipable_Tabs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="77" column="48" lean-forward="false" selection-start-line="77" selection-start-column="48" selection-end-line="77" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/Tastr_Connected.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="49" column="59" lean-forward="false" selection-start-line="49" selection-start-column="59" selection-end-line="49" selection-end-column="59" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#45#85#0" expanded="true" />
-            <element signature="e#2550#4592#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastr/components/CustomToolbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="42" lean-forward="false" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+        <state relative-caret-position="450">
+          <caret line="42" column="23" lean-forward="true" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tastr/components/Chat.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="56" lean-forward="true" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
+        <state relative-caret-position="645">
+          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="55" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/NavBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/const/conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="38" lean-forward="false" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/Swipable_Tabs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13">
+          <caret line="22" column="108" lean-forward="false" selection-start-line="22" selection-start-column="108" selection-end-line="22" selection-end-column="108" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/Discover.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/ToWatchList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="40" column="31" lean-forward="false" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/ToWatchItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tastr/index.ios.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="60" column="21" lean-forward="false" selection-start-line="60" selection-start-column="21" selection-end-line="60" selection-end-column="21" />
+        <state relative-caret-position="123">
+          <caret line="40" column="10" lean-forward="false" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/Setup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/WorkflowConnection.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="74">
+          <caret line="40" column="19" lean-forward="false" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/js/Model_tastr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="869">
+          <caret line="102" column="32" lean-forward="true" selection-start-line="102" selection-start-column="32" selection-end-line="102" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/GroupOverview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="112" column="22" lean-forward="true" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/components/ConnectShow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-67">
+          <caret line="125" column="22" lean-forward="true" selection-start-line="125" selection-start-column="22" selection-end-line="125" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastr/model/tastr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="78" column="8" lean-forward="false" selection-start-line="78" selection-start-column="8" selection-end-line="78" selection-end-column="8" />
           <folding />
         </state>
       </provider>

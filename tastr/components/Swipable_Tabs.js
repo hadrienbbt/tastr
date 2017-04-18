@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
-import TextField from 'react-native-md-textinput';
 import Swiper from 'react-native-swiper';
+import TextField from 'react-native-md-textinput';
 import {
-    Text,
     View,
     Button,
+    Text,
 } from 'react-native';
 
-import NavBar from './NavBar.js';
+import NavBar from './NavBar.js'
 import Conversations from "./Conversations.js"
-import ToWatchList from "./ToWatchList.js";
+import Discover from './Discover'
+import ToWatchList from "./ToWatchList.js"
 
 import Title from "./Title";
 
@@ -19,12 +20,11 @@ export default class Swipable_Tabs extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {model: this.props.model, user: this.props.user, groups: this.props.groups, selected: 2}
+        this.state = {model: this.props.model, user: this.props.user, groups: this.props.groups, selected: 1}
 
         this._getShow = this._getShow.bind(this)
         this._onMomentumScrollEnd = this._onMomentumScrollEnd.bind(this)
         this._changeTab = this._changeTab.bind(this)
-
     }
 
     _getShow() {
@@ -59,9 +59,14 @@ export default class Swipable_Tabs extends Component {
 
                         <Conversations navigator={this.props.navigator} route={this.props.route} groups={this.state.groups} />
 
+                        <Discover user={this.state.user} model={this.state.model} />
+
+                        <ToWatchList user={this.state.user} model={this.state.model} />
+
                         <View style={{flex: 1}}>
-                            <Title subtitle='Séries qui pourraient te plaire'/>
-                            {/*<View style={{flex:1}}>
+                            <Title subtitle='Ton profil' />
+                            <Button color="white" title="SE DECONNECTER" text="SE DECONNECTER" onPress={this.props._disconnect}/>
+                            <View style={{flex:1, alignItems: 'center'}}>
                                 <View style={styles.view_music_connection}>
                                     <Text style={[styles.instructions, styles.biggerFont]}>
                                         Recherchez une série
@@ -74,14 +79,6 @@ export default class Swipable_Tabs extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={{height: 60}}/>*/}
-                        </View>
-
-                        <ToWatchList user={this.state.user} model={this.state.model} />
-
-                        <View style={{flex: 1}}>
-                            <Title subtitle='Ton profil' />
-                            <Button color="white" title="SE DECONNECTER" text="SE DECONNECTER" onPress={this.props._disconnect}/>
                         </View>
 
                     </Swiper>

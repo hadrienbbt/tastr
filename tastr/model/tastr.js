@@ -10,7 +10,39 @@ var conf = require('../const/conf.js');
 
 var exports = module.exports = {};
 
-exports.getContext = function(id_user) {
+exports.getDiscover = (id_user) => {
+    var id_user = id_user;
+    console.log(id_user)
+    // Vérifier si l'utilisateur fait déjà partie de groupes
+    // a-t-il déjà passé la phase setup ou pas ?
+    return new Promise((resolve,reject) => {
+        let path = '/show/discover'
+        fetch(conf.server_domain + path + '?id_user=' + id_user,{
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+            .then((response) => {return response.json()})
+            .then((responseData) => {return responseData;})
+            .then((discover) => {
+            var shows = discover.discover
+                var discoverItems = []
+                for (var i = 0; i< shows.length; i++) {
+                    discoverItems.push({
+                        _id: shows[i]._id,
+                        title: shows[i].title,
+                        image: shows[i].images.poster,
+                    })
+                }
+                resolve(discoverItems)
+            })
+            .catch(function (err) {reject(err)})
+    })
+}
+
+exports.getContext = (id_user) => {
     var id_user = id_user;
     // Vérifier si l'utilisateur fait déjà partie de groupes
     // a-t-il déjà passé la phase setup ou pas ?
@@ -41,10 +73,10 @@ exports.getContext = function(id_user) {
     })
 }
 
-exports.chercherGroupes = function(id_user) {
+exports.chercherGroupes = (id_user) => {
     return new Promise(function(resolve,reject){
-        let path = '/group/find/existing';
-        //let path = '/user/show/refresh';
+        //let path = '/group/find/existing';
+        let path = '/user/show/refresh';
 
         fetch(conf.server_domain + path + '?id_user=' + id_user, {
             method: 'GET',
@@ -196,7 +228,7 @@ exports.getToWatchList = (token) => {
                 return responseData;
             })
             .then((tabItems) => resolve(tabItems.tabItems))
-            .catch(function (err) {reject(err)})
+            .catch((err) => reject(err))
     })
 }
 
@@ -254,6 +286,35 @@ exports.searchShowByName = function(name,token = '') {
         var title = name.split(' ').join('+');
         var url = 'https://api.betaseries.com/shows/search?title='+title+'&summary=false&order=popularity&nbpp=1';
         exports.BetaSerieRequest('GET',url,token).then((data) => resolve(data), (err) => reject(err));
+    })
+}
+
+exports.getAllShows = function(token = '') {
+    return new Promise(function(resolve,reject) {
+        //var title = name.split(' ').join('+');
+        var url = 'https://api.betaseries.com/shows/search?nbpp=50&summary=false&order=popularity&page=20';
+        exports.BetaSerieRequest('GET',url,token).then((data) => {
+            console.log(data)
+            fetch(conf.server_domain+'/show/save', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    shows: data.shows
+                })
+            })
+                .then((response) => {
+                    return response.json()
+                })
+                .then((responseData) => {
+                    return responseData;
+                })
+                .then((data) => resolve(data.success))
+                .catch((err) => reject(err))
+
+        }, (err) => reject(err));
     })
 }
 

@@ -99,6 +99,9 @@ app.get('/user/show/refresh', function(req,res) {
                                 id_imdb: serieCourante.imdb_id,
                                 title: serieCourante.title,
                                 genres: serieCourante.genres,
+                                network: serieCourante.network,
+                                followers: serieCourante.followers,
+                                creation: serieCourante.creation,
                                 note: {
                                     total: serieCourante.notes.total,
                                     mean: serieCourante.notes.mean
@@ -389,10 +392,11 @@ app.post('/group/join', function(req,res) {
 // param : id_user
 app.get('/user', function(req,res) {
     var id_user = ObjectID.isValid(req.param('id_user')) ? new ObjectID(req.param('id_user')) : null;
-
+    console.log(id_user)
     id_user ?
         db.collection("user").find({_id: id_user}).toArray(function(err,resp) {
             var user = resp[0];
+            console.log(resp[0])
             Tastr.getGroupsOf(user._id,db).then(
                 (groups) => {res.respond({user: user, groups: groups},200)},
                 (error) => {
@@ -421,7 +425,8 @@ app.get('/user/show/unseen', (req,res) => {
                         tabItems[i].image = allShows[id_show_from_db].images.poster
                 }
                 res.respond({tabItems: tabItems})
-            })
+            }, (err) => console.log(err)
+            )
         )
     : res.respond(new Error("Token needed"));
 })
@@ -457,6 +462,100 @@ app.post('/chat/message/add', (req,res) => {
         }
     )
 })
+
+app.post('/show/save', (req,res) => {
+    console.log('coucou')
+    var shows = req.param('shows')
+    console.log(shows)
+    for(var i=0; i<shows.length; i++) {
+        var serieCourante = shows[i]
+        db.collection('show').findAndModify(
+            {id_tvdb: serieCourante.thetvdb_id},
+            {},{
+                id_tvdb: serieCourante.thetvdb_id,
+                id_imdb: serieCourante.imdb_id,
+                title: serieCourante.title,
+                genres: serieCourante.genres,
+                network: serieCourante.network,
+                followers: serieCourante.followers,
+                creation: serieCourante.creation,
+                note: {
+                    total: serieCourante.notes.total,
+                    mean: serieCourante.notes.mean
+                },
+                images: serieCourante.images,
+                description: serieCourante.description
+            },{new: true, upsert: true}, (err,resp) => {
+                if (err) res.respond(new Error(err))
+            })
+    }
+    res.respond({success: 'yay'},200)
+})
+
+var sortByValue = obj => {
+    var tuples = []
+
+    for (var key in obj) tuples.push([key, obj[key]])
+
+    tuples.sort(function (a, b) {
+        a = a[1]
+        b = b[1]
+
+        return b - a
+    })
+
+    var res = []
+    for (var i = 0; i < tuples.length; i++) {
+        var key = tuples[i][0]
+        var value = tuples[i][1]
+        res[key] = value
+    }
+    return res
+}
+
+app.get('/show/discover', (req,res) =>
+    Tastr.getGroupsOf(req.param('id_user'),db).then(
+        (groups) =>
+            Promise.all([
+                Tastr.getShowsOf(req.param('id_user'),db),
+                Tastr.getMembersOf(groups,req.param('id_user'),db)
+            ]).then(
+                (showsAndMembers) => {
+                    var shows = showsAndMembers[0]
+                    var members = showsAndMembers[1]
+                    var commonShows = []
+                    for (var i in members)
+                        for (var j in members[i].shows)
+                            // Si l'utilisateur ne regarde pas la série
+                            if(!shows.includes(members[i].shows[j]))
+                                members[i].shows[j] in commonShows ?
+                                    commonShows[members[i].shows[j]]++
+                                    : commonShows[members[i].shows[j]] = 1
+                    commonShows = sortByValue(commonShows)
+                    // Récupérer les séries avec leurs id
+                    db.collection('show').find().toArray((err,allShows) => {
+                        if (err) res.respond(new Error(err))
+                        else {
+                            var discover = []
+                            for (var idShow in commonShows) {
+                                for (var i=0; i<allShows.length; i++) {
+                                    if (allShows[i]._id == idShow) {
+                                        discover.push(allShows[i])
+                                        break;
+                                    }
+                                }
+                            }
+                            console.log(discover)
+                            res.respond({discover: discover},200)
+                        }
+                    })
+                },
+                (err) => res.respond(new Error(err))
+            ),
+        (err) => res.respond(new Error(err))
+    )
+)
+
 /*
 // SOCKET .IO
 var server = require('http').createServer(app);
@@ -471,6 +570,7 @@ io.sockets.on('connection', function (socket) {
 
 server.listen(port);
 */
+
 app.listen(port);
 console.log("Listening on " + port);
 

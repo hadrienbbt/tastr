@@ -8,8 +8,6 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import Swiper from 'react-native-swiper';
-import * as Animatable from 'react-native-animatable';
 import Cookie from 'react-native-cookie';
 import {
     AppRegistry,
@@ -34,8 +32,6 @@ var splashcreen = require('./img/splashcreen3.png')
 
 // configs
 var conf = require('./const/conf.js')
-
-const dismissKeyboard = require('dismissKeyboard')
 
 export default class Controller extends Component {
 

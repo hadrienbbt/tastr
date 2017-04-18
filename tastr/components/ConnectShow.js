@@ -153,10 +153,9 @@ export default class ConnectShow extends Component {
             if (!this.props.pages.state.moodmusic_infos) {
 
                 // Inverser les commentaires pour être obligé de passer par moodmusic pour se connecter à Tastr
-                // anchor.props.pages.setState({apiToConnect: 'moodmusic'})
-                this.props.pages.state.moodmusic_infos = {name: 'null', email: 'hbarbat@ensc.fr', id: 'hadritest'}
-                //this.props.pages.state.moodmusic_infos = {name: 'test', email: 'prof@test.io', id: '0'}
-            //} else {
+                 anchor.props.pages.setState({apiToConnect: 'moodmusic'})
+                //this.props.pages.state.moodmusic_infos = {name: 'null', email: 'hbarbat@ensc.fr', id: 'hadritest'}
+            } else {
                 //***********************************************************************************************
 
                 // Envoyer l'utilisateur au serveur pour l'enregistrer en BDD

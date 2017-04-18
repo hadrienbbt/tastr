@@ -5,10 +5,51 @@
 'use strict'
 
 // configs
-var conf = require('../../tastr/const/conf.js');
-var request = require('request');
+var conf = require('../../tastr/const/conf.js')
+var request = require('request')
+var ObjectID = require('mongodb').ObjectID
+
 
 var exports = module.exports = {};
+
+exports.getShowsOf = (id_user,db) => {
+    return new Promise((resolve, reject) =>
+        db.collection('user').find({_id: new ObjectID(id_user)}).toArray((err, resp) =>
+            err ? reject(err) : resolve(resp[0].shows)
+        )
+    )
+}
+
+exports.getMembersOf = (groups,id_user,db) => {
+    return new Promise((resolve,reject) =>
+        db.collection('user').find({_id: {$ne: new ObjectID(id_user)}}).toArray((err,users) => {
+            if (err) reject(err)
+
+            var counter = 0
+            var members = []
+            for (var i in groups)
+                // Récupérer les participants des groupes
+                db.collection('groupe').find({_id: groups[i]._id}).toArray((err,resp) => {
+                    var participants = resp[0].participants
+                    console.log("participants : " + participants)
+                    for(var j in users)
+                        // Si l'utilisateur participe au groupe et qu'il n'a pas déjà été ajouté
+                        if (participants.includes(users[j]._id.toString())){
+                            var id = users[j]._id.toString(),
+                                found = false;
+                            for (var i=0; i<members.length; i++) {
+                                if (members[i]._id == id) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) members.push(users[j])
+                        }
+                    if (++counter == groups.length) resolve(members)
+                })
+        })
+    )
+}
 
 exports.getGroupsOf = (id_user,db) => {
     var id_user = id_user.toString();
@@ -109,7 +150,7 @@ exports.BetaSerieRequest = function(method,url,token,params = {}) {
                 'Authorization': 'Bearer ' + token
             }
         }, (error,response) => {
-            response.error ? reject(response.error) : resolve(response.body);
+            error ? reject(error) : resolve(response.body);
         })
     });
 }
