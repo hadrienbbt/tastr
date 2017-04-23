@@ -22,7 +22,7 @@ class DetailInterfaceController: WKInterfaceController {
 	
 	override func awake(withContext context: Any?) {
 		super.awake(withContext: context)
-		
+		print(context)
 		// Configure interface objects here.
 		if let tvshow = context as? TVShow {
 			self.tvshowRef = tvshow
@@ -33,5 +33,9 @@ class DetailInterfaceController: WKInterfaceController {
 		} else {
 			print("pas coucou")
 		}
+	}
+	
+	override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+		print(rowIndex)
 	}
 }

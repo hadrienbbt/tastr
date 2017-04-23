@@ -20,7 +20,7 @@ export default class Swipable_Tabs extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {model: this.props.model, user: this.props.user, groups: this.props.groups, selected: 1}
+        this.state = {model: this.props.model, user: this.props.user, groups: this.props.groups, selected: 2}
 
         this._getShow = this._getShow.bind(this)
         this._onMomentumScrollEnd = this._onMomentumScrollEnd.bind(this)

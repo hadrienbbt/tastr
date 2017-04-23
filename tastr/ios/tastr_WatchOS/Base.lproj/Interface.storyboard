@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
     </dependencies>
     <scenes>
         <!--Tastr-->
@@ -42,7 +42,6 @@
                                     <connections>
                                         <outlet property="episode" destination="1uW-m5-z56" id="32I-O1-fNo"/>
                                         <outlet property="titre" destination="3Ta-rt-hIv" id="tkP-DL-5tU"/>
-                                        <segue destination="PHy-pH-8zx" kind="push" id="OIx-ja-csd"/>
                                     </connections>
                                 </tableRow>
                             </items>
@@ -55,10 +54,10 @@
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
         </scene>
-        <!--Details-->
+        <!--Passer-->
         <scene sceneID="Ib9-9t-PNZ">
             <objects>
-                <controller identifier="DetailInterfaceController" title="Details" id="PHy-pH-8zx" customClass="DetailInterfaceController" customModule="tastr_WatchOS_Extension">
+                <controller identifier="DetailInterfaceController" title="Passer" alwaysBounce="YES" id="PHy-pH-8zx" customClass="DetailInterfaceController" customModule="tastr_WatchOS_Extension">
                     <items>
                         <group width="1" alignment="left" verticalAlignment="center" layout="vertical" spacing="10" id="u5W-BP-BRl">
                             <items>

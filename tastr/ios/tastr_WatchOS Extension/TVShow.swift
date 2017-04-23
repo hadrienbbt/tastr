@@ -9,10 +9,12 @@
 import UIKit
 
 public class TVShow: NSObject {
+	public var _id: Int
   public var title: String
   public var details: String
   
-  init(title: String, details: String) {
+	init(_id: Int = 0, title: String, details: String) {
+		self._id = _id
     self.title = title
     self.details = details
   }

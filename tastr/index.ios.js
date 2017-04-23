@@ -37,12 +37,12 @@ export default class Controller extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {isConnected: null}
-        //this.state = {isConnected: true, id_user: '58ced4dc4ba97f710e15645b'}
+        //this.state = {isConnected: null}
+        this.state = {isConnected: true, id_user: '58f62d31e2a0da9d8340b198'}
         this._ConnexionController = this._ConnexionController.bind(this)
         this._renderComponent = this._renderComponent.bind(this)
         this._disconnect = this._disconnect.bind(this)
-        this._ConnexionController()
+        this._ConnexionController
     }
 
     _disconnect() {

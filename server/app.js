@@ -545,7 +545,6 @@ app.get('/show/discover', (req,res) =>
                                     }
                                 }
                             }
-                            console.log(discover)
                             res.respond({discover: discover},200)
                         }
                     })

@@ -12,6 +12,7 @@
 #import "RCTLinkingManager.h"
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "WatchBridge.h"
 
 @implementation AppDelegate
 
@@ -21,6 +22,7 @@
 	return [RCTLinkingManager application:application openURL:url
 											sourceApplication:sourceApplication annotation:annotation];
 }
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -39,6 +41,12 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+	
+	self.watchBridge = [WatchBridge shared];
+	self.session = self.watchBridge.session;
+	
+	NSLog(@"watch bridge initialised");
+	
   return YES;
 }
 

@@ -23,8 +23,10 @@ export default class ToWatchItem extends Component {
 
     _onSeen() {
         this.refs.item.bounceOutLeft(400)
-        this.props._vu().then(
-            () => this.refs.item.bounceInRight(400),
+        this.props._vu(this.props.id_tvdb).then(
+            () => {
+                this.refs.item.bounceInRight(400)
+            },
             () => this.refs.item.bounceInLeft(400)
         )
     }

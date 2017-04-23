@@ -51,6 +51,7 @@
 		9011D0121E733BE500D95CB0 /* TVShowDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011D0101E733BE500D95CB0 /* TVShowDataSource.swift */; };
 		9011D0141E733BF100D95CB0 /* TVShowTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011D0131E733BF100D95CB0 /* TVShowTableRowController.swift */; };
 		9050A3A21E74539300DB2F37 /* DetailInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9050A3A11E74539300DB2F37 /* DetailInterfaceController.swift */; };
+		90CF37381EAA2BDE00334283 /* libRNWatch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CF37371EAA2BB400334283 /* libRNWatch.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -285,6 +286,13 @@
 			remoteGlobalIDString = 9011CFE71E7339C800D95CB0;
 			remoteInfo = tastr_WatchOS;
 		};
+		90CF37361EAA2BB400334283 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 90CF37151EAA2BB400334283 /* RNWatch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNWatch;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -354,6 +362,7 @@
 		9011D0101E733BE500D95CB0 /* TVShowDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVShowDataSource.swift; sourceTree = "<group>"; };
 		9011D0131E733BF100D95CB0 /* TVShowTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVShowTableRowController.swift; sourceTree = "<group>"; };
 		9050A3A11E74539300DB2F37 /* DetailInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailInterfaceController.swift; sourceTree = "<group>"; };
+		90CF37151EAA2BB400334283 /* RNWatch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNWatch.xcodeproj; path = "../node_modules/react-native-watch-connectivity/RNWatch.xcodeproj"; sourceTree = "<group>"; };
 		93BF4C8ECFE14359BEBE203B /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
 		B26F5C0D683A4CD0AB624166 /* libRCTMaterialKit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTMaterialKit.a; sourceTree = "<group>"; };
 		CD1B98F3236641DF992E57B5 /* ReactNativeLocalization.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeLocalization.xcodeproj; path = "../node_modules/react-native-localization/ReactNativeLocalization.xcodeproj"; sourceTree = "<group>"; };
@@ -373,6 +382,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90CF37381EAA2BDE00334283 /* libRNWatch.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -549,6 +559,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				90CF37151EAA2BB400334283 /* RNWatch.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -643,8 +654,8 @@
 			children = (
 				9011D00F1E733BE500D95CB0 /* TVShow.swift */,
 				9011D0131E733BF100D95CB0 /* TVShowTableRowController.swift */,
-				9011D0101E733BE500D95CB0 /* TVShowDataSource.swift */,
 				9050A3A11E74539300DB2F37 /* DetailInterfaceController.swift */,
+				9011D0101E733BE500D95CB0 /* TVShowDataSource.swift */,
 				9011CFFB1E7339C800D95CB0 /* InterfaceController.swift */,
 				9011CFFD1E7339C800D95CB0 /* ExtensionDelegate.swift */,
 				9011CFFF1E7339C800D95CB0 /* NotificationController.swift */,
@@ -661,6 +672,14 @@
 				9011CFFA1E7339C800D95CB0 /* PushNotificationPayload.apns */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		90CF37161EAA2BB400334283 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				90CF37371EAA2BB400334283 /* libRNWatch.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -880,6 +899,10 @@
 					ProductGroup = 9011CF9D1E732C9B00D95CB0 /* Products */;
 					ProjectRef = 60E2FB83D97A40F98FB0A590 /* RNCookieManager.xcodeproj */;
 				},
+				{
+					ProductGroup = 90CF37161EAA2BB400334283 /* Products */;
+					ProjectRef = 90CF37151EAA2BB400334283 /* RNWatch.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1095,6 +1118,13 @@
 			fileType = wrapper.cfbundle;
 			path = RNCookieManagerTests.xctest;
 			remoteRef = 9011CFC61E732C9C00D95CB0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		90CF37371EAA2BB400334283 /* libRNWatch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNWatch.a;
+			remoteRef = 90CF37361EAA2BB400334283 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1332,7 +1362,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = T7562M4U35;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS/**";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS/**",
+					"$(SRCROOT)/../node_modules/react-native-watch-connectivity/**",
+				);
 				INFOPLIST_FILE = tastr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1352,7 +1385,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T7562M4U35;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS/**";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS/**",
+					"$(SRCROOT)/../node_modules/react-native-watch-connectivity/**",
+				);
 				INFOPLIST_FILE = tastr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

@@ -53,7 +53,7 @@ export default class NavBar extends Component {
                 icn: profile,
                 icn_selected: profile_selected,
                 label: 'Profil'
-            }
+            },
         ]}
 
     }
