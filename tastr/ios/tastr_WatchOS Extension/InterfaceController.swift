@@ -66,15 +66,18 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
 	}
 	
 	func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-		// Unused
+		if (activationState.rawValue == 2 && session.receivedApplicationContext["watchList"] != nil){
+			print("Session just started")
+			self.dataSource = TVShowDataSource(watchList: session.receivedApplicationContext as [String : AnyObject])
+			loadTableData()
+		} else {
+			print("Not able to load view yet")
+		}
 	}
 	
 	func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
 		print("did receive user info", userInfo)
-		// Send the bullshit user info back to the device just to demonstrate it works ;)
-		/*session.transferUserInfo(userInfo)
-		self.sendPing(session)*/
-		
+		askForWatchList(session)
 	}
 	
 	func sendPing(_ session: WCSession) {
@@ -84,6 +87,16 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
 			self.numPongs += 1
 			self.sendPing(session)
 		}, errorHandler: nil)
+	}
+	
+	func askForWatchList(_ session: WCSession) {
+		print("Asking for WatchList...")
+		session.sendMessage(["ask": "ask"], replyHandler: { (dict) in
+			print("WatchList reçue")
+			self.dataSource = TVShowDataSource(watchList: dict as [String : AnyObject])
+			self.loadTableData()
+		}, errorHandler: nil)
+
 	}
 
 }

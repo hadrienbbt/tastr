@@ -30,6 +30,7 @@ export default class AppleWatchInterface extends Component {
         this.receiveApplicationContext = this.receiveApplicationContext.bind(this)
         this.sendToWatchList = this.sendToWatchList.bind(this)
         this.receiveMessage = this.receiveMessage.bind(this)
+        this.formatWatchList = this.formatWatchList.bind(this)
     }
 
     subscribeToWatchEvents () {
@@ -46,6 +47,7 @@ export default class AppleWatchInterface extends Component {
         if (err) console.error(`Error receiving message`, err)
         else {
             console.log('app received message', message)
+
             if (message.message === 'ping') {
                 this.setState({pings: this.state.pings + 1})
                 if (replyHandler) {
@@ -59,6 +61,11 @@ export default class AppleWatchInterface extends Component {
                 console.log("USER A VU "+ message.seen)
                 this.props._vu(message.seen)
             }
+            if (message.ask) {
+                if (replyHandler) replyHandler({watchList: this.formatWatchList()})
+                else console.error('no reply handler...')
+            }
+
             this.setState({messages: [...this.state.messages, message]})
         }
     }
@@ -67,7 +74,6 @@ export default class AppleWatchInterface extends Component {
         if (err) console.error(`Error receiving watch state`, err)
         else {
             this.setState({watchState})
-            //this.sendToWatchList(this.state.toWatch)
         }
     }
 
@@ -75,7 +81,6 @@ export default class AppleWatchInterface extends Component {
         if (!err) {
             console.log('received watch reachability', reachable)
             this.setState({reachable})
-            //this.sendToWatchList(this.state.toWatch)
         }
         else {
             console.error('error receiving watch reachability', err)
@@ -104,7 +109,6 @@ export default class AppleWatchInterface extends Component {
     componentDidMount () {
         this.subscribeToWatchEvents()
         watch.sendUserInfo({_id: this.state.id_user})
-        this.sendToWatchList(this.state.toWatch)
     }
 
     unsubscribeFromWatchEvents () {
@@ -121,6 +125,10 @@ export default class AppleWatchInterface extends Component {
 
     // Remplir la liste des épisodes à voir, formatés pour l'apple watch
     sendToWatchList(items) {
+        watch.updateApplicationContext({watchList: this.formatWatchList(items)})
+    }
+
+    formatWatchList(items = this.state.toWatch) {
         var watchListMinified = []
         for (var i=0; i< items.length; i++)
             watchListMinified.push({
@@ -128,7 +136,7 @@ export default class AppleWatchInterface extends Component {
                 details: items[i].code,
                 id_tvdb: items[i].id_tvdb
             })
-        watch.updateApplicationContext({watchList: watchListMinified})
+        return watchListMinified
     }
 
     render() {

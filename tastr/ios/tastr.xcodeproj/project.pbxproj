@@ -51,6 +51,7 @@
 		9011D0121E733BE500D95CB0 /* TVShowDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011D0101E733BE500D95CB0 /* TVShowDataSource.swift */; };
 		9011D0141E733BF100D95CB0 /* TVShowTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011D0131E733BF100D95CB0 /* TVShowTableRowController.swift */; };
 		9050A3A21E74539300DB2F37 /* DetailInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9050A3A11E74539300DB2F37 /* DetailInterfaceController.swift */; };
+		909A06C21EAE367400E65F94 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909A06C11EAE367400E65F94 /* ComplicationController.swift */; };
 		90CF37381EAA2BDE00334283 /* libRNWatch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90CF37371EAA2BB400334283 /* libRNWatch.a */; };
 /* End PBXBuildFile section */
 
@@ -362,6 +363,7 @@
 		9011D0101E733BE500D95CB0 /* TVShowDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVShowDataSource.swift; sourceTree = "<group>"; };
 		9011D0131E733BF100D95CB0 /* TVShowTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVShowTableRowController.swift; sourceTree = "<group>"; };
 		9050A3A11E74539300DB2F37 /* DetailInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailInterfaceController.swift; sourceTree = "<group>"; };
+		909A06C11EAE367400E65F94 /* ComplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		90CF37151EAA2BB400334283 /* RNWatch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNWatch.xcodeproj; path = "../node_modules/react-native-watch-connectivity/RNWatch.xcodeproj"; sourceTree = "<group>"; };
 		93BF4C8ECFE14359BEBE203B /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
 		B26F5C0D683A4CD0AB624166 /* libRCTMaterialKit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTMaterialKit.a; sourceTree = "<group>"; };
@@ -659,6 +661,7 @@
 				9011CFFB1E7339C800D95CB0 /* InterfaceController.swift */,
 				9011CFFD1E7339C800D95CB0 /* ExtensionDelegate.swift */,
 				9011CFFF1E7339C800D95CB0 /* NotificationController.swift */,
+				909A06C11EAE367400E65F94 /* ComplicationController.swift */,
 				9011D0011E7339C900D95CB0 /* Assets.xcassets */,
 				9011D0031E7339C900D95CB0 /* Info.plist */,
 				9011CFF91E7339C800D95CB0 /* Supporting Files */,
@@ -1255,6 +1258,7 @@
 				9011CFFE1E7339C800D95CB0 /* ExtensionDelegate.swift in Sources */,
 				9011D0111E733BE500D95CB0 /* TVShow.swift in Sources */,
 				9011D0121E733BE500D95CB0 /* TVShowDataSource.swift in Sources */,
+				909A06C21EAE367400E65F94 /* ComplicationController.swift in Sources */,
 				9011CFFC1E7339C800D95CB0 /* InterfaceController.swift in Sources */,
 				9050A3A21E74539300DB2F37 /* DetailInterfaceController.swift in Sources */,
 			);

@@ -6,6 +6,7 @@ import {
     Image,
     Dimensions,
     TouchableOpacity,
+    Linking
 } from 'react-native';
 
 var styles = require('../styles/styles.js');
@@ -19,6 +20,15 @@ export default class ToWatchItem extends Component {
     constructor(props) {
         super(props)
         this._onSeen = this._onSeen.bind(this)
+        this._sendSubtitles = this._sendSubtitles.bind(this)
+    }
+
+    _sendSubtitles() {
+        let url = this.props.subtitle
+        url ?
+            Linking.openURL(url).catch(err => console.error('An error occurred', err))
+            : alert("Pas de sous-titre disponible 😕")
+
     }
 
     _onSeen() {
@@ -52,20 +62,22 @@ export default class ToWatchItem extends Component {
                     </View>
                     <View style={{flex: 1, flexDirection: 'row', marginTop: 20}}>
                         <View style={{alignItems: 'center',marginRight: 40}}>
-                            <View style={{
-                                backgroundColor: '#3F51B5',
-                                width: 40,
-                                height: 40,
-                                borderRadius: 50,
-                                shadowOpacity: 0.7,
-                                shadowOffset: {width:0, height:4},
-                                shadowRadius: 2,
-                                shadowColor: 'black',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}>
-                                <Image style={{width: 22, height: 22}} source={img_subtitles}/>
-                            </View>
+                            <TouchableOpacity onPress={this._sendSubtitles}>
+                                <View style={{
+                                    backgroundColor: '#3F51B5',
+                                    width: 40,
+                                    height: 40,
+                                    borderRadius: 50,
+                                    shadowOpacity: 0.7,
+                                    shadowOffset: {width:0, height:4},
+                                    shadowRadius: 2,
+                                    shadowColor: 'black',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}>
+                                    <Image style={{width: 22, height: 22}} source={img_subtitles}/>
+                                </View>
+                            </TouchableOpacity>
                             <Text style={{marginTop: 10, fontSize: 13, color: '#9E9E9E'}}>Sous-titres</Text>
                         </View>
                         <TouchableOpacity onPress={this._onSeen}>
