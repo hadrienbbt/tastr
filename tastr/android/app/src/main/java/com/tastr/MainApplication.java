@@ -7,9 +7,6 @@ import com.facebook.react.ReactApplication;
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import im.shimo.react.cookie.CookieManagerPackage;
-import im.shimo.react.cookie.CookieManagerPackage;
-import com.github.xinthink.rnmk.ReactMaterialKitPackage;
-import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -33,10 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new ReactMaterialKitPackage(),
             new ReactNativeLocalizationPackage(),
-            new CookieManagerPackage(),
-            new CookieManagerPackage(),
-            new ReactMaterialKitPackage(),
-            new ReactNativeLocalizationPackage()
+            new CookieManagerPackage()
       );
     }
   };

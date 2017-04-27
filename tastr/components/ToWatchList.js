@@ -5,6 +5,7 @@ import {
     ListView,
     Text,
     Dimensions,
+    Platform
 } from 'react-native';
 
 import Title from "./Title";
@@ -69,7 +70,7 @@ export default class ToWatchList extends Component {
     }
 
     _initAppleWatchComponent() {
-        if (this.state.toWatch) {
+        if (this.state.toWatch && Platform.OS === 'ios') {
             return (<AppleWatchInterface toWatch={this.state.toWatch} id_user={this.state.user._id} _vu={(_id) => this._vu(_id,this.state.user.show_infos.access_token)}/>)
         }
     }

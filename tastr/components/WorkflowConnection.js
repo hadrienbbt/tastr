@@ -73,7 +73,7 @@ export default class WorkflowConnection extends Component {
             }
         },(error) => console.log(error));
 
-        if (this.state.apiToConnect == 'show') {
+        if (this.state.apiToConnect == 'moodmusic') {
             return (<ConnectMusic pages={this} />);
         } else {
             return (<ConnectShow pages={this} />);
